@@ -53,8 +53,20 @@ all-the-icons-ivy-rich-display-transformers-list
 
 ## Screenshots
 
-![all-the-icons-ivy-rich](https://user-images.githubusercontent.com/140797/73564021-b1afe080-4499-11ea-87da-e2fa32d18f53.png
-"icons with ivy-rich")
+![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/73594570-6c97b700-454a-11ea-90bd-fdee19c4c4b2.png
+"ivy-switch-buffer")
+
+![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/73594526-2b070c00-454a-11ea-923d-d0621d589819.png
+"counsel-buffer-or-recentf")
+
+![counsel-M-x](https://user-images.githubusercontent.com/140797/73594512-0b6fe380-454a-11ea-9289-d6bfb8c53a38.png
+"counsel-M-x")
+
+![counsel-imenu](https://user-images.githubusercontent.com/140797/73594509-014de500-454a-11ea-89c9-7360ebe198b7.png
+"counsel-imenu")
+
+![counsel-bookmark](https://user-images.githubusercontent.com/140797/73594541-3e19dc00-454a-11ea-8e84-ac97f55518d2.png
+"counsel-bookmark")
 
 ## Donate
 
