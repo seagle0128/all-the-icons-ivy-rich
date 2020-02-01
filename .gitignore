@@ -1,0 +1,15 @@
+.DS_Store
+*.html
+
+# Compiled
+*.elc
+
+# Packaging
+.cask
+/dist/
+
+# Backup files
+*~
+
+# Undo-tree save-files
+*.~undo-tree
