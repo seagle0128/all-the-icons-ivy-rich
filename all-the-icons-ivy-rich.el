@@ -1,4 +1,4 @@
-;;; all-the-icons-ivy-rich.el --- Display icons for all buffers in ibuffer        -*- lexical-binding: t; -*-
+;;; all-the-icons-ivy-rich.el --- Better experience with icons for ivy        -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020 Vincent Zhang
 
