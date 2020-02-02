@@ -301,10 +301,11 @@ See `ivy-rich-display-transformers-list' for details."
   (setq tab-width 1))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
+  "Return bookmark name from CANDIDATE."
   (car (assoc candidate bookmark-alist)))
 
 (defun all-the-icons-ivy-rich-buffer-icon (candidate)
-  "Display buffer icons in `ivy-rich'."
+  "Display buffer icon from CANDIDATE in `ivy-rich'."
   (let* ((buffer (get-buffer candidate))
          (buffer-file-name (buffer-file-name buffer))
          (major-mode (buffer-local-value 'major-mode buffer))
@@ -314,7 +315,7 @@ See `ivy-rich-display-transformers-list' for details."
       icon)))
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
-  "Display file icons in `ivy-rich'."
+  "Display file icon from CANDIDATE in `ivy-rich'."
   (let* ((path (concat ivy--directory candidate))
          (file (file-name-nondirectory path))
          (icon (cond
@@ -329,15 +330,15 @@ See `ivy-rich-display-transformers-list' for details."
       icon)))
 
 (defun all-the-icons-ivy-rich-project-icon (_candidate)
-  "Display project icons in `ivy-rich'."
+  "Display project icon in `ivy-rich'."
   (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01))
 
 (defun all-the-icons-ivy-rich-mode-icon (_candidate)
-  "Display mode icons in `ivy-rich'."
+  "Display mode icon in `ivy-rich'."
   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))
 
 (defun all-the-icons-ivy-rich-function-icon (_candidate)
-  "Display function icons in `ivy-rich'."
+  "Display function icon in `ivy-rich'."
   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
 
 (defun all-the-icons-ivy-rich-variable-icon (_candidate)
@@ -385,7 +386,7 @@ See `ivy-rich-display-transformers-list' for details."
   (all-the-icons-faicon "bolt" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue))
 
 (defun all-the-icons-ivy-rich-imenu-icon (candidate)
-  "Display the imenu icon in `ivy-rich'."
+  "Display the imenu icon from CANDIDATE in `ivy-rich'."
   (let ((case-fold-search nil))
     (cond
      ((string-match-p "Type Parameters?[:)]" candidate)
@@ -413,6 +414,7 @@ See `ivy-rich-display-transformers-list' for details."
      (t (all-the-icons-material "find_in_page" :height 0.9 :v-adjust -0.125)))))
 
 (defun all-the-icons-ivy-rich-bookmark-type (candidate)
+  "Return bookmark type from CANDIDATE."
   (let ((filename (ivy-rich-bookmark-filename candidate)))
     (cond ((null filename)
            (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
