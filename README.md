@@ -21,6 +21,7 @@ Display icons for all buffers in ibuffer.
 
 This package is extracted from [Centaur
 Emacs](https://github.com/seagle0128/.emacs.d) and leverages
+[ivy-rich](all-the-icons-ivy-rich) and
 [all-the-icons](https://github.com/domtronn/all-the-icons.el).
 
 ## Install
@@ -40,6 +41,8 @@ From melpa, `M-x package-install RET all-the-icons-ivy-rich RET`.
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
 ```
+
+*NOTE*: `all-the-icons-ivy-rich-mode` respects `ivy-rich-mode`.
 
 Enjoy! :smile:
 
