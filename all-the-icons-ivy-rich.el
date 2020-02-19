@@ -296,9 +296,14 @@ See `ivy-rich-display-transformers-list' for details."
 
 
 
-(defun all-the-icons-ivy-rich--align-icons ()
+(defun all-the-icons-ivy-rich-align-icons ()
   "Setting tab size to 1, to insert tabs as delimiters."
   (setq tab-width 1))
+
+(defun all-the-icons-ivy-rich--format-icon (icon &optional format)
+  "Format ICON with FORMAT."
+  (setq tab-width 1)
+  (format (or format " %s") icon))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."
@@ -310,9 +315,10 @@ See `ivy-rich-display-transformers-list' for details."
          (buffer-file-name (buffer-file-name buffer))
          (major-mode (buffer-local-value 'major-mode buffer))
          (icon (with-current-buffer buffer (all-the-icons-icon-for-buffer))))
-    (if (symbolp icon)
-        (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
-      icon)))
+    (all-the-icons-ivy-rich--format-icon
+     (if (symbolp icon)
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
+       icon))))
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
@@ -325,106 +331,123 @@ See `ivy-rich-display-transformers-list' for details."
                  (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.01))
                 ((not (string-empty-p file))
                  (all-the-icons-icon-for-file file :v-adjust -0.05)))))
-    (if (symbolp icon)
-        (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
-      icon)))
+    (all-the-icons-ivy-rich--format-icon
+     (if (symbolp icon)
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
+       icon))))
 
 (defun all-the-icons-ivy-rich-project-icon (_candidate)
   "Display project icon in `ivy-rich'."
-  (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01)))
 
 (defun all-the-icons-ivy-rich-mode-icon (_candidate)
   "Display mode icon in `ivy-rich'."
-  (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)))
 
 (defun all-the-icons-ivy-rich-function-icon (_candidate)
   "Display function icon in `ivy-rich'."
-  (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple)))
 
 (defun all-the-icons-ivy-rich-variable-icon (_candidate)
   "Display the variable icon in `ivy-rich'."
-  (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-symbol-icon (_candidate)
   "Display the symbol icon in `ivy-rich'."
-  (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05)))
 
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
   "Display the theme icon in `ivy-rich'."
-  (all-the-icons-material "palette" :height 1.0 :v-adjust -0.2))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.2)))
 
 (defun all-the-icons-ivy-rich-keybinding-icon (_candidate)
   "Display the keybindings icon in `ivy-rich'."
-  (all-the-icons-material "keyboard" :height 0.9 :v-adjust -0.15))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-material "keyboard" :height 0.9 :v-adjust -0.15)))
 
 (defun all-the-icons-ivy-rich-library-icon (_candidate)
   "Display the library icon in `ivy-rich'."
-  (all-the-icons-material "view_module" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-material "view_module" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-package-icon (_candidate)
   "Display the package icon in `ivy-rich'."
-  (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
 
 (defun all-the-icons-ivy-rich-font-icon (_candidate)
   "Display the font icon in `ivy-rich'."
-  (all-the-icons-faicon "font" :height 0.85 :v-adjust -0.05 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "font" :height 0.85 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-world-clock-icon (_candidate)
   "Display the world clock icon in `ivy-rich'."
-  (all-the-icons-faicon "globe" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "globe" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-tramp-icon (_candidate)
   "Display the tramp icon in `ivy-rich'."
-  (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01)))
 
 (defun all-the-icons-ivy-rich-git-branch-icon (_candidate)
   "Display the git branch icon in `ivy-rich'."
-  (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green)))
 
 (defun all-the-icons-ivy-rich-process-icon (_candidate)
   "Display the process icon in `ivy-rich'."
-  (all-the-icons-faicon "bolt" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "bolt" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-imenu-icon (candidate)
   "Display the imenu icon from CANDIDATE in `ivy-rich'."
-  (let ((case-fold-search nil))
-    (cond
-     ((string-match-p "Type Parameters?[:)]" candidate)
-      (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
-     ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" candidate)
-      (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
-     ((string-match-p "Constants?[:)]" candidate)
-      (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
-     ((string-match-p "Enum\\(erations?\\)?[:)]" candidate)
-      (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
-     ((string-match-p "References?[:)]" candidate)
-      (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
-     ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" candidate)
-      (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
-     ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" candidate)
-      (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
-     ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" candidate)
-      (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
-     ((string-match-p "Interfaces?[:)]" candidate)
-      (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
-     ((string-match-p "Modules?[:)]" candidate)
-      (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
-     ((string-match-p "Packages?[:)]" candidate)
-      (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
-     (t (all-the-icons-material "find_in_page" :height 0.9 :v-adjust -0.125)))))
+  (all-the-icons-ivy-rich--format-icon
+   (let ((case-fold-search nil))
+     (cond
+      ((string-match-p "Type Parameters?[:)]" candidate)
+       (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
+      ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" candidate)
+       (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+      ((string-match-p "Constants?[:)]" candidate)
+       (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
+      ((string-match-p "Enum\\(erations?\\)?[:)]" candidate)
+       (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
+      ((string-match-p "References?[:)]" candidate)
+       (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
+      ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" candidate)
+       (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
+      ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" candidate)
+       (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
+      ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" candidate)
+       (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
+      ((string-match-p "Interfaces?[:)]" candidate)
+       (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
+      ((string-match-p "Modules?[:)]" candidate)
+       (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
+      ((string-match-p "Packages?[:)]" candidate)
+       (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
+      (t (all-the-icons-material "find_in_page" :height 0.9 :v-adjust -0.125))))))
 
 (defun all-the-icons-ivy-rich-bookmark-type (candidate)
   "Return bookmark type from CANDIDATE."
-  (let ((filename (ivy-rich-bookmark-filename candidate)))
-    (cond ((null filename)
-           (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
-          ((file-remote-p filename)
-           (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01))
-          ((not (file-exists-p filename))
-           (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
-          ((file-directory-p filename)
-           (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust -0.05))
-          (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust -0.05)))))
+  (all-the-icons-ivy-rich--format-icon
+   (let ((filename (ivy-rich-bookmark-filename candidate)))
+     (cond ((null filename)
+            (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
+           ((file-remote-p filename)
+            (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01))
+           ((not (file-exists-p filename))
+            (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
+           ((file-directory-p filename)
+            (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust -0.05))
+           ((t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust -0.05)))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
@@ -435,11 +458,11 @@ See `ivy-rich-display-transformers-list' for details."
   :global t
   (if all-the-icons-ivy-rich-mode
       (progn
-        (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich--align-icons)
+        (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
         (advice-add #'ivy-rich-bookmark-type :override #'all-the-icons-ivy-rich-bookmark-type)
         (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
     (progn
-      (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich--align-icons)
+      (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
       (advice-remove #'ivy-rich-bookmark-type #'all-the-icons-ivy-rich-bookmark-type)
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
