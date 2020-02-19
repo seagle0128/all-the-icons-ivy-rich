@@ -447,7 +447,7 @@ See `ivy-rich-display-transformers-list' for details."
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
            ((file-directory-p filename)
             (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust -0.05))
-           ((t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust -0.05)))))))
+           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust -0.05))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
