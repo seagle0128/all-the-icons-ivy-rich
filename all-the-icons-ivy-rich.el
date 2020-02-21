@@ -298,11 +298,10 @@ See `ivy-rich-display-transformers-list' for details."
 
 (defun all-the-icons-ivy-rich-align-icons ()
   "Setting tab size to 1, to insert tabs as delimiters."
-  (setq tab-width 1))
+  (setq-local tab-width 1))
 
 (defun all-the-icons-ivy-rich--format-icon (icon &optional format)
   "Format ICON with FORMAT."
-  (setq tab-width 1)
   (format (or format " %s") icon))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
