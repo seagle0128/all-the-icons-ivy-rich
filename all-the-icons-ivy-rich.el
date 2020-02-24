@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
-;; Homepage: https://github.com/seagle0128/grip-mode
+;; Homepage: https://github.com/seagle0128/all-the-icons-ivy-rich
 ;; Version: 1.1.0
 ;; Package-Requires: ((emacs "24.4") (ivy-rich "0.1.0") (all-the-icons "2.2.0"))
 ;; Keywords: convenience, icons, ivy
@@ -42,7 +42,8 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'bookmark))
+(eval-when-compile
+  (require 'bookmark))
 
 (require 'subr-x)
 (require 'ivy-rich)
