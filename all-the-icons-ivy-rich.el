@@ -55,6 +55,11 @@
   :group 'ivy-rich
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ivy-rich"))
 
+(defcustom all-the-icons-ivy-rich-icon-size 1.0
+  "The icon size."
+  :group 'all-the-icons-ivy-rich
+  :type 'numberp)
+
 (defcustom all-the-icons-ivy-rich-display-transformers-list
   '(ivy-switch-buffer
     (:columns
@@ -298,12 +303,19 @@ See `ivy-rich-display-transformers-list' for details."
 
 
 (defun all-the-icons-ivy-rich-align-icons ()
-  "Setting tab size to 1, to insert tabs as delimiters."
+  "Set tab size to 1, to insert tabs as delimiters."
   (setq-local tab-width 1))
 
-(defun all-the-icons-ivy-rich--format-icon (icon &optional format)
-  "Format ICON with FORMAT."
-  (format (or format " %s") icon))
+(defun all-the-icons-ivy-rich--format-icon (icon)
+  "Format ICON'."
+  (format " %s"
+          (propertize
+           icon
+           'face `(:inherit ,(get-text-property 0 'face icon)
+                   :height ,(if (numberp all-the-icons-ivy-rich-icon-size)
+                                all-the-icons-ivy-rich-icon-size
+                              1.0))
+           'display '(raise -0.05))))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."

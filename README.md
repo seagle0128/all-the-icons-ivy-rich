@@ -60,6 +60,9 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+;; The icon size
+(setq all-the-icons-ivy-rich-icon-size 1.0)
+
 ;; Definitions for ivy-rich transformers.
 ;; See `ivy-rich-display-transformers-list' for details."
 all-the-icons-ivy-rich-display-transformers-list
