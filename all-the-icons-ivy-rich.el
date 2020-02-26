@@ -4,7 +4,7 @@
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; Homepage: https://github.com/seagle0128/all-the-icons-ivy-rich
-;; Version: 1.1.0
+;; Version: 1.2.0
 ;; Package-Requires: ((emacs "24.4") (ivy-rich "0.1.0") (all-the-icons "2.2.0"))
 ;; Keywords: convenience, icons, ivy
 
@@ -376,12 +376,12 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
   "Display the theme icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.2)))
+   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225)))
 
 (defun all-the-icons-ivy-rich-keybinding-icon (_candidate)
   "Display the keybindings icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "keyboard" :height 0.9 :v-adjust -0.15)))
+   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05)))
 
 (defun all-the-icons-ivy-rich-library-icon (_candidate)
   "Display the library icon in `ivy-rich'."
