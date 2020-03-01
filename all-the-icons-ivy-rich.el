@@ -329,7 +329,7 @@ See `ivy-rich-display-transformers-list' for details."
          (icon (with-current-buffer buffer (all-the-icons-icon-for-buffer))))
     (all-the-icons-ivy-rich--format-icon
      (if (symbolp icon)
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
        icon))))
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
@@ -345,7 +345,7 @@ See `ivy-rich-display-transformers-list' for details."
                  (all-the-icons-icon-for-file file :v-adjust -0.05)))))
     (all-the-icons-ivy-rich--format-icon
      (if (symbolp icon)
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0)
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
        icon))))
 
 (defun all-the-icons-ivy-rich-project-icon (_candidate)
