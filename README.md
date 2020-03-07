@@ -18,7 +18,7 @@
 
 <!-- markdown-toc end -->
 
-Display icons for all buffers in ibuffer.
+Display icons for all buffers in [ivy](https://github.com/abo-abo/swiper).
 
 This package is extracted from [Centaur
 Emacs](https://github.com/seagle0128/.emacs.d) and leverages
