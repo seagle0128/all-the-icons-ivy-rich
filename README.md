@@ -1,5 +1,6 @@
 # all-the-icons-ivy-rich
 
+[![Build Status](https://travis-ci.org/seagle0128/all-the-icons-ivy-rich.svg?branch=master)](https://travis-ci.org/seagle0128/all-the-icons-ivy-rich)
 [![MELPA](https://melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://melpa.org/#/all-the-icons-ivy-rich)
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://stable.melpa.org/#/all-the-icons-ivy-rich)
 [![License](http://img.shields.io/:license-gpl3-blue.svg)](LICENSE)
