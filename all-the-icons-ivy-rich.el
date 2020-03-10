@@ -308,14 +308,14 @@ See `ivy-rich-display-transformers-list' for details."
 
 (defun all-the-icons-ivy-rich--format-icon (icon)
   "Format ICON'."
-  (format " %s"
-          (propertize
-           icon
-           'face `(:inherit ,(get-text-property 0 'face icon)
-                   :height ,(if (numberp all-the-icons-ivy-rich-icon-size)
-                                all-the-icons-ivy-rich-icon-size
-                              1.0))
-           'display '(raise -0.05))))
+  (when icon
+    (format " %s"
+            (propertize
+             icon
+             'face `(:inherit ,(get-text-property 0 'face icon)
+                     :height ,(if (numberp all-the-icons-ivy-rich-icon-size)
+                                  all-the-icons-ivy-rich-icon-size
+                                1.0))))))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."
@@ -330,7 +330,7 @@ See `ivy-rich-display-transformers-list' for details."
     (all-the-icons-ivy-rich--format-icon
      (if (symbolp icon)
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
-       icon))))
+       (propertize icon 'display '(raise -0.05))))))
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
