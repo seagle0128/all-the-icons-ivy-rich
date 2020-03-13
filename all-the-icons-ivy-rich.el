@@ -342,7 +342,7 @@ See `ivy-rich-display-transformers-list' for details."
                 ((file-directory-p path)
                  (all-the-icons-icon-for-dir path nil ""))
                 ((not (string-empty-p file))
-                 (all-the-icons-icon-for-file file :v-adjust -0.05)))))
+                 (all-the-icons-icon-for-file file :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (symbolp icon)
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
@@ -454,12 +454,12 @@ See `ivy-rich-display-transformers-list' for details."
      (cond ((null filename)
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
            ((file-remote-p filename)
-            (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01))
+            (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.01))
            ((not (file-exists-p filename))
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
            ((file-directory-p filename)
-            (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust -0.05))
-           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust -0.05))))))
+            (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01))
+           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :v-adjust 0.0))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
