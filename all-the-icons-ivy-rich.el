@@ -376,12 +376,12 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
   "Display the theme icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225)))
+   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lcyan)))
 
 (defun all-the-icons-ivy-rich-keybinding-icon (_candidate)
   "Display the keybindings icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05)))
+   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lsilver)))
 
 (defun all-the-icons-ivy-rich-library-icon (_candidate)
   "Display the library icon in `ivy-rich'."
