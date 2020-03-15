@@ -56,7 +56,7 @@
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ivy-rich"))
 
 (defcustom all-the-icons-ivy-rich-icon-size 1.0
-  "The icon size."
+  "The default icon size in ivy."
   :group 'all-the-icons-ivy-rich
   :type 'number)
 
