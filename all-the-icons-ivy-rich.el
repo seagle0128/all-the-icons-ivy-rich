@@ -58,7 +58,7 @@
 (defcustom all-the-icons-ivy-rich-icon-size 1.0
   "The icon size."
   :group 'all-the-icons-ivy-rich
-  :type 'numberp)
+  :type 'number)
 
 (defcustom all-the-icons-ivy-rich-display-transformers-list
   '(ivy-switch-buffer
