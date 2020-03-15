@@ -310,12 +310,9 @@ See `ivy-rich-display-transformers-list' for details."
   "Format ICON'."
   (when icon
     (format " %s"
-            (propertize
-             icon
-             'face `(:inherit ,(get-text-property 0 'face icon)
-                     :height ,(if (numberp all-the-icons-ivy-rich-icon-size)
-                                  all-the-icons-ivy-rich-icon-size
-                                1.0))))))
+            (propertize icon
+                        'face `(:inherit ,(get-text-property 0 'face icon)
+                                :height ,all-the-icons-ivy-rich-icon-size)))))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."
