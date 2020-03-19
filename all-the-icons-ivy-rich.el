@@ -325,9 +325,9 @@ See `ivy-rich-display-transformers-list' for details."
          (major-mode (buffer-local-value 'major-mode buffer))
          (icon (with-current-buffer buffer (all-the-icons-icon-for-buffer))))
     (all-the-icons-ivy-rich--format-icon
-     (if (symbolp icon)
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
-       (propertize icon 'display '(raise -0.05))))))
+     (if (or (null icon) (symbolp icon))
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
+       (propertize icon 'display '(raise 0.0))))))
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
@@ -341,9 +341,9 @@ See `ivy-rich-display-transformers-list' for details."
                 ((not (string-empty-p file))
                  (all-the-icons-icon-for-file file :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
-     (if (symbolp icon)
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :v-adjust 0.0)
-       icon))))
+     (if (or (null icon) (symbolp icon))
+         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
+       (propertize icon 'display '(raise 0.0))))))
 
 (defun all-the-icons-ivy-rich-project-icon (_candidate)
   "Display project icon in `ivy-rich'."
