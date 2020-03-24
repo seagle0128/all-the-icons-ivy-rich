@@ -335,9 +335,9 @@ See `ivy-rich-display-transformers-list' for details."
          (file (file-name-nondirectory path))
          (icon (cond
                 ((file-remote-p path)
-                 (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.01))
+                 (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.0))
                 ((file-directory-p path)
-                 (all-the-icons-icon-for-dir path nil ""))
+                 (all-the-icons-icon-for-dir path :v-adjust 0.0))
                 ((not (string-empty-p file))
                  (all-the-icons-icon-for-file file :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
