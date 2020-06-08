@@ -325,7 +325,7 @@ See `ivy-rich-display-transformers-list' for details."
             (let* ((props (get-text-property 0 'face icon))
                    (family (plist-get props :family))
                    (face (if all-the-icons-ivy-rich-color-icon
-                             (plist-get props :inherit)
+                             (or (plist-get props :inherit) props)
                            'all-the-icons-ivy-rich-icon-face))
                    (new-face `(:inherit ,face
                                :family ,family
