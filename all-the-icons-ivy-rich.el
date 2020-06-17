@@ -217,9 +217,9 @@ It respects `all-the-icons-color-icons'."
      :delimiter "\t")
     counsel-bookmark
     (:columns
-     ((ivy-rich-bookmark-type)
+     ((all-the-icons-ivy-rich-bookmark-type)
       (all-the-icons-ivy-rich-bookmark-name (:width 40))
-      (ivy-rich-bookmark-info))
+      (all-the-icons-ivy-rich-bookmark-info))
      :delimiter "\t")
     counsel-bookmarked-directory
     (:columns
@@ -335,6 +335,18 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."
   (car (assoc candidate bookmark-alist)))
+
+(defun all-the-icons-ivy-rich-bookmark-info (candidate)
+  "Return bookmark name from CANDIDATE."
+  (let ((filename (ivy-rich-bookmark-filename candidate)))
+    (cond (filename
+           (cond ((null filename)
+                  "")
+                 ((file-remote-p filename)
+                  filename)
+                 ((file-exists-p filename)
+                  (file-truename filename))
+                 (t filename))))))
 
 (defun all-the-icons-ivy-rich-buffer-icon (candidate)
   "Display buffer icon from CANDIDATE in `ivy-rich'."
@@ -486,11 +498,9 @@ See `ivy-rich-display-transformers-list' for details."
   (if all-the-icons-ivy-rich-mode
       (progn
         (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
-        (advice-add #'ivy-rich-bookmark-type :override #'all-the-icons-ivy-rich-bookmark-type)
         (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
     (progn
       (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
-      (advice-remove #'ivy-rich-bookmark-type #'all-the-icons-ivy-rich-bookmark-type)
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
 
