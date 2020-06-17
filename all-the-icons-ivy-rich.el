@@ -326,12 +326,12 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate)
-     :delimiter "\t")
-    treemacs-projectile
-    (:columns
-     ((all-the-icons-ivy-rich-file-icon)
-      (ivy-rich-candidate))
-     :delimiter "\t"))
+      :delimiter "\t")
+     treemacs-projectile
+     (:columns
+      ((all-the-icons-ivy-rich-file-icon)
+       (ivy-rich-candidate))
+      :delimiter "\t")))
   "Definitions for ivy-rich transformers.
 
 See `ivy-rich-display-transformers-list' for details."
@@ -358,21 +358,15 @@ See `ivy-rich-display-transformers-list' for details."
 
 (defun all-the-icons-ivy-rich-package-install-summary (candidate)
   "Return package install summary from CANDIDATE. Used for `counsel-package'."
-  (let* ((package-name (substring candidate 1))
-         (package-desc (cadr (assoc-string package-name package-archive-contents))))
-    (if package-desc (package-desc-summary package-desc) "")))
+  (ivy-rich-package-install-summary (substring candidate 1)))
 
 (defun all-the-icons-ivy-rich-package-archive-summary (candidate)
   "Return package archive summary from CANDIDATE. Used for `counsel-package'."
-  (let* ((package-name (substring candidate 1))
-         (package-arch (cadr (assoc-string package-name package-archive-contents))))
-    (if package-arch (package-desc-archive package-arch) "")))
+  (ivy-rich-package-archive-summary (substring candidate 1)))
 
 (defun all-the-icons-ivy-rich-package-version (candidate)
   "Return package version from CANDIDATE. Used for `counsel-package'."
-  (let* ((package-name (substring candidate 1))
-         (package-vers (cadr (assoc-string package-name package-archive-contents))))
-    (if package-vers (package-version-join (package-desc-version package-vers)) "")))
+  (ivy-rich-package-version (substring candidate 1)))
 
 (defun all-the-icons-ivy-rich-align-icons ()
   "Set tab size to 1, to insert tabs as delimiters."
