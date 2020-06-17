@@ -325,13 +325,13 @@ It respects `all-the-icons-color-icons'."
     package-delete
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate)
-      :delimiter "\t")
-     treemacs-projectile
-     (:columns
-      ((all-the-icons-ivy-rich-file-icon)
-       (ivy-rich-candidate))
-      :delimiter "\t")))
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    treemacs-projectile
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t"))
   "Definitions for ivy-rich transformers.
 
 See `ivy-rich-display-transformers-list' for details."
