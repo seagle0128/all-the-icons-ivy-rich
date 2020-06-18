@@ -67,6 +67,11 @@ Enjoy! :smile:
 ;; Definitions for ivy-rich transformers.
 ;; See `ivy-rich-display-transformers-list' for details."
 all-the-icons-ivy-rich-display-transformers-list
+
+;; Slow Rendering
+;; If you experience a slow down in performance when rendering multiple icons simultaneously,
+;; you can try setting the following variable
+(setq inhibit-compacting-font-caches t)
 ```
 
 ## Screenshots
