@@ -150,6 +150,16 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 40))
       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+    counsel-describe-symbol
+    (:columns
+     ((all-the-icons-ivy-rich-symbol-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    counsel-describe-face
+    (:columns
+     ((all-the-icons-ivy-rich-theme-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
@@ -306,6 +316,11 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-imenu-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+    counsel-cd
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
@@ -436,7 +451,7 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-symbol-icon (_candidate)
   "Display the symbol icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05)))
+   (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
 
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
   "Display the theme icon in `ivy-rich'."
