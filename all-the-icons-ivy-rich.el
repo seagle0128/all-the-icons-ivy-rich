@@ -155,11 +155,6 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
-    counsel-describe-face
-    (:columns
-     ((all-the-icons-ivy-rich-theme-icon)
-      (ivy-rich-candidate))
-     :delimiter "\t")
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
