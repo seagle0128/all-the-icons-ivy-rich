@@ -99,6 +99,8 @@ It respects `all-the-icons-color-icons'."
      :predicate
      (lambda (cand) (get-buffer cand))
      :delimiter "\t")
+
+    ;; counsel
     counsel-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
@@ -112,18 +114,6 @@ It respects `all-the-icons-color-icons'."
      (lambda (cand) (get-buffer cand))
      :delimiter "\t")
     counsel-switch-buffer-other-window
-    (:columns
-     ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
-      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
-     :predicate
-     (lambda (cand) (get-buffer cand))
-     :delimiter "\t")
-    persp-switch-to-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-rich-candidate (:width 30))
@@ -321,6 +311,8 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-company-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+
+    ;; pkacage
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
@@ -342,11 +334,76 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+
+    persp-switch-to-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-rich-candidate (:width 30))
+      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+     :predicate
+     (lambda (cand) (get-buffer cand))
+     :delimiter "\t")
+    persp-switch
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-frame-switch
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-window-switch
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-kill
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-save-and-kill
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-import-buffers
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-import-win-conf
+    (:columns
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-kill-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-remove-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    persp-add-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+
     all-the-icons-ivy-rich-kill-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
@@ -447,7 +504,7 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-project-icon (_candidate)
   "Display project icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01)))
+   (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver)))
 
 (defun all-the-icons-ivy-rich-mode-icon (_candidate)
   "Display mode icon in `ivy-rich'."
