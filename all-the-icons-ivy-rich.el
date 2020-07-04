@@ -342,6 +342,11 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+    all-the-icons-ivy-rich-kill-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
@@ -354,6 +359,17 @@ See `ivy-rich-display-transformers-list' for details."
   :type '(repeat sexp))
 
 
+
+(defun all-the-icons-ivy-rich-kill-buffer (&optional buffer-or-name)
+  "Kill the buffer specified by BUFFER-OR-NAME."
+  (interactive
+   (list (completing-read (format "Kill buffer (default %s): " (buffer-name))
+                          (mapcar (lambda (b)
+                                    (buffer-name b))
+                                  (buffer-list))
+                          nil t nil nil
+                          (buffer-name))))
+  (kill-buffer buffer-or-name))
 
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
   "Return bookmark name from CANDIDATE."
@@ -563,9 +579,11 @@ See `ivy-rich-display-transformers-list' for details."
   (if all-the-icons-ivy-rich-mode
       (progn
         (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
+        (global-set-key [remap kill-buffer] #'all-the-icons-ivy-rich-kill-buffer)
         (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
     (progn
       (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
+      (global-unset-key [remap kill-buffer])
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
 
