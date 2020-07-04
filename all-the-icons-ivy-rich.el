@@ -316,6 +316,11 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-file-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+    counsel-company
+    (:columns
+     ((all-the-icons-ivy-rich-company-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
@@ -443,10 +448,22 @@ See `ivy-rich-display-transformers-list' for details."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-symbol-icon (_candidate)
+(defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
+  (let ((sym (intern candidate)))
+    (cond ((functionp sym)
+           (all-the-icons-ivy-rich-function-icon candidate))
+          ((symbolp sym)
+           (all-the-icons-ivy-rich-variable-icon candidate))
+          (t (all-the-icons-ivy-rich--format-icon
+              (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))))
+
+(defun all-the-icons-ivy-rich-company-icon (candidate)
+  "Display the symbol icon of company in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
+   (if (fboundp 'company-box--get-icon)
+       (company-box--get-icon candidate)
+     (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
   "Display the theme icon in `ivy-rich'."
