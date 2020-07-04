@@ -587,6 +587,15 @@ See `ivy-rich-display-transformers-list' for details."
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
 
+;;;###autoload
+(defun all-the-icons-ivy-rich-reload ()
+  "Reload `all-the-icons-ivy-rich'."
+  (interactive)
+  (when all-the-icons-ivy-rich-mode
+    (all-the-icons-ivy-rich-mode -1)
+    (all-the-icons-ivy-rich-mode 1)
+    (message "Reload all-the-icons-ivy-rich")))
+
 (provide 'all-the-icons-ivy-rich)
 
 ;;; all-the-icons-ivy-rich.el ends here
