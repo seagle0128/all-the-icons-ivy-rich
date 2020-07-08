@@ -55,6 +55,8 @@ From melpa, `M-x package-install RET all-the-icons-ivy-rich RET`.
    [ivy-rich](https://github.com/Yevgnen/ivy-rich) and respects `ivy-rich-mode`.
 1. To display icons correctly, you should run `M-x all-the-icons-install-fonts`
    to install the necessary fonts.
+1. For better performance, enable `all-the-icons-ivy-rich-mode` before `ivy-rich-mode` .
+1. Enable other packages like `counsel-projectile` before enabling `all-the-icons-ivy-rich-mode`.
 
 Enjoy! :smile:
 
