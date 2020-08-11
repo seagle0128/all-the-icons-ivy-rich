@@ -52,7 +52,7 @@
   (require 'project))
 
 (defgroup all-the-icons-ivy-rich nil
-  "Better experience with icons for ivy."
+  "Better experience using icons in ivy."
   :group 'all-the-icons
   :group 'ivy-rich
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ivy-rich"))
