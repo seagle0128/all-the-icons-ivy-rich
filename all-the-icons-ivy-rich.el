@@ -519,10 +519,13 @@ See `ivy-rich-display-transformers-list' for details."
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))))
 
-(defun all-the-icons-ivy-rich-variable-icon (_candidate)
+(defun all-the-icons-ivy-rich-variable-icon (candidate)
   "Display the variable icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue)))
+  (if (custom-variable-p (intern candidate))
+      (all-the-icons-ivy-rich--format-icon
+       (all-the-icons-faicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
