@@ -238,7 +238,7 @@ It respects `all-the-icons-color-icons'."
      :delimiter "\t")
     counsel-major
     (:columns
-     ((all-the-icons-ivy-rich-function-icon)
+     ((all-the-icons-ivy-rich-mode-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     counsel-find-library
@@ -511,15 +511,21 @@ See `ivy-rich-display-transformers-list' for details."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)))
 
-(defun all-the-icons-ivy-rich-function-icon (_candidate)
+(defun all-the-icons-ivy-rich-function-icon (candidate)
   "Display function icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple)))
+  (if (commandp (intern candidate))
+      (all-the-icons-ivy-rich--format-icon
+       (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))))
 
-(defun all-the-icons-ivy-rich-variable-icon (_candidate)
+(defun all-the-icons-ivy-rich-variable-icon (candidate)
   "Display the variable icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue)))
+  (if (custom-variable-p (intern candidate))
+      (all-the-icons-ivy-rich--format-icon
+       (all-the-icons-faicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
