@@ -523,9 +523,9 @@ See `ivy-rich-display-transformers-list' for details."
   "Display the variable icon in `ivy-rich'."
   (if (custom-variable-p (intern candidate))
       (all-the-icons-ivy-rich--format-icon
-       (all-the-icons-faicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+       (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
     (all-the-icons-ivy-rich--format-icon
-     (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))))
+     (all-the-icons-octicon "tag" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
@@ -616,7 +616,7 @@ See `ivy-rich-display-transformers-list' for details."
        (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
       ((string-match-p "Packages?[:)]" candidate)
        (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
-      (t (all-the-icons-material "find_in_page" :height 0.9 :v-adjust -0.125))))))
+      (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))
 
 (defun all-the-icons-ivy-rich-bookmark-type (candidate)
   "Return bookmark type from CANDIDATE."
