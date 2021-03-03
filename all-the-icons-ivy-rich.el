@@ -51,6 +51,10 @@
   (require 'bookmark)
   (require 'project))
 
+;; Depress warnings
+(defvar ivy-posframe-buffer)
+(declare-function ivy-posframe--display 'ivy-posframe)
+
 (defgroup all-the-icons-ivy-rich nil
   "Better experience using icons in ivy."
   :group 'all-the-icons
@@ -456,9 +460,18 @@ See `ivy-rich-display-transformers-list' for details."
   "Return package version from CANDIDATE. Used for `counsel-package'."
   (ivy-rich-package-version (substring candidate 1)))
 
-(defun all-the-icons-ivy-rich-align-icons ()
+(defun all-the-icons-ivy-rich--align-icons ()
   "Set tab size to 1, to insert tabs as delimiters."
   (setq-local tab-width 1))
+
+(defun all-the-icons-ivy-rich-minibuffer-align-icons ()
+  "Align the icons in `minibuffer'."
+  (all-the-icons-ivy-rich--align-icons))
+
+(defun all-the-icons-ivy-rich-ivy-posframe-align-icons (&rest _)
+  "Align the icons in `ivy-posframe'."
+  (with-current-buffer ivy-posframe-buffer
+    (all-the-icons-ivy-rich--align-icons)))
 
 (defun all-the-icons-ivy-rich--format-icon (icon)
   "Format ICON'."
@@ -641,11 +654,13 @@ See `ivy-rich-display-transformers-list' for details."
   :global t
   (if all-the-icons-ivy-rich-mode
       (progn
-        (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
+        (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
+        (advice-add #'ivy-posframe--display :after #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
         (global-set-key [remap kill-buffer] #'all-the-icons-ivy-rich-kill-buffer)
         (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
     (progn
-      (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-align-icons)
+      (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
+      (advice-remove #'ivy-posframe--display #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
       (global-unset-key [remap kill-buffer])
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
