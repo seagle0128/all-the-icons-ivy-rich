@@ -82,11 +82,11 @@ It respects `all-the-icons-color-icons'."
   '(ivy-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -94,11 +94,11 @@ It respects `all-the-icons-color-icons'."
     ivy-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -108,11 +108,11 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -120,11 +120,11 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -132,17 +132,17 @@ It respects `all-the-icons-color-icons'."
     counsel-M-x
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-M-x-transformer (:width 40))
+      (counsel-M-x-transformer (:width 0.4))
       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
     counsel-describe-function
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-describe-function-transformer (:width 40))
+      (counsel-describe-function-transformer (:width 0.4))
       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 40))
+      (counsel-describe-variable-transformer (:width 0.4))
       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
     counsel-describe-symbol
     (:columns
@@ -152,7 +152,7 @@ It respects `all-the-icons-color-icons'."
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 40))
+      (counsel-describe-variable-transformer (:width 0.4))
       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
     counsel-apropos
     (:columns
@@ -172,7 +172,8 @@ It respects `all-the-icons-color-icons'."
     counsel-find-file
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer))
+      (ivy-read-file-transformer)
+      (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face)))
      :delimiter "\t")
     counsel-file-jump
     (:columns
@@ -218,9 +219,10 @@ It respects `all-the-icons-color-icons'."
      :delimiter "\t")
     counsel-bookmark
     (:columns
-     ((all-the-icons-ivy-rich-bookmark-type)
-      (all-the-icons-ivy-rich-bookmark-name (:width 40))
-      (all-the-icons-ivy-rich-bookmark-info))
+     ((all-the-icons-ivy-rich-bookmark-icon)
+      (all-the-icons-ivy-rich-bookmark-name (:width 0.3))
+      (ivy-rich-bookmark-type)
+      (all-the-icons-ivy-rich-bookmark-info (:face font-lock-doc-face)))
      :delimiter "\t")
     counsel-bookmarked-directory
     (:columns
@@ -342,11 +344,11 @@ It respects `all-the-icons-color-icons'."
     persp-switch-to-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate (:width 30))
-      (ivy-rich-switch-buffer-size (:width 7))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-      (ivy-rich-switch-buffer-project (:width 15 :face success))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -408,6 +410,17 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    org-switchb
+    (:columns
+     ((all-the-icons-ivy-rich-buffer-icon)
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+      (ivy-rich-switch-buffer-project (:width 0.18 :face success))
+      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+     :delimiter "\t")
+
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
@@ -445,7 +458,7 @@ See `ivy-rich-display-transformers-list' for details."
                  ((file-remote-p filename)
                   filename)
                  ((file-exists-p filename)
-                  (file-truename filename))
+                  filename)
                  (t filename))))))
 
 (defun all-the-icons-ivy-rich-package-install-summary (candidate)
@@ -504,7 +517,7 @@ See `ivy-rich-display-transformers-list' for details."
          (file (file-name-nondirectory path))
          (icon (cond
                 ((file-remote-p path)
-                 (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.0))
+                 (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.0))
                 ((file-directory-p path)
                  (all-the-icons-icon-for-dir path :v-adjust 0.0))
                 ((not (string-empty-p file))
@@ -590,7 +603,7 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich-tramp-icon (_candidate)
   "Display the tramp icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "radio-tower" :height 0.9 :v-adjust 0.01)))
+   (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01)))
 
 (defun all-the-icons-ivy-rich-git-branch-icon (_candidate)
   "Display the git branch icon in `ivy-rich'."
@@ -631,14 +644,14 @@ See `ivy-rich-display-transformers-list' for details."
        (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
       (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))
 
-(defun all-the-icons-ivy-rich-bookmark-type (candidate)
+(defun all-the-icons-ivy-rich-bookmark-icon (candidate)
   "Return bookmark type from CANDIDATE."
   (all-the-icons-ivy-rich--format-icon
    (let ((filename (ivy-rich-bookmark-filename candidate)))
      (cond ((null filename)
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
            ((file-remote-p filename)
-            (all-the-icons-octicon "radio-tower" :height 1.0 :v-adjust 0.01))
+            (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
            ((not (file-exists-p filename))
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
            ((file-directory-p filename)
