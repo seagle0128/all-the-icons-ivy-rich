@@ -82,7 +82,7 @@ It respects `all-the-icons-color-icons'."
   '(ivy-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -94,7 +94,7 @@ It respects `all-the-icons-color-icons'."
     ivy-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -108,7 +108,7 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -120,7 +120,7 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -344,7 +344,7 @@ It respects `all-the-icons-color-icons'."
     persp-switch-to-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -413,7 +413,7 @@ It respects `all-the-icons-color-icons'."
     org-switchb
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-switch-buffer-transformer (:width 0.35))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
