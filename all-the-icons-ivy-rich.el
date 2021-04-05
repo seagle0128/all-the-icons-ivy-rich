@@ -82,7 +82,7 @@ It respects `all-the-icons-color-icons'."
   '(ivy-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -94,7 +94,7 @@ It respects `all-the-icons-color-icons'."
     ivy-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -108,7 +108,7 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -120,7 +120,7 @@ It respects `all-the-icons-color-icons'."
     counsel-switch-buffer-other-window
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -132,17 +132,17 @@ It respects `all-the-icons-color-icons'."
     counsel-M-x
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-M-x-transformer (:width 0.4))
+      (counsel-M-x-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
     counsel-describe-function
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-describe-function-transformer (:width 0.4))
+      (counsel-describe-function-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 0.4))
+      (counsel-describe-variable-transformer (:width 0.3))
       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
     counsel-describe-symbol
     (:columns
@@ -152,7 +152,7 @@ It respects `all-the-icons-color-icons'."
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 0.4))
+      (counsel-describe-variable-transformer (:width 0.3))
       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
     counsel-apropos
     (:columns
@@ -232,7 +232,7 @@ It respects `all-the-icons-color-icons'."
     counsel-package
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 30))
+      (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-package-version (:width 16 :face font-lock-comment-face))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
       (all-the-icons-ivy-rich-package-install-summary (:face font-lock-doc-face)))
@@ -322,7 +322,7 @@ It respects `all-the-icons-color-icons'."
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 30))
+      (ivy-rich-candidate (:width 0.3))
       (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
       (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))
@@ -330,7 +330,7 @@ It respects `all-the-icons-color-icons'."
     package-reinstall
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 30))
+      (ivy-rich-candidate (:width 0.3))
       (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
       (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))
@@ -344,7 +344,7 @@ It respects `all-the-icons-color-icons'."
     persp-switch-to-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
@@ -413,7 +413,7 @@ It respects `all-the-icons-color-icons'."
     org-switchb
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.35))
+      (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
