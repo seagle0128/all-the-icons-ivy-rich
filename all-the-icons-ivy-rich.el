@@ -519,9 +519,9 @@ See `ivy-rich-display-transformers-list' for details."
                 ((file-remote-p path)
                  (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.0))
                 ((file-directory-p path)
-                 (all-the-icons-icon-for-dir path :v-adjust 0.0))
+                 (all-the-icons-icon-for-dir path :height 0.9 :v-adjust 0.01))
                 ((not (string-empty-p file))
-                 (all-the-icons-icon-for-file file :v-adjust 0.0)))))
+                 (all-the-icons-icon-for-file file :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
@@ -655,8 +655,8 @@ See `ivy-rich-display-transformers-list' for details."
            ((not (file-exists-p filename))
             (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
            ((file-directory-p filename)
-            (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01))
-           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :v-adjust 0.0))))))
+            (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
+           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust 0.0))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
