@@ -66,6 +66,56 @@
   "Face used for the icons while `all-the-icons-ivy-rich-color-icon' is nil."
   :group 'all-the-icons-ivy-rich)
 
+(defface all-the-icons-ivy-rich-doc-face
+  '((t (:inherit ivy-completions-annotations)))
+  "Face used for documentation string."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-size-face
+  '((t (:inherit shadow)))
+  "Face used for buffer size."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-time-face
+  '((t (:inherit shadow)))
+  "Face used for time."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-version-face
+  '((t (:inherit font-lock-constant-face)))
+  "Face used for package version."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-archive-face
+  '((t (:inherit font-lock-type-face)))
+  "Face used for package archive."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-install-face
+  '((t (:inherit font-lock-string-face)))
+  "Face used for package install."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-path-face
+  '((t (:inherit all-the-icons-ivy-rich-doc-face)))
+  "Face used for file path."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-indicators-face
+  '((t (:inherit error)))
+  "Face used for file indicators."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-major-mode-face
+  '((t (:inherit font-lock-keyword-face)))
+  "Face used for buffer major mode."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-project-face
+  '((t (:inherit font-lock-string-face)))
+  "Face used for project."
+  :group 'all-the-icons-ivy-rich)
+
 (defcustom all-the-icons-ivy-rich-color-icon t
   "Whether display the colorful icons.
 
@@ -83,11 +133,11 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
-      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicators-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
+      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
      (lambda (cand) (get-buffer cand))
      :delimiter "\t")
@@ -95,10 +145,10 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -109,10 +159,10 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -121,10 +171,10 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -133,45 +183,45 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
       (counsel-M-x-transformer (:width 0.3))
-      (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-function
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
       (counsel-describe-function-transformer (:width 0.3))
-      (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
-      (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+      (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-symbol
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-describe-face
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-counsel-face-docstring (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-counsel-face-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
-      (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+      (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-apropos
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-info-lookup-symbol
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-descbinds
     (:columns
@@ -182,7 +232,7 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
       (ivy-read-file-transformer)
-      (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face)))
+      (ivy-rich-counsel-find-file-truename (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-file-jump
     (:columns
@@ -218,20 +268,20 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
       (ivy-rich-candidate (:width 0.8))
-      (ivy-rich-file-last-modified-time (:face font-lock-comment-face)))
+      (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-buffer-or-recentf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-buffer-or-recentf-transformer (:width 0.8))
-      (ivy-rich-file-last-modified-time (:face font-lock-comment-face)))
+      (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-bookmark
     (:columns
      ((all-the-icons-ivy-rich-bookmark-icon)
       (all-the-icons-ivy-rich-bookmark-name (:width 0.3))
       (ivy-rich-bookmark-type)
-      (all-the-icons-ivy-rich-bookmark-info (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-bookmark-info (:face all-the-icons-ivy-rich-bookmark-face)))
      :delimiter "\t")
     counsel-bookmarked-directory
     (:columns
@@ -242,9 +292,9 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (all-the-icons-ivy-rich-package-install-summary (:face font-lock-doc-face)))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
      :delimiter "\t")
     counsel-fonts
     (:columns
@@ -327,22 +377,22 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
-    ;; pkacage
+    ;; package
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.3))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))
+      (ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
      :delimiter "\t")
     package-reinstall
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.3))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))
+      (ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
      :delimiter "\t")
     package-delete
     (:columns
@@ -354,10 +404,10 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :predicate
      (lambda (cand) (get-buffer cand))
@@ -423,10 +473,10 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face font-lock-comment-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face warning))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face success))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :delimiter "\t")
 
