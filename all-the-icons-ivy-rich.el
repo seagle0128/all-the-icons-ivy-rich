@@ -604,6 +604,15 @@ See `ivy-rich-display-transformers-list' for details."
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
        (propertize icon 'display '(raise 0.0))))))
 
+(defun all-the-icons-ivy-rich-app-icon (candidate)
+  "Display app icon from CANDIDATE in `ivy-rich'."
+  (let* ((app candidate)
+         (icon (all-the-icons-icon-for-app app :height 0.9 :v-adjust 0.0)))
+    (all-the-icons-ivy-rich--format-icon
+     (if (or (null icon) (symbolp icon))
+         (all-the-icons-faicon "rocket" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
+       (propertize icon 'display '(raise 0.0))))))
+
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
   (let* ((path (concat ivy--directory candidate))
