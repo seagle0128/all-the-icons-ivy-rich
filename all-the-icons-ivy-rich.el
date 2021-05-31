@@ -479,12 +479,6 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
      :delimiter "\t")
-    
-    mediator-open-with
-    (:columns
-     ((all-the-icons-ivy-rich-app-icon)
-      (ivy-rich-candidate))
-     :delimiter "\t")
 
     treemacs-projectile
     (:columns
