@@ -81,6 +81,11 @@
   "Face used for time."
   :group 'all-the-icons-ivy-rich)
 
+(defface all-the-icons-ivy-rich-bookmark-face
+  '((t (:inherit all-the-icons-ivy-rich-doc-face)))
+  "Face used for time."
+  :group 'all-the-icons-ivy-rich)
+
 (defface all-the-icons-ivy-rich-version-face
   '((t (:inherit font-lock-constant-face)))
   "Face used for package version."
@@ -237,7 +242,7 @@ It respects `all-the-icons-color-icons'."
     counsel-find-file
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 6 :face all-the-icons-ivy-rich-size-face))
@@ -247,7 +252,7 @@ It respects `all-the-icons-color-icons'."
     counsel-file-jump
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -256,7 +261,7 @@ It respects `all-the-icons-color-icons'."
     counsel-dired
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -265,7 +270,7 @@ It respects `all-the-icons-color-icons'."
     counsel-dired-jump
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -274,7 +279,7 @@ It respects `all-the-icons-color-icons'."
     counsel-fzf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -283,7 +288,7 @@ It respects `all-the-icons-color-icons'."
     counsel-git
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -292,7 +297,7 @@ It respects `all-the-icons-color-icons'."
     counsel-recentf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (ivy-read-file-transformer (:width 0.5))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -301,7 +306,7 @@ It respects `all-the-icons-color-icons'."
     counsel-buffer-or-recentf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (counsel-buffer-or-recentf-transformer (:width 0.4))
+      (counsel-buffer-or-recentf-transformer (:width 0.5))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -375,7 +380,7 @@ It respects `all-the-icons-color-icons'."
     counsel-projectile-switch-project
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.3))
+      (ivy-read-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 6 :face all-the-icons-ivy-rich-size-face))
@@ -389,7 +394,7 @@ It respects `all-the-icons-color-icons'."
     counsel-projectile-find-file
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (counsel-projectile-find-file-transformer (:width 0.3))
+      (counsel-projectile-find-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -398,7 +403,7 @@ It respects `all-the-icons-color-icons'."
     counsel-projectile-find-dir
     (:columns
      ((all-the-icons-ivy-rich-project-icon)
-      (counsel-projectile-find-dir-transformer (:width 0.3))
+      (counsel-projectile-find-dir-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
