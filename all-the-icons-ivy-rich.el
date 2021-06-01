@@ -200,13 +200,6 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
-    counsel-describe-face
-    (:columns
-     ((all-the-icons-ivy-rich-symbol-icon)
-      (ivy-rich-candidate (:width 0.3))
-      (all-the-icons-ivy-rich-counsel-face-docstring (:face all-the-icons-ivy-rich-doc-face)))
-     :delimiter "\t")
-    counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
@@ -247,11 +240,6 @@ It respects `all-the-icons-color-icons'."
     counsel-dired-jump
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-rich-candidate))
-     :delimiter "\t")
-    counsel-el
-    (:columns
-     ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     counsel-fzf
@@ -550,10 +538,10 @@ See `ivy-rich-display-transformers-list' for details."
     (cond
      ((fboundp symbol)
       (ivy-rich-counsel-function-docstring candidate))
-     ((and (boundp symbol) (not (keywordp symbol)))
-      (ivy-rich-counsel-variable-docstring candidate))
      ((facep symbol)
       (all-the-icons-ivy-rich-counsel-face-docstring candidate))
+     ((and (boundp symbol) (not (keywordp symbol)))
+      (ivy-rich-counsel-variable-docstring candidate))
      (t ""))))
 
 ;;
@@ -640,11 +628,18 @@ See `ivy-rich-display-transformers-list' for details."
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "tag" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
+(defun all-the-icons-ivy-rich-face-icon (_candidate)
+  "Display face icon in `ivy-rich'."
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-blue)))
+
 (defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
   (let ((sym (intern candidate)))
     (cond ((functionp sym)
            (all-the-icons-ivy-rich-function-icon candidate))
+          ((facep sym)
+           (all-the-icons-ivy-rich-face-icon candidate))
           ((symbolp sym)
            (all-the-icons-ivy-rich-variable-icon candidate))
           (t (all-the-icons-ivy-rich--format-icon
