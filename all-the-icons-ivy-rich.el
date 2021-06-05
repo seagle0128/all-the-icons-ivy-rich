@@ -586,7 +586,7 @@ Return nil if no project was found."
 
 (defun all-the-icons-ivy-rich--full-path (candidate)
   "Get the full path of CANDIDATE."
-  (expand-file-name candidate
+  (expand-file-name (or candidate "")
                     (or ivy--directory
                         (all-the-icons-ivy-rich--project-root))))
 
@@ -608,35 +608,39 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-file-modes (candidate)
   "Return file modes from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (if (file-remote-p path)
-        "-"
-      (file-attribute-modes (file-attributes path)))))
+    (cond
+     ((not (file-exists-p path)) "")
+     ((file-remote-p path) "-")
+     (t (file-attribute-modes (file-attributes path))))))
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
   "Return file uid/gid from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (if (file-remote-p path)
-        "?"
-      (when-let ((attributes (file-attributes path 'string)))
-        (format "%s %s"
-                (file-attribute-user-id attributes)
-                (file-attribute-group-id attributes))))))
+    (cond
+     ((not (file-exists-p path)) "")
+     ((file-remote-p path) "?")
+     (t (when-let ((attributes (file-attributes path 'string)))
+          (format "%s %s"
+                  (file-attribute-user-id attributes)
+                  (file-attribute-group-id attributes)))))))
 
 (defun all-the-icons-ivy-rich-file-size (candidate)
   "Return file size from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (if (file-remote-p path)
-        "?"
-      (file-size-human-readable (file-attribute-size (file-attributes path))))))
+    (cond
+     ((not (file-exists-p path)) "")
+     ((file-remote-p path) "-")
+     (t (file-size-human-readable (file-attribute-size (file-attributes path)))))))
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
   "Return file modification time from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (if (file-remote-p path)
-        "?"
-      (format-time-string
-       "%b %d %H:%M"
-       (file-attribute-modification-time (file-attributes path))))))
+    (cond
+     ((not (file-exists-p path)) "")
+     ((file-remote-p path) "?")
+     (t (format-time-string
+         "%b %d %H:%M"
+         (file-attribute-modification-time (file-attributes path)))))))
 
 ;; Support `counsel-bookmark'
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
