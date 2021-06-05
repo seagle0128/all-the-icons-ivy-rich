@@ -902,8 +902,8 @@ Display the true name when the file is a symlink."
       (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
       (advice-remove #'ivy-posframe--display #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
       (global-unset-key [remap kill-buffer])
-      (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list))
-    (ivy-rich-reload)))
+      (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
+  (ivy-rich-reload))
 
 ;;;###autoload
 (defun all-the-icons-ivy-rich-reload ()
