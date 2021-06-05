@@ -242,64 +242,63 @@ It respects `all-the-icons-color-icons'."
     counsel-find-file
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face))
-      (ivy-rich-counsel-find-file-truename (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-file-jump
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-dired
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-dired-jump
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-fzf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-git
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-recentf
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.5))
+      (all-the-icons-ivy-rich-file-name (:width 0.5))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -308,7 +307,7 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-buffer-or-recentf-transformer (:width 0.5))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -380,12 +379,11 @@ It respects `all-the-icons-color-icons'."
     counsel-projectile-switch-project
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face))
-      (ivy-rich-counsel-find-file-truename (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-projectile-switch-to-buffer
     (:columns
@@ -396,7 +394,7 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-projectile-find-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -405,7 +403,7 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-project-icon)
       (counsel-projectile-find-dir-transformer (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -546,9 +544,9 @@ It respects `all-the-icons-color-icons'."
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (ivy-read-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-uid (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t"))
@@ -592,29 +590,47 @@ Return nil if no project was found."
                     (or ivy--directory
                         (all-the-icons-ivy-rich--project-root))))
 
+(defun all-the-icons-ivy-rich-file-name (candidate)
+  "Return file name from CANDIDATE when reading files.
+Display directories with different color.
+Display the true name when the file is a symlink."
+  (let ((file (if (ivy--dirname-p candidate)
+                  (propertize candidate 'face 'ivy-subdir)
+                candidate))
+        (type (file-symlink-p (all-the-icons-ivy-rich--full-path candidate))))
+    (if (stringp type)
+        (concat file
+                (propertize (concat " -> " type)
+                            'face 'all-the-icons-ivy-rich-doc-face))
+      file)))
+
 ;; Support `counsel-find-file', `counsel-dired', `counsel-projectile-find-file', etc.
 (defun all-the-icons-ivy-rich-file-modes (candidate)
+  "Return file modes from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (if (file-remote-p path)
         "-"
       (file-attribute-modes (file-attributes path)))))
 
-(defun all-the-icons-ivy-rich-file-uid (candidate)
+(defun all-the-icons-ivy-rich-file-id (candidate)
+  "Return file uid/gid from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (if (file-remote-p path)
         "?"
       (when-let ((attributes (file-attributes path 'string)))
-        (format "%4s %s"
+        (format "%s %s"
                 (file-attribute-user-id attributes)
                 (file-attribute-group-id attributes))))))
 
 (defun all-the-icons-ivy-rich-file-size (candidate)
+  "Return file size from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (if (file-remote-p path)
         "?"
       (file-size-human-readable (file-attribute-size (file-attributes path))))))
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
+  "Return file modification time from CANDIDATE."
   (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (if (file-remote-p path)
         "?"
@@ -881,13 +897,14 @@ Return nil if no project was found."
         (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
         (advice-add #'ivy-posframe--display :after #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
         (global-set-key [remap kill-buffer] #'all-the-icons-ivy-rich-kill-buffer)
-        (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
+        (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list)
+        (ivy-rich-mode 1))
     (progn
       (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
       (advice-remove #'ivy-posframe--display #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
       (global-unset-key [remap kill-buffer])
-      (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
-  (ivy-rich-reload))
+      (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)
+      (ivy-rich-mode -1))))
 
 ;;;###autoload
 (defun all-the-icons-ivy-rich-reload ()
