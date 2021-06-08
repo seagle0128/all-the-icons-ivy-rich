@@ -630,14 +630,10 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-bookmark-info (candidate)
   "Return bookmark name from CANDIDATE."
   (let ((filename (ivy-rich-bookmark-filename candidate)))
-    (cond (filename
-           (cond ((null filename)
-                  "")
-                 ((file-remote-p filename)
-                  filename)
-                 ((file-exists-p filename)
-                  filename)
-                 (t filename))))))
+    (cond ((null filename) "")
+          ((file-remote-p filename) filename)
+          ((file-exists-p filename) filename)
+          (t filename))))
 
 ;; Support `counsel-package'
 (defun all-the-icons-ivy-rich-package-install-summary (candidate)
