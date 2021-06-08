@@ -570,10 +570,6 @@ See `ivy-rich-display-transformers-list' for details."
                           (buffer-name))))
   (kill-buffer buffer-or-name))
 
-(defun all-the-icons-ivy-rich--full-path (candidate)
-  "Get the full path of CANDIDATE."
-  (expand-file-name candidate ivy--directory))
-
 (defun all-the-icons-ivy-rich-file-name (candidate)
   "Return file name from CANDIDATE when reading files.
 Display directories with different color.
@@ -581,7 +577,7 @@ Display the true name when the file is a symlink."
   (let ((file (if (ivy--dirname-p candidate)
                   (propertize candidate 'face 'ivy-subdir)
                 candidate))
-        (type (file-symlink-p (all-the-icons-ivy-rich--full-path candidate))))
+        (type (file-symlink-p (expand-file-name candidate ivy--directory))))
     (if (stringp type)
         (concat file
                 (propertize (concat " -> " type)
@@ -591,7 +587,7 @@ Display the true name when the file is a symlink."
 ;; Support `counsel-find-file', `counsel-dired', `counsel-projectile-find-file', etc.
 (defun all-the-icons-ivy-rich-file-modes (candidate)
   "Return file modes from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
+  (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((not (file-exists-p path)) "")
      ((file-remote-p path) "-")
@@ -599,7 +595,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
   "Return file uid/gid from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
+  (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((not (file-exists-p path)) "")
      ((file-remote-p path) "?")
@@ -610,7 +606,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-size (candidate)
   "Return file size from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
+  (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((not (file-exists-p path)) "")
      ((file-remote-p path) "-")
@@ -618,7 +614,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
   "Return file modification time from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
+  (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((not (file-exists-p path)) "")
      ((file-remote-p path) "?")
