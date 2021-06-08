@@ -630,10 +630,11 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-bookmark-info (candidate)
   "Return bookmark name from CANDIDATE."
   (let ((filename (ivy-rich-bookmark-filename candidate)))
-    (cond ((null filename) "")
-          ((file-remote-p filename) filename)
-          ((file-exists-p filename) filename)
-          (t filename))))
+    (cond
+     ((null filename) "")
+     ((file-remote-p filename) filename)
+     ((file-exists-p filename) filename)
+     (t filename))))
 
 ;; Support `counsel-package'
 (defun all-the-icons-ivy-rich-package-install-summary (candidate)
@@ -761,14 +762,15 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-symbol-icon (candidate)
   "Display the symbol icon in `ivy-rich'."
   (let ((sym (intern candidate)))
-    (cond ((functionp sym)
-           (all-the-icons-ivy-rich-function-icon candidate))
-          ((facep sym)
-           (all-the-icons-ivy-rich-face-icon candidate))
-          ((symbolp sym)
-           (all-the-icons-ivy-rich-variable-icon candidate))
-          (t (all-the-icons-ivy-rich--format-icon
-              (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))))
+    (cond
+     ((functionp sym)
+      (all-the-icons-ivy-rich-function-icon candidate))
+     ((facep sym)
+      (all-the-icons-ivy-rich-face-icon candidate))
+     ((symbolp sym)
+      (all-the-icons-ivy-rich-variable-icon candidate))
+     (t (all-the-icons-ivy-rich--format-icon
+         (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))))
 
 (defun all-the-icons-ivy-rich-company-icon (candidate)
   "Display the symbol icon of company in `ivy-rich'."
@@ -855,15 +857,16 @@ Display the true name when the file is a symlink."
   "Return bookmark type from CANDIDATE."
   (all-the-icons-ivy-rich--format-icon
    (let ((filename (ivy-rich-bookmark-filename candidate)))
-     (cond ((null filename)
-            (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
-           ((file-remote-p filename)
-            (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
-           ((not (file-exists-p filename))
-            (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
-           ((file-directory-p filename)
-            (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
-           (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust 0.0))))))
+     (cond
+      ((null filename)
+       (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
+      ((file-remote-p filename)
+       (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
+      ((not (file-exists-p filename))
+       (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
+      ((file-directory-p filename)
+       (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
+      (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust 0.0))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
