@@ -570,25 +570,9 @@ See `ivy-rich-display-transformers-list' for details."
                           (buffer-name))))
   (kill-buffer buffer-or-name))
 
-(defun all-the-icons-ivy-rich--project-root ()
-  "Get the path to the root of your project.
-Return nil if no project was found."
-  (or
-   (and (fboundp 'ffip-get-project-root-directory)
-        (let ((inhibit-message t))
-          (ffip-get-project-root-directory)))
-   (and (fboundp 'projectile-project-root)
-        (projectile-project-root))
-   (and (and (fboundp 'project-current)
-             (fboundp 'project-roots))
-        (when-let ((project (project-current)))
-          (car (project-roots project))))))
-
 (defun all-the-icons-ivy-rich--full-path (candidate)
   "Get the full path of CANDIDATE."
-  (expand-file-name (or candidate "")
-                    (or ivy--directory
-                        (all-the-icons-ivy-rich--project-root))))
+  (expand-file-name candidate ivy--directory))
 
 (defun all-the-icons-ivy-rich-file-name (candidate)
   "Return file name from CANDIDATE when reading files.
