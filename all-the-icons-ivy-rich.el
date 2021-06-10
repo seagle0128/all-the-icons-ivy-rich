@@ -577,7 +577,7 @@ Display the true name when the file is a symlink."
   (let ((file (if (ivy--dirname-p candidate)
                   (propertize candidate 'face 'ivy-subdir)
                 candidate))
-        (type (nth 0 (file-attributes (expand-file-name candidate ivy--directory)))))
+        (type (file-attribute-type (file-attributes (expand-file-name candidate ivy--directory)))))
     (if (stringp type)
         (concat file
                 (propertize (concat " -> " type)
