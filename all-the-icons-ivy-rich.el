@@ -717,8 +717,6 @@ Display the true name when the file is a symlink."
   (let* ((path (expand-file-name candidate ivy--directory))
          (file (file-name-nondirectory path))
          (icon (cond
-                ((file-remote-p path)
-                 (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.0))
                 ((file-directory-p path)
                  (all-the-icons-icon-for-dir path :height 0.9 :v-adjust 0.01))
                 ((not (string-empty-p file))
