@@ -570,14 +570,22 @@ See `ivy-rich-display-transformers-list' for details."
                           (buffer-name))))
   (kill-buffer buffer-or-name))
 
+(defun all-the-icons-ivy-rich--directory-p (name)
+  "Return non-nil if NAME ends with a directory separator."
+  (if (file-remote-p name)
+      (string-suffix-p "/" name)
+    (directory-name-p name)))
+
 (defun all-the-icons-ivy-rich-file-name (candidate)
   "Return file name from CANDIDATE when reading files.
 Display directories with different color.
 Display the true name when the file is a symlink."
-  (let ((file (if (ivy--dirname-p candidate)
-                  (propertize candidate 'face 'ivy-subdir)
-                candidate))
-        (type (file-attribute-type (file-attributes (expand-file-name candidate ivy--directory)))))
+  (let* ((file (if (all-the-icons-ivy-rich--directory-p candidate)
+                   (propertize candidate 'face 'ivy-subdir)
+                 candidate))
+         (path (expand-file-name candidate ivy--directory))
+         (type (unless (file-remote-p path)
+                 (file-symlink-p path))))
     (if (stringp type)
         (concat file
                 (propertize (concat " -> " type)
@@ -589,16 +597,14 @@ Display the true name when the file is a symlink."
   "Return file modes from CANDIDATE."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
-     ((not (file-exists-p path)) "")
-     ((file-remote-p path) "-")
+     ((file-remote-p path) "")
      (t (file-attribute-modes (file-attributes path))))))
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
   "Return file uid/gid from CANDIDATE."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
-     ((not (file-exists-p path)) "")
-     ((file-remote-p path) "?")
+     ((file-remote-p path) "")
      (t (when-let ((attributes (file-attributes path 'string)))
           (format "%s %s"
                   (file-attribute-user-id attributes)
@@ -608,16 +614,14 @@ Display the true name when the file is a symlink."
   "Return file size from CANDIDATE."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
-     ((not (file-exists-p path)) "")
-     ((file-remote-p path) "-")
+     ((file-remote-p path) "")
      (t (file-size-human-readable (file-attribute-size (file-attributes path)))))))
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
   "Return file modification time from CANDIDATE."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
-     ((not (file-exists-p path)) "")
-     ((file-remote-p path) "?")
+     ((file-remote-p path) "")
      (t (format-time-string
          "%b %d %H:%M"
          (file-attribute-modification-time (file-attributes path)))))))
@@ -633,7 +637,6 @@ Display the true name when the file is a symlink."
     (cond
      ((null filename) "")
      ((file-remote-p filename) filename)
-     ((file-exists-p filename) filename)
      (t filename))))
 
 ;; Support `counsel-package'
@@ -715,12 +718,11 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
   (let* ((path (expand-file-name candidate ivy--directory))
-         (file (file-name-nondirectory path))
          (icon (cond
-                ((file-directory-p path)
-                 (all-the-icons-icon-for-dir path :height 0.9 :v-adjust 0.01))
-                ((not (string-empty-p file))
-                 (all-the-icons-icon-for-file file :height 0.9 :v-adjust 0.0)))))
+                ((all-the-icons-ivy-rich--directory-p path)
+                 (all-the-icons-icon-for-dir candidate :height 0.9 :v-adjust 0.01))
+                ((not (string-empty-p candidate))
+                 (all-the-icons-icon-for-file candidate :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
