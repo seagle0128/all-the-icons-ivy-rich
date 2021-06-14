@@ -598,6 +598,7 @@ Display the true name when the file is a symlink."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((file-remote-p path) "")
+     ((not (file-exists-p path)) "")
      (t (file-attribute-modes (file-attributes path))))))
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
@@ -605,7 +606,8 @@ Display the true name when the file is a symlink."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((file-remote-p path) "")
-     (t (when-let ((attributes (file-attributes path 'string)))
+     ((not (file-exists-p path)) "")
+     (t (let ((attributes (file-attributes path 'string)))
           (format "%s %s"
                   (file-attribute-user-id attributes)
                   (file-attribute-group-id attributes)))))))
@@ -615,6 +617,7 @@ Display the true name when the file is a symlink."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((file-remote-p path) "")
+     ((not (file-exists-p path)) "")
      (t (file-size-human-readable (file-attribute-size (file-attributes path)))))))
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
@@ -622,6 +625,7 @@ Display the true name when the file is a symlink."
   (let ((path (expand-file-name candidate ivy--directory)))
     (cond
      ((file-remote-p path) "")
+     ((not (file-exists-p path)) "")
      (t (format-time-string
          "%b %d %H:%M"
          (file-attribute-modification-time (file-attributes path)))))))
