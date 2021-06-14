@@ -63,8 +63,15 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+;; Whether display the colorful icons.
+;; It respects `all-the-icons-color-icons'.
+(setq all-the-icons-ivy-rich-color-icon t)
+
 ;; The icon size
 (setq all-the-icons-ivy-rich-icon-size 1.0)
+
+;; Whether support project root
+(setq all-the-icons-ivy-rich-project t)
 
 ;; Definitions for ivy-rich transformers.
 ;; See `ivy-rich-display-transformers-list' for details."

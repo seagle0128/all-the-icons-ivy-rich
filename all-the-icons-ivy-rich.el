@@ -145,6 +145,11 @@ It respects `all-the-icons-color-icons'."
   :group 'all-the-icons-ivy-rich
   :type 'number)
 
+(defcustom all-the-icons-ivy-rich-project t
+  "Whether support project root."
+  :group 'all-the-icons-ivy-rich
+  :type 'boolean)
+
 (defcustom all-the-icons-ivy-rich-display-transformers-list
   '(ivy-switch-buffer
     (:columns
@@ -579,20 +584,21 @@ See `ivy-rich-display-transformers-list' for details."
 (defun all-the-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
 Return `default-directory' if no project was found."
-  (cond
-   ;; Ignore remote files due to performance issue
-   ((file-remote-p default-directory)
-    default-directory)
-   ((fboundp 'projectile-project-root)
-    (projectile-project-root))
-   ((fboundp 'ffip-get-project-root-directory)
-    (let ((inhibit-message t))
-      (ffip-get-project-root-directory)))
-   ((and (fboundp 'project-current)
-         (fboundp 'project-roots))
-    (when-let ((project (project-current)))
-      (car (project-roots project))))
-   (t default-directory)))
+  (when all-the-icons-ivy-rich-project
+    (cond
+     ;; Ignore remote files due to performance issue
+     ((file-remote-p default-directory)
+      default-directory)
+     ((fboundp 'projectile-project-root)
+      (projectile-project-root))
+     ((fboundp 'ffip-get-project-root-directory)
+      (let ((inhibit-message t))
+        (ffip-get-project-root-directory)))
+     ((and (fboundp 'project-current)
+           (fboundp 'project-roots))
+      (when-let ((project (project-current)))
+        (car (project-roots project))))
+     (t default-directory))))
 
 (defun all-the-icons-ivy-rich--full-path (candidate)
   "Get the full path of CANDIDATE."
