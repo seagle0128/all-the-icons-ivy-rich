@@ -576,6 +576,30 @@ See `ivy-rich-display-transformers-list' for details."
       (string-suffix-p "/" name)
     (directory-name-p name)))
 
+(defun all-the-icons-ivy-rich--project-root ()
+  "Get the path to the root of your project.
+Return `default-directory' if no project was found."
+  (cond
+   ;; Ignore remote files due to performance issue
+   ((file-remote-p default-directory)
+    default-directory)
+   ((fboundp 'projectile-project-root)
+    (projectile-project-root))
+   ((fboundp 'ffip-get-project-root-directory)
+    (let ((inhibit-message t))
+      (ffip-get-project-root-directory)))
+   ((and (fboundp 'project-current)
+         (fboundp 'project-roots))
+    (when-let ((project (project-current)))
+      (car (project-roots project))))
+   (t default-directory)))
+
+(defun all-the-icons-ivy-rich--full-path (candidate)
+  "Get the full path of CANDIDATE."
+  (expand-file-name candidate
+                    (or ivy--directory
+                        (all-the-icons-ivy-rich--project-root))))
+
 (defun all-the-icons-ivy-rich-file-name (candidate)
   "Return file name from CANDIDATE when reading files.
 Display directories with different color.
@@ -583,7 +607,7 @@ Display the true name when the file is a symlink."
   (let* ((file (if (all-the-icons-ivy-rich--directory-p candidate)
                    (propertize candidate 'face 'ivy-subdir)
                  candidate))
-         (path (expand-file-name candidate ivy--directory))
+         (path (all-the-icons-ivy-rich--full-path candidate))
          (type (unless (file-remote-p path)
                  (file-symlink-p path))))
     (if (stringp type)
@@ -595,7 +619,7 @@ Display the true name when the file is a symlink."
 ;; Support `counsel-find-file', `counsel-dired', `counsel-projectile-find-file', etc.
 (defun all-the-icons-ivy-rich-file-modes (candidate)
   "Return file modes from CANDIDATE."
-  (let ((path (expand-file-name candidate ivy--directory)))
+  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (cond
      ((file-remote-p path) "")
      ((not (file-exists-p path)) "")
@@ -603,7 +627,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
   "Return file uid/gid from CANDIDATE."
-  (let ((path (expand-file-name candidate ivy--directory)))
+  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (cond
      ((file-remote-p path) "")
      ((not (file-exists-p path)) "")
@@ -614,7 +638,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-size (candidate)
   "Return file size from CANDIDATE."
-  (let ((path (expand-file-name candidate ivy--directory)))
+  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (cond
      ((file-remote-p path) "")
      ((not (file-exists-p path)) "")
@@ -622,7 +646,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
   "Return file modification time from CANDIDATE."
-  (let ((path (expand-file-name candidate ivy--directory)))
+  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
     (cond
      ((file-remote-p path) "")
      ((not (file-exists-p path)) "")
