@@ -384,11 +384,7 @@ It respects `all-the-icons-color-icons'."
     counsel-projectile-switch-project
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (all-the-icons-ivy-rich-file-name (:width 0.4))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
-      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+      (all-the-icons-ivy-rich-project-name (:width 0.4)))
      :delimiter "\t")
     counsel-projectile-switch-to-buffer
     (:columns
@@ -398,19 +394,19 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-projectile-find-file-transformer (:width 0.4))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
-      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-projectile-find-dir
     (:columns
      ((all-the-icons-ivy-rich-project-icon)
       (counsel-projectile-find-dir-transformer (:width 0.4))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
-      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-minor
     (:columns
@@ -549,11 +545,7 @@ It respects `all-the-icons-color-icons'."
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (all-the-icons-ivy-rich-file-name (:width 0.4))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
-      (all-the-icons-ivy-rich-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
-      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+      (all-the-icons-ivy-rich-project-name (:width 0.4)))
      :delimiter "\t"))
   "Definitions for ivy-rich transformers.
 
@@ -575,11 +567,12 @@ See `ivy-rich-display-transformers-list' for details."
                           (buffer-name))))
   (kill-buffer buffer-or-name))
 
-(defun all-the-icons-ivy-rich--directory-p (name)
-  "Return non-nil if NAME ends with a directory separator."
-  (if (file-remote-p name)
-      (string-suffix-p "/" name)
-    (directory-name-p name)))
+(defun all-the-icons-ivy-rich--directory-p (file)
+  "Return non-nil if FILE is a directory."
+  (if (file-remote-p file)
+      (string-suffix-p "/" file)
+    (or (directory-name-p file)
+        (file-directory-p file))))
 
 (defun all-the-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
@@ -589,31 +582,71 @@ Return `default-directory' if no project was found."
      ;; Ignore remote files due to performance issue
      ((file-remote-p default-directory)
       default-directory)
-     ((fboundp 'projectile-project-root)
-      (projectile-project-root))
      ((fboundp 'ffip-get-project-root-directory)
       (let ((inhibit-message t))
         (ffip-get-project-root-directory)))
+     ((fboundp 'projectile-project-root)
+      (projectile-project-root))
      ((and (fboundp 'project-current)
            (fboundp 'project-roots))
       (when-let ((project (project-current)))
         (car (project-roots project))))
      (t default-directory))))
 
-(defun all-the-icons-ivy-rich--full-path (candidate)
-  "Get the full path of CANDIDATE."
-  (expand-file-name candidate
-                    (or ivy--directory
-                        (all-the-icons-ivy-rich--project-root))))
+(defun all-the-icons-ivy-rich--file-path (candidate)
+  "Get the file path of CANDIDATE."
+  (expand-file-name candidate ivy--directory))
 
+(defun all-the-icons-ivy-rich--project-file-path (candidate)
+  "Get the project file path of CANDIDATE."
+  (expand-file-name candidate (all-the-icons-ivy-rich--project-root)))
+
+(defun all-the-icons-ivy-rich--file-transformer (candidate)
+  "Return project name from CANDIDATE."
+  (if (all-the-icons-ivy-rich--directory-p candidate)
+      (propertize candidate 'face 'ivy-subdir)
+    candidate))
+
+(defun all-the-icons-ivy-rich--file-modes (file)
+  "Return FILE modes."
+  (cond
+   ((file-remote-p file) "")
+   ((not (file-exists-p file)) "")
+   (t (file-attribute-modes (file-attributes file)))))
+
+(defun all-the-icons-ivy-rich--file-id (path)
+  "Return file uid/gid from CANDIDATE."
+  (cond
+   ((file-remote-p path) "")
+   ((not (file-exists-p path)) "")
+   (t (let ((attributes (file-attributes path 'string)))
+        (format "%s %s"
+                (file-attribute-user-id attributes)
+                (file-attribute-group-id attributes))))))
+
+(defun all-the-icons-ivy-rich--file-size (file)
+  "Return FILE size."
+  (cond
+   ((file-remote-p file) "")
+   ((not (file-exists-p file)) "")
+   (t (file-size-human-readable (file-attribute-size (file-attributes file))))))
+
+(defun all-the-icons-ivy-rich--file-modification-time (file)
+  "Return FILE modification time."
+  (cond
+   ((file-remote-p file) "")
+   ((not (file-exists-p file)) "")
+   (t (format-time-string
+       "%b %d %H:%M"
+       (file-attribute-modification-time (file-attributes file))))))
+
+;; Support `counsel-find-file', `counsel-dired', etc.
 (defun all-the-icons-ivy-rich-file-name (candidate)
   "Return file name from CANDIDATE when reading files.
 Display directories with different color.
 Display the true name when the file is a symlink."
-  (let* ((file (if (all-the-icons-ivy-rich--directory-p candidate)
-                   (propertize candidate 'face 'ivy-subdir)
-                 candidate))
-         (path (all-the-icons-ivy-rich--full-path candidate))
+  (let* ((file (all-the-icons-ivy-rich--file-transformer candidate))
+         (path (all-the-icons-ivy-rich--file-path candidate))
          (type (unless (file-remote-p path)
                  (file-symlink-p path))))
     (if (stringp type)
@@ -622,43 +655,50 @@ Display the true name when the file is a symlink."
                             'face 'all-the-icons-ivy-rich-doc-face))
       file)))
 
-;; Support `counsel-find-file', `counsel-dired', `counsel-projectile-find-file', etc.
 (defun all-the-icons-ivy-rich-file-modes (candidate)
   "Return file modes from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (cond
-     ((file-remote-p path) "")
-     ((not (file-exists-p path)) "")
-     (t (file-attribute-modes (file-attributes path))))))
+  (all-the-icons-ivy-rich--file-modes
+   (all-the-icons-ivy-rich--file-path candidate)))
 
 (defun all-the-icons-ivy-rich-file-id (candidate)
   "Return file uid/gid from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (cond
-     ((file-remote-p path) "")
-     ((not (file-exists-p path)) "")
-     (t (let ((attributes (file-attributes path 'string)))
-          (format "%s %s"
-                  (file-attribute-user-id attributes)
-                  (file-attribute-group-id attributes)))))))
+  (all-the-icons-ivy-rich--file-id
+   (all-the-icons-ivy-rich--file-path candidate)))
 
 (defun all-the-icons-ivy-rich-file-size (candidate)
   "Return file size from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (cond
-     ((file-remote-p path) "")
-     ((not (file-exists-p path)) "")
-     (t (file-size-human-readable (file-attribute-size (file-attributes path)))))))
+  (all-the-icons-ivy-rich--file-size
+   (all-the-icons-ivy-rich--file-path candidate)))
 
 (defun all-the-icons-ivy-rich-file-modification-time (candidate)
   "Return file modification time from CANDIDATE."
-  (let ((path (all-the-icons-ivy-rich--full-path candidate)))
-    (cond
-     ((file-remote-p path) "")
-     ((not (file-exists-p path)) "")
-     (t (format-time-string
-         "%b %d %H:%M"
-         (file-attribute-modification-time (file-attributes path)))))))
+  (all-the-icons-ivy-rich--file-modification-time
+   (all-the-icons-ivy-rich--file-path candidate)))
+
+;; Support `counsel-projectile-find-file', `counsel-projectile-dired', etc.
+(defun all-the-icons-ivy-rich-project-name (candidate)
+  "Return project name from CANDIDATE."
+  (all-the-icons-ivy-rich--file-transformer candidate))
+
+(defun all-the-icons-ivy-rich-project-file-modes (candidate)
+  "Return file modes from CANDIDATE."
+  (all-the-icons-ivy-rich--file-modes
+   (all-the-icons-ivy-rich--project-file-path candidate)))
+
+(defun all-the-icons-ivy-rich-project-file-id (candidate)
+  "Return file uid/gid from CANDIDATE."
+  (all-the-icons-ivy-rich--file-id
+   (all-the-icons-ivy-rich--project-file-path candidate)))
+
+(defun all-the-icons-ivy-rich-project-file-size (candidate)
+  "Return file size from CANDIDATE."
+  (all-the-icons-ivy-rich--file-size
+   (all-the-icons-ivy-rich--project-file-path candidate)))
+
+(defun all-the-icons-ivy-rich-project-file-modification-time (candidate)
+  "Return file modification time from CANDIDATE."
+  (all-the-icons-ivy-rich--file-modification-time
+   (all-the-icons-ivy-rich--project-file-path candidate)))
 
 ;; Support `counsel-bookmark'
 (defun all-the-icons-ivy-rich-bookmark-name (candidate)
