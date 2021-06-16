@@ -544,7 +544,7 @@ It respects `all-the-icons-color-icons'."
 
     treemacs-projectile
     (:columns
-     ((all-the-icons-ivy-rich-file-icon)
+     ((all-the-icons-ivy-rich-project-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4)))
      :delimiter "\t"))
   "Definitions for ivy-rich transformers.
@@ -566,13 +566,6 @@ See `ivy-rich-display-transformers-list' for details."
                           nil t nil nil
                           (buffer-name))))
   (kill-buffer buffer-or-name))
-
-(defun all-the-icons-ivy-rich--directory-p (file)
-  "Return non-nil if FILE is a directory."
-  (if (file-remote-p file)
-      (string-suffix-p "/" file)
-    (or (directory-name-p file)
-        (file-directory-p file))))
 
 (defun all-the-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
@@ -603,7 +596,7 @@ Return `default-directory' if no project was found."
 
 (defun all-the-icons-ivy-rich--file-transformer (candidate)
   "Return project name from CANDIDATE."
-  (if (all-the-icons-ivy-rich--directory-p candidate)
+  (if (ivy--dirname-p candidate)
       (propertize candidate 'face 'ivy-subdir)
     candidate))
 
@@ -678,7 +671,10 @@ Display the true name when the file is a symlink."
 ;; Support `counsel-projectile-find-file', `counsel-projectile-dired', etc.
 (defun all-the-icons-ivy-rich-project-name (candidate)
   "Return project name from CANDIDATE."
-  (all-the-icons-ivy-rich--file-transformer candidate))
+  (if (or (ivy--dirname-p candidate)
+          (file-directory-p (all-the-icons-ivy-rich--file-path candidate)))
+      (propertize candidate 'face 'ivy-subdir)
+    candidate))
 
 (defun all-the-icons-ivy-rich-project-file-modes (candidate)
   "Return file modes from CANDIDATE."
@@ -707,11 +703,11 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-bookmark-info (candidate)
   "Return bookmark name from CANDIDATE."
-  (let ((filename (ivy-rich-bookmark-filename candidate)))
+  (let ((file (ivy-rich-bookmark-filename candidate)))
     (cond
-     ((null filename) "")
-     ((file-remote-p filename) filename)
-     (t filename))))
+     ((null file) "")
+     ((file-remote-p file) file)
+     (t file))))
 
 ;; Support `counsel-package'
 (defun all-the-icons-ivy-rich-package-install-summary (candidate)
@@ -791,12 +787,11 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-file-icon (candidate)
   "Display file icon from CANDIDATE in `ivy-rich'."
-  (let* ((path (expand-file-name candidate ivy--directory))
-         (icon (cond
-                ((all-the-icons-ivy-rich--directory-p path)
-                 (all-the-icons-icon-for-dir candidate :height 0.9 :v-adjust 0.01))
-                ((not (string-empty-p candidate))
-                 (all-the-icons-icon-for-file candidate :height 0.9 :v-adjust 0.0)))))
+  (let ((icon (cond
+               ((ivy--dirname-p candidate)
+                (all-the-icons-icon-for-dir candidate :height 0.9 :v-adjust 0.01))
+               ((not (string-empty-p candidate))
+                (all-the-icons-icon-for-file candidate :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
@@ -930,17 +925,17 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-bookmark-icon (candidate)
   "Return bookmark type from CANDIDATE."
   (all-the-icons-ivy-rich--format-icon
-   (let ((filename (ivy-rich-bookmark-filename candidate)))
+   (let ((file (ivy-rich-bookmark-filename candidate)))
      (cond
-      ((null filename)
+      ((null file)
        (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
-      ((file-remote-p filename)
+      ((file-remote-p file)
        (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
-      ((not (file-exists-p filename))
+      ((not (file-exists-p file))
        (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
-      ((file-directory-p filename)
+      ((file-directory-p file)
        (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
-      (t (all-the-icons-icon-for-file (file-name-nondirectory filename) :height 0.9 :v-adjust 0.0))))))
+      (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0))))))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
