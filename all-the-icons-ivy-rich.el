@@ -401,7 +401,7 @@ It respects `all-the-icons-color-icons'."
      :delimiter "\t")
     counsel-projectile-find-dir
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (counsel-projectile-find-dir-transformer (:width 0.4))
       (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
       (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
@@ -461,37 +461,37 @@ It respects `all-the-icons-color-icons'."
      :delimiter "\t")
     persp-switch
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-frame-switch
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-window-switch
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-kill
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-save-and-kill
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-import-buffers
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-import-win-conf
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     persp-kill-buffer
@@ -544,7 +544,7 @@ It respects `all-the-icons-color-icons'."
 
     treemacs-projectile
     (:columns
-     ((all-the-icons-ivy-rich-project-icon)
+     ((all-the-icons-ivy-rich-dir-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4)))
      :delimiter "\t"))
   "Definitions for ivy-rich transformers.
@@ -797,7 +797,7 @@ Display the true name when the file is a symlink."
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
        (propertize icon 'display '(raise 0.0))))))
 
-(defun all-the-icons-ivy-rich-project-icon (_candidate)
+(defun all-the-icons-ivy-rich-dir-icon (_candidate)
   "Display project icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver)))
