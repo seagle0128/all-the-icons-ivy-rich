@@ -51,9 +51,34 @@
   (require 'bookmark)
   (require 'project))
 
+
+
 ;; Depress warnings
 (defvar ivy-posframe-buffer)
 (declare-function ivy-posframe--display 'ivy-posframe)
+
+;; Compatibility
+(unless (fboundp #'file-attribute-user-id)
+  (defsubst file-attribute-user-id (attributes)
+    (nth 2 attributes)))
+
+(unless (fboundp #'file-attribute-group-id)
+  (defsubst file-attribute-group-id (attributes)
+    (nth 3 attributes)))
+
+(unless (fboundp #'file-attribute-modification-time)
+  (defsubst file-attribute-modification-time (attributes)
+    (nth 5 attributes)))
+
+(unless (fboundp #'file-attribute-size)
+  (defsubst file-attribute-size (attributes)
+    (nth 7 attributes)))
+
+(unless (fboundp #'file-attribute-modes)
+  (defsubst file-attribute-modes (attributes)
+    (nth 8 attributes)))
+
+
 
 (defgroup all-the-icons-ivy-rich nil
   "Better experience using icons in ivy."
