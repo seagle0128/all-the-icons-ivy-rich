@@ -806,14 +806,10 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich-buffer-icon (candidate)
   "Display buffer icon from CANDIDATE in `ivy-rich'."
-  (let* ((buffer (get-buffer candidate))
-         (buffer-file-name (buffer-file-name buffer))
-         (major-mode (buffer-local-value 'major-mode buffer))
-         (icon (with-current-buffer buffer
-                 (if (eq major-mode 'dired-mode)
-                     (all-the-icons-icon-for-dir (buffer-name)
-                                                 :face 'all-the-icons-ivy-rich-dir-face)
-                   (all-the-icons-icon-for-buffer)))))
+  (let ((icon (with-current-buffer (get-buffer candidate)
+                (if (eq major-mode 'dired-mode)
+                    (all-the-icons-icon-for-dir candidate :face 'all-the-icons-ivy-rich-dir-face)
+                  (all-the-icons-icon-for-buffer)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
