@@ -91,6 +91,11 @@
   "Face used for the icons while `all-the-icons-ivy-rich-color-icon' is nil."
   :group 'all-the-icons-ivy-rich)
 
+(defface all-the-icons-ivy-rich-dir-face
+  '((t (:inherit font-lock-doc-face)))
+  "Face used for the directory icon."
+  :group 'all-the-icons-ivy-rich)
+
 (defface all-the-icons-ivy-rich-doc-face
   '((t (:inherit ivy-completions-annotations)))
   "Face used for documentation string."
@@ -814,7 +819,10 @@ Display the true name when the file is a symlink."
   "Display file icon from CANDIDATE in `ivy-rich'."
   (let ((icon (cond
                ((ivy--dirname-p candidate)
-                (all-the-icons-icon-for-dir candidate :height 0.9 :v-adjust 0.01))
+                (all-the-icons-icon-for-dir candidate
+                                            :height 0.9
+                                            :v-adjust 0.01
+                                            :face 'all-the-icons-ivy-rich-dir-face))
                ((not (string-empty-p candidate))
                 (all-the-icons-icon-for-file candidate :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
