@@ -792,7 +792,7 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich--format-icon (icon)
   "Format ICON'."
-  (when icon
+  (when (and (display-graphic-p) icon)
     (format " %s"
             (let* ((props (get-text-property 0 'face icon))
                    (family (plist-get props :family))
