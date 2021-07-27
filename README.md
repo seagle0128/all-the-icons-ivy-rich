@@ -63,6 +63,9 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+;; Whether display the icons
+(setq all-the-icons-ivy-rich-icon t)
+
 ;; Whether display the colorful icons.
 ;; It respects `all-the-icons-color-icons'.
 (setq all-the-icons-ivy-rich-color-icon t)

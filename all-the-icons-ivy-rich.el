@@ -163,6 +163,11 @@
   '((t :inherit font-lock-keyword-face))
   "Face used for highlight file owners.")
 
+(defcustom all-the-icons-ivy-rich-icon t
+  "Whether display the icons."
+  :group 'all-the-icons-ivy-rich
+  :type 'boolean)
+
 (defcustom all-the-icons-ivy-rich-color-icon t
   "Whether display the colorful icons.
 
@@ -792,7 +797,9 @@ Display the true name when the file is a symlink."
 
 (defun all-the-icons-ivy-rich--format-icon (icon)
   "Format ICON'."
-  (when (and (display-graphic-p) icon)
+  (when (and (display-graphic-p)
+             all-the-icons-ivy-rich-icon
+             icon)
     (format " %s"
             (let* ((props (get-text-property 0 'face icon))
                    (family (plist-get props :family))
