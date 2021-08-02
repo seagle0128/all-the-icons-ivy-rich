@@ -54,6 +54,9 @@
 
 
 ;; Depress warnings
+(defvar counsel--fzf-dir)
+(defvar ivy--directory)
+(defvar ivy-last)
 (defvar ivy-posframe-buffer)
 (declare-function ivy-posframe--display 'ivy-posframe)
 
@@ -623,7 +626,12 @@ Return `default-directory' if no project was found."
 
 (defun all-the-icons-ivy-rich--file-path (candidate)
   "Get the file path of CANDIDATE."
-  (expand-file-name candidate ivy--directory))
+  (cond ((eq (ivy-state-caller ivy-last) 'counsel-fzf)
+         (expand-file-name candidate counsel--fzf-dir))
+        (ivy--directory
+         (expand-file-name candidate ivy--directory))
+        (t
+         default-directory)))
 
 (defun all-the-icons-ivy-rich--project-file-path (candidate)
   "Get the project file path of CANDIDATE."
