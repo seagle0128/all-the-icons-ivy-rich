@@ -1,9 +1,10 @@
 # all-the-icons-ivy-rich
 
 [![Build Status](https://github.com/seagle0128/all-the-icons-ivy-rich/workflows/CI/badge.svg?branch=master)](https://github.com/seagle0128/all-the-icons-ivy-rich/actions)
+[![Release Tag](https://img.shields.io/github/tag/seagle0128/all-the-icons-ivy-rich.svg?label=Release)](https://github.com/seagle0128/all-the-icons-ivy-rich/releases/latest)
+[![License](http://img.shields.io/:License-GPL3-blue.svg)](License)
 [![MELPA](https://melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://melpa.org/#/all-the-icons-ivy-rich)
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://stable.melpa.org/#/all-the-icons-ivy-rich)
-[![License](http://img.shields.io/:license-gpl3-blue.svg)](LICENSE)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
