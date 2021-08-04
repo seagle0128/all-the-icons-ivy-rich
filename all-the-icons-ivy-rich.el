@@ -626,12 +626,9 @@ Return `default-directory' if no project was found."
 
 (defun all-the-icons-ivy-rich--file-path (candidate)
   "Get the file path of CANDIDATE."
-  (cond ((eq (ivy-state-caller ivy-last) 'counsel-fzf)
-         (expand-file-name candidate counsel--fzf-dir))
-        (ivy--directory
-         (expand-file-name candidate ivy--directory))
-        (t
-         default-directory)))
+  (if (eq (ivy-state-caller ivy-last) 'counsel-fzf)
+      (expand-file-name candidate counsel--fzf-dir)
+    (expand-file-name candidate ivy--directory)))
 
 (defun all-the-icons-ivy-rich--project-file-path (candidate)
   "Get the project file path of CANDIDATE."
