@@ -1043,7 +1043,7 @@ If the buffer is killed, return \"--\"."
 (defun all-the-icons-ivy-rich-process-icon (_candidate)
   "Display the process icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "bolt" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+   (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-imenu-icon (candidate)
   "Display the imenu icon from CANDIDATE in `ivy-rich'."
