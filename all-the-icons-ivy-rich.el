@@ -166,6 +166,30 @@
   '((t :inherit font-lock-keyword-face))
   "Face used for highlight file owners.")
 
+(defface all-the-icons-ivy-rich-process-id-face
+  '((t :inherit default))
+  "Face used for process id.")
+
+(defface all-the-icons-ivy-rich-process-status-face
+  '((t :inherit font-lock-string-face))
+  "Face used for process status.")
+
+(defface all-the-icons-ivy-rich-process-buffer-face
+  '((t :inherit font-lock-keyword-face))
+  "Face used for process buffer label.")
+
+(defface all-the-icons-ivy-rich-process-tty-face
+  '((t :inherit font-lock-doc-face))
+  "Face used for process tty.")
+
+(defface all-the-icons-ivy-rich-process-thread-face
+  '((t :inherit font-lock-doc-face))
+  "Face used for process thread.")
+
+(defface all-the-icons-ivy-rich-process-command-face
+  '((t :inherit all-the-icons-ivy-rich-doc-face))
+  "Face used for process command.")
+
 (defcustom all-the-icons-ivy-rich-icon t
   "Whether display the icons."
   :group 'all-the-icons-ivy-rich
@@ -417,7 +441,13 @@ It respects `all-the-icons-color-icons'."
     counsel-list-processes
     (:columns
      ((all-the-icons-ivy-rich-process-icon)
-      (ivy-rich-candidate))
+      (ivy-rich-candidate (:width 25))
+      (all-the-icons-ivy-rich-process-id (:width 7 :face all-the-icons-ivy-rich-process-id-face))
+      (all-the-icons-ivy-rich-process-status (:width 7 :face all-the-icons-ivy-rich-process-status-face))
+      (all-the-icons-ivy-rich-process-buffer-name (:width 25 :face all-the-icons-ivy-rich-process-buffer-face))
+      (all-the-icons-ivy-rich-process-tty-name (:width 12 :face all-the-icons-ivy-rich-process-tty-face))
+      (all-the-icons-ivy-rich-process-thread (:width 12 :face all-the-icons-ivy-rich-process-thread-face))
+      (all-the-icons-ivy-rich-process-command (:face all-the-icons-ivy-rich-process-command-face)))
      :delimiter "\t")
     counsel-projectile-switch-project
     (:columns
@@ -782,6 +812,83 @@ Display the true name when the file is a symlink."
      ((and (boundp symbol) (not (keywordp symbol)))
       (ivy-rich-counsel-variable-docstring candidate))
      (t ""))))
+
+;; Support `counsel-list-processes'
+(defun all-the-icons-ivy-rich-process-id (candidate)
+  "Return process id from CANDIDATE.
+
+For a network, serial, and pipe connections, return \"--\"."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (format "%s" (or (process-id p) "--")))))
+
+(defun all-the-icons-ivy-rich-process-status (candidate)
+  "Return process status from CANDIDATE."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (symbol-name (process-status p)))))
+
+(defun all-the-icons-ivy-rich-process-buffer-name (candidate)
+  "Return process buffer name from CANDIDATE.
+
+If the buffer is killed, return \"--\"."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (let ((buf (process-buffer p)))
+        (if (buffer-live-p buf)
+		    (buffer-name buf)
+		  "--")))))
+
+(defun all-the-icons-ivy-rich-process-tty-name (candidate)
+  "Return the name of the terminal process uses from CANDIDATE."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (or (process-tty-name p) "--"))))
+
+(defun all-the-icons-ivy-rich-process-thread (candidate)
+  "Return process thread from CANDIDATE."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (cond
+       ((or
+         (null (process-thread p))
+         (not (fboundp 'thread-name))) "--")
+       ((eq (process-thread p) main-thread) "Main")
+	   ((thread-name (process-thread p)))
+	   (t "--")))))
+
+(defun all-the-icons-ivy-rich-process-command (candidate)
+  "Return process command from CANDIDATE."
+  (let ((p (get-process candidate)))
+    (when (processp p)
+      (let ((type (process-type p)))
+        (if (memq type '(network serial pipe))
+		    (let ((contact (process-contact p t t)))
+			  (if (eq type 'network)
+			      (format "(%s %s)"
+				          (if (plist-get contact :type)
+					          "datagram"
+				            "network")
+				          (if (plist-get contact :server)
+					          (format
+                               "server on %s"
+					           (if (plist-get contact :host)
+                                   (format "%s:%s"
+						                   (plist-get contact :host)
+                                           (plist-get
+                                            contact :service))
+					             (plist-get contact :local)))
+				            (format "connection to %s:%s"
+					                (plist-get contact :host)
+					                (plist-get contact :service))))
+			    (format "(serial port %s%s)"
+				        (or (plist-get contact :port) "?")
+				        (let ((speed (plist-get contact :speed)))
+				          (if speed
+					          (format " at %s b/s" speed)
+				            "")))))
+		  (mapconcat 'identity (process-command p) " "))))))
+
 
 ;;
 ;; Icons
