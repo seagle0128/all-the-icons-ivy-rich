@@ -171,8 +171,12 @@
   "Face used for process id.")
 
 (defface all-the-icons-ivy-rich-process-status-face
-  '((t :inherit font-lock-string-face))
+  '((t :inherit success))
   "Face used for process status.")
+
+(defface all-the-icons-ivy-rich-process-status-alt-face
+  '((t :inherit error))
+  "Face used for process status: stop, exit, closed and failed.")
 
 (defface all-the-icons-ivy-rich-process-buffer-face
   '((t :inherit font-lock-keyword-face))
@@ -443,7 +447,7 @@ It respects `all-the-icons-color-icons'."
      ((all-the-icons-ivy-rich-process-icon)
       (ivy-rich-candidate (:width 25))
       (all-the-icons-ivy-rich-process-id (:width 7 :face all-the-icons-ivy-rich-process-id-face))
-      (all-the-icons-ivy-rich-process-status (:width 7 :face all-the-icons-ivy-rich-process-status-face))
+      (all-the-icons-ivy-rich-process-status (:width 7))
       (all-the-icons-ivy-rich-process-buffer-name (:width 25 :face all-the-icons-ivy-rich-process-buffer-face))
       (all-the-icons-ivy-rich-process-tty-name (:width 12 :face all-the-icons-ivy-rich-process-tty-face))
       (all-the-icons-ivy-rich-process-thread (:width 12 :face all-the-icons-ivy-rich-process-thread-face))
@@ -826,7 +830,11 @@ For a network, serial, and pipe connections, return \"--\"."
   "Return process status from CANDIDATE."
   (let ((p (get-process candidate)))
     (when (processp p)
-      (symbol-name (process-status p)))))
+      (let* ((status (process-status p))
+             (face (if (memq status '(stop exit closed failed))
+                       'all-the-icons-ivy-rich-process-status-alt-face
+                     'all-the-icons-ivy-rich-process-status-face)))
+        (propertize (symbol-name status) 'face face)))))
 
 (defun all-the-icons-ivy-rich-process-buffer-name (candidate)
   "Return process buffer name from CANDIDATE.
