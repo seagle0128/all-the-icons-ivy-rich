@@ -652,10 +652,9 @@ Return `default-directory' if no project was found."
         (ffip-get-project-root-directory)))
      ((fboundp 'projectile-project-root)
       (projectile-project-root))
-     ((and (fboundp 'project-current)
-           (fboundp 'project-roots))
+     ((fboundp 'project-current)
       (when-let ((project (project-current)))
-        (car (project-roots project))))
+        (expand-file-name (cdr project))))
      (t default-directory))))
 
 (defun all-the-icons-ivy-rich--file-path (candidate)
