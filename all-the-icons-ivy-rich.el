@@ -496,6 +496,53 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    ;; project
+    project-switch-project
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (all-the-icons-ivy-rich-project-name (:width 0.4))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    project-find-file
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (all-the-icons-ivy-rich-project-find-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    project-or-external-find-file
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (all-the-icons-ivy-rich-project-find-file-transformer (:width 0.4))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    project-dired
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (all-the-icons-ivy-rich-project-name (:width 0.4))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    project-vc-dir
+    (:columns
+     ((all-the-icons-ivy-rich-file-icon)
+      (all-the-icons-ivy-rich-project-name (:width 0.4))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-id (:width 12 :face all-the-icons-ivy-rich-file-owner-face))
+      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+
     ;; package
     package-install
     (:columns
@@ -667,10 +714,10 @@ Return `default-directory' if no project was found."
   "Get the project file path of CANDIDATE."
   (expand-file-name candidate (all-the-icons-ivy-rich--project-root)))
 
-(defun all-the-icons-ivy-rich--file-transformer (candidate)
-  "Return project name from CANDIDATE."
-  (if (ivy--dirname-p candidate)
-      (propertize candidate 'face 'ivy-subdir)
+(defun all-the-icons-ivy-rich-project-find-file-transformer (candidate)
+  "Transform non-visited file names with `ivy-virtual' face."
+  (if (not (get-file-buffer (expand-file-name candidate (cdr (project-current)))))
+      (propertize candidate 'face 'ivy-virtual)
     candidate))
 
 (defun all-the-icons-ivy-rich--file-modes (file)
@@ -711,7 +758,7 @@ Return `default-directory' if no project was found."
   "Return file name from CANDIDATE when reading files.
 Display directories with different color.
 Display the true name when the file is a symlink."
-  (let* ((file (all-the-icons-ivy-rich--file-transformer candidate))
+  (let* ((file (ivy-read-file-transformer candidate))
          (path (all-the-icons-ivy-rich--file-path candidate))
          (type (unless (file-remote-p path)
                  (file-symlink-p path))))
