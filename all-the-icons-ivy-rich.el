@@ -661,6 +661,12 @@ It respects `all-the-icons-color-icons'."
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
 
+    lsp-ivy-workspace-folders-remove
+    (:columns
+     ((all-the-icons-ivy-rich-dir-icon)
+      (all-the-icons-ivy-rich-project-name (:width 0.4)))
+     :delimiter "\t")
+
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
