@@ -1003,7 +1003,7 @@ If the buffer is killed, return \"--\"."
                                             :v-adjust 0.01
                                             :face 'all-the-icons-ivy-rich-dir-face))
                ((not (string-empty-p candidate))
-                (all-the-icons-icon-for-file candidate :height 0.9 :v-adjust 0.0)))))
+                (all-the-icons-icon-for-file (file-name-nondirectory candidate) :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
