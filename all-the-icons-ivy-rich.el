@@ -195,13 +195,13 @@
   '((t :inherit all-the-icons-ivy-rich-doc-face))
   "Face used for process command.")
 
-(defface all-the-icons-ivy-rich-state-face
-  '((t :inherit success))
-  "Face used for loading status of library.")
-
 (defface all-the-icons-ivy-rich-value-face
   '((t :inherit font-lock-keyword-face))
   "Face used for variable value.")
+
+(defface all-the-icons-ivy-rich-true-face
+  '((t :inherit font-lock-builtin-face))
+  "Face used to highlight true variable values.")
 
 (defface all-the-icons-ivy-rich-null-face
   '((t :inherit font-lock-comment-face))
@@ -458,14 +458,12 @@ This value is adjusted depending on the `window-width'."
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-state (:width 8 :face all-the-icons-ivy-rich-state-face))
       (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-state (:width 8 :face all-the-icons-ivy-rich-state-face))
       (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-theme
@@ -907,23 +905,24 @@ Display the true name when the file is a symlink."
   "Return function arguments for CAND."
   (let ((sym (intern-soft cand))
         (tmp))
-    (elisp-function-argstring
-     (cond
-      ((listp (setq tmp (gethash (indirect-function sym)
-                                 advertised-signature-table t)))
-       tmp)
-      ((setq tmp (help-split-fundoc
-		          (ignore-errors (documentation sym t))
-		          sym))
-       (substitute-command-keys (car tmp)))
-      ((setq tmp (help-function-arglist sym))
-       (and
+    (or
+     (elisp-function-argstring
+      (cond
+       ((listp (setq tmp (gethash (indirect-function sym)
+                                  advertised-signature-table t)))
+        tmp)
+       ((setq tmp (help-split-fundoc
+		           (ignore-errors (documentation sym t))
+		           sym))
+        (substitute-command-keys (car tmp)))
+       ((setq tmp (help-function-arglist sym))
         (if (and (stringp tmp)
                  (string-match-p "Arg list not available" tmp))
             ;; A shorter text fits better into the
             ;; limited Marginalia space.
             "[autoload]"
-          tmp)))))))
+          tmp))))
+     "")))
 
 (defun all-the-icons-ivy-rich-variable-value (cand)
   "Return the variable value of CAND as string."
@@ -934,7 +933,7 @@ Display the true name when the file is a symlink."
      (t (let ((val (symbol-value sym)))
           (pcase val
             ('nil (propertize "nil" 'face 'all-the-icons-ivy-rich-null-face))
-            ('t (propertize "t" 'face 'marginalia-true))
+            ('t (propertize "t" 'face 'all-the-icons-ivy-rich-true-face))
             ((pred keymapp) (propertize "#<keymap>" 'face 'all-the-icons-ivy-rich-value-face))
             ((pred bool-vector-p) (propertize "#<bool-vector>" 'face 'all-the-icons-ivy-rich-value-face))
             ((pred hash-table-p) (propertize "#<hash-table>" 'face 'all-the-icons-ivy-rich-value-face))
@@ -1066,20 +1065,13 @@ If the buffer is killed, return \"--\"."
 ;; Support `counsel-find-library' and `counsel-load-library'
 (defun all-the-icons-ivy-rich-library-transformer (cand)
   "Return library name for CAND."
-  (when-let (sym (intern-soft cand))
-    (if (featurep sym)
-        cand
-      (propertize cand 'face 'ivy-virtual))))
-
-(defun all-the-icons-ivy-rich-library-state (cand)
-  "Return library state for CAND."
-  (when-let (sym (intern-soft cand))
-    (if (featurep sym) "loaded" "")))
+  (if (featurep (intern-soft cand))
+      cand
+    (propertize cand 'face 'ivy-virtual)))
 
 (defun all-the-icons-ivy-rich-library-path (cand)
   "Return library path for CAND."
   (abbreviate-file-name (find-library-name cand)))
-
 
 ;;
 ;; Icons
