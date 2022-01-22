@@ -918,8 +918,6 @@ Display the true name when the file is a symlink."
        ((setq tmp (help-function-arglist sym))
         (if (and (stringp tmp)
                  (string-match-p "Arg list not available" tmp))
-            ;; A shorter text fits better into the
-            ;; limited Marginalia space.
             "[autoload]"
           tmp))))
      "")))
