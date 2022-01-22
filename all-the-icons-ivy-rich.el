@@ -58,6 +58,7 @@
 (defvar ivy--directory)
 (defvar ivy-last)
 (defvar ivy-posframe-buffer)
+(declare-function find-library-name 'find-func)
 (declare-function ivy-posframe--display 'ivy-posframe)
 
 ;; Compatibility
@@ -193,6 +194,10 @@
 (defface all-the-icons-ivy-rich-process-command-face
   '((t :inherit all-the-icons-ivy-rich-doc-face))
   "Face used for process command.")
+
+(defface all-the-icons-ivy-rich-state-face
+  '((t :inherit success))
+  "Face used for loading status of library.")
 
 (defcustom all-the-icons-ivy-rich-icon t
   "Whether display the icons."
@@ -415,12 +420,16 @@ It respects `all-the-icons-color-icons'."
     counsel-find-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
-      (ivy-rich-candidate))
+      (all-the-icons-ivy-rich-library-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-library-state (:width 8 :face all-the-icons-ivy-rich-state-face))
+      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
-      (ivy-rich-candidate))
+      (all-the-icons-ivy-rich-library-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-library-state (:width 8 :face all-the-icons-ivy-rich-state-face))
+      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-theme
     (:columns
@@ -710,21 +719,21 @@ Return `default-directory' if no project was found."
         (expand-file-name (cdr project))))
      (t default-directory))))
 
-(defun all-the-icons-ivy-rich--file-path (candidate)
+(defun all-the-icons-ivy-rich--file-path (cand)
   "Get the file path of CANDIDATE."
   (if (eq (ivy-state-caller ivy-last) 'counsel-fzf)
-      (expand-file-name candidate counsel--fzf-dir)
-    (expand-file-name candidate ivy--directory)))
+      (expand-file-name cand counsel--fzf-dir)
+    (expand-file-name cand ivy--directory)))
 
-(defun all-the-icons-ivy-rich--project-file-path (candidate)
+(defun all-the-icons-ivy-rich--project-file-path (cand)
   "Get the project file path of CANDIDATE."
-  (expand-file-name candidate (all-the-icons-ivy-rich--project-root)))
+  (expand-file-name cand (all-the-icons-ivy-rich--project-root)))
 
-(defun all-the-icons-ivy-rich-project-find-file-transformer (candidate)
+(defun all-the-icons-ivy-rich-project-find-file-transformer (cand)
   "Transform non-visited file names with `ivy-virtual' face."
-  (if (not (get-file-buffer (expand-file-name candidate (cdr (project-current)))))
-      (propertize candidate 'face 'ivy-virtual)
-    candidate))
+  (if (not (get-file-buffer (expand-file-name cand (cdr (project-current)))))
+      (propertize cand 'face 'ivy-virtual)
+    cand))
 
 (defun all-the-icons-ivy-rich--file-modes (file)
   "Return FILE modes."
@@ -760,12 +769,12 @@ Return `default-directory' if no project was found."
        (file-attribute-modification-time (file-attributes file))))))
 
 ;; Support `counsel-find-file', `counsel-dired', etc.
-(defun all-the-icons-ivy-rich-file-name (candidate)
-  "Return file name from CANDIDATE when reading files.
+(defun all-the-icons-ivy-rich-file-name (cand)
+  "Return file name from CAND when reading files.
 Display directories with different color.
 Display the true name when the file is a symlink."
-  (let* ((file (ivy-read-file-transformer candidate))
-         (path (all-the-icons-ivy-rich--file-path candidate))
+  (let* ((file (ivy-read-file-transformer cand))
+         (path (all-the-icons-ivy-rich--file-path cand))
          (type (unless (file-remote-p path)
                  (file-symlink-p path))))
     (if (stringp type)
@@ -774,113 +783,113 @@ Display the true name when the file is a symlink."
                             'face 'all-the-icons-ivy-rich-doc-face))
       file)))
 
-(defun all-the-icons-ivy-rich-file-modes (candidate)
+(defun all-the-icons-ivy-rich-file-modes (cand)
   "Return file modes from CANDIDATE."
   (all-the-icons-ivy-rich--file-modes
-   (all-the-icons-ivy-rich--file-path candidate)))
+   (all-the-icons-ivy-rich--file-path cand)))
 
-(defun all-the-icons-ivy-rich-file-id (candidate)
+(defun all-the-icons-ivy-rich-file-id (cand)
   "Return file uid/gid from CANDIDATE."
   (all-the-icons-ivy-rich--file-id
-   (all-the-icons-ivy-rich--file-path candidate)))
+   (all-the-icons-ivy-rich--file-path cand)))
 
-(defun all-the-icons-ivy-rich-file-size (candidate)
+(defun all-the-icons-ivy-rich-file-size (cand)
   "Return file size from CANDIDATE."
   (all-the-icons-ivy-rich--file-size
-   (all-the-icons-ivy-rich--file-path candidate)))
+   (all-the-icons-ivy-rich--file-path cand)))
 
-(defun all-the-icons-ivy-rich-file-modification-time (candidate)
+(defun all-the-icons-ivy-rich-file-modification-time (cand)
   "Return file modification time from CANDIDATE."
   (all-the-icons-ivy-rich--file-modification-time
-   (all-the-icons-ivy-rich--file-path candidate)))
+   (all-the-icons-ivy-rich--file-path cand)))
 
 ;; Support `counsel-projectile-find-file', `counsel-projectile-dired', etc.
-(defun all-the-icons-ivy-rich-project-name (candidate)
+(defun all-the-icons-ivy-rich-project-name (cand)
   "Return project name from CANDIDATE."
-  (if (or (ivy--dirname-p candidate)
-          (file-directory-p (all-the-icons-ivy-rich--file-path candidate)))
-      (propertize candidate 'face 'ivy-subdir)
-    candidate))
+  (if (or (ivy--dirname-p cand)
+          (file-directory-p (all-the-icons-ivy-rich--file-path cand)))
+      (propertize cand 'face 'ivy-subdir)
+    cand))
 
-(defun all-the-icons-ivy-rich-project-file-modes (candidate)
+(defun all-the-icons-ivy-rich-project-file-modes (cand)
   "Return file modes from CANDIDATE."
   (all-the-icons-ivy-rich--file-modes
-   (all-the-icons-ivy-rich--project-file-path candidate)))
+   (all-the-icons-ivy-rich--project-file-path cand)))
 
-(defun all-the-icons-ivy-rich-project-file-id (candidate)
+(defun all-the-icons-ivy-rich-project-file-id (cand)
   "Return file uid/gid from CANDIDATE."
   (all-the-icons-ivy-rich--file-id
-   (all-the-icons-ivy-rich--project-file-path candidate)))
+   (all-the-icons-ivy-rich--project-file-path cand)))
 
-(defun all-the-icons-ivy-rich-project-file-size (candidate)
+(defun all-the-icons-ivy-rich-project-file-size (cand)
   "Return file size from CANDIDATE."
   (all-the-icons-ivy-rich--file-size
-   (all-the-icons-ivy-rich--project-file-path candidate)))
+   (all-the-icons-ivy-rich--project-file-path cand)))
 
-(defun all-the-icons-ivy-rich-project-file-modification-time (candidate)
+(defun all-the-icons-ivy-rich-project-file-modification-time (cand)
   "Return file modification time from CANDIDATE."
   (all-the-icons-ivy-rich--file-modification-time
-   (all-the-icons-ivy-rich--project-file-path candidate)))
+   (all-the-icons-ivy-rich--project-file-path cand)))
 
 ;; Support `counsel-bookmark'
-(defun all-the-icons-ivy-rich-bookmark-name (candidate)
+(defun all-the-icons-ivy-rich-bookmark-name (cand)
   "Return bookmark name from CANDIDATE."
-  (car (assoc candidate bookmark-alist)))
+  (car (assoc cand bookmark-alist)))
 
-(defun all-the-icons-ivy-rich-bookmark-info (candidate)
+(defun all-the-icons-ivy-rich-bookmark-info (cand)
   "Return bookmark name from CANDIDATE."
-  (let ((file (ivy-rich-bookmark-filename candidate)))
+  (let ((file (ivy-rich-bookmark-filename cand)))
     (cond
      ((null file) "")
      ((file-remote-p file) file)
      (t file))))
 
 ;; Support `counsel-package'
-(defun all-the-icons-ivy-rich-package-install-summary (candidate)
+(defun all-the-icons-ivy-rich-package-install-summary (cand)
   "Return package install summary from CANDIDATE. Used for `counsel-package'."
-  (ivy-rich-package-install-summary (substring candidate 1)))
+  (ivy-rich-package-install-summary (substring cand 1)))
 
-(defun all-the-icons-ivy-rich-package-archive-summary (candidate)
+(defun all-the-icons-ivy-rich-package-archive-summary (cand)
   "Return package archive summary from CANDIDATE. Used for `counsel-package'."
-  (ivy-rich-package-archive-summary (substring candidate 1)))
+  (ivy-rich-package-archive-summary (substring cand 1)))
 
-(defun all-the-icons-ivy-rich-package-version (candidate)
+(defun all-the-icons-ivy-rich-package-version (cand)
   "Return package version from CANDIDATE. Used for `counsel-package'."
-  (ivy-rich-package-version (substring candidate 1)))
+  (ivy-rich-package-version (substring cand 1)))
 
 ;; Support `counsel-describe-face'
-(defun all-the-icons-ivy-rich-counsel-face-docstring (candidate)
+(defun all-the-icons-ivy-rich-counsel-face-docstring (cand)
   "Return face's documentation from CANDIDATE."
-  (let ((doc (face-doc-string (intern-soft candidate))))
+  (let ((doc (face-doc-string (intern-soft cand))))
     (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
         (setq doc (match-string 1 doc))
       "")))
 
 ;; Support `counsel-describe-symbol', `counsel-info-lookup-symbol' and `counsel-apropos'
-(defun all-the-icons-ivy-rich-counsel-symbol-docstring (candidate)
+(defun all-the-icons-ivy-rich-counsel-symbol-docstring (cand)
   "Return symbol's documentation from CANDIDATE."
-  (let ((symbol (intern-soft candidate)))
+  (let ((symbol (intern-soft cand)))
     (cond
      ((fboundp symbol)
-      (ivy-rich-counsel-function-docstring candidate))
+      (ivy-rich-counsel-function-docstring cand))
      ((facep symbol)
-      (all-the-icons-ivy-rich-counsel-face-docstring candidate))
+      (all-the-icons-ivy-rich-counsel-face-docstring cand))
      ((and (boundp symbol) (not (keywordp symbol)))
-      (ivy-rich-counsel-variable-docstring candidate))
+      (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
 
 ;; Support `counsel-list-processes'
-(defun all-the-icons-ivy-rich-process-id (candidate)
+(defun all-the-icons-ivy-rich-process-id (cand)
   "Return process id from CANDIDATE.
 
 For a network, serial, and pipe connections, return \"--\"."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (format "%s" (or (process-id p) "--")))))
 
-(defun all-the-icons-ivy-rich-process-status (candidate)
+(defun all-the-icons-ivy-rich-process-status (cand)
   "Return process status from CANDIDATE."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (let* ((status (process-status p))
              (face (if (memq status '(stop exit closed failed))
@@ -888,26 +897,26 @@ For a network, serial, and pipe connections, return \"--\"."
                      'all-the-icons-ivy-rich-process-status-face)))
         (propertize (symbol-name status) 'face face)))))
 
-(defun all-the-icons-ivy-rich-process-buffer-name (candidate)
+(defun all-the-icons-ivy-rich-process-buffer-name (cand)
   "Return process buffer name from CANDIDATE.
 
 If the buffer is killed, return \"--\"."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (let ((buf (process-buffer p)))
         (if (buffer-live-p buf)
 		    (buffer-name buf)
 		  "--")))))
 
-(defun all-the-icons-ivy-rich-process-tty-name (candidate)
+(defun all-the-icons-ivy-rich-process-tty-name (cand)
   "Return the name of the terminal process uses from CANDIDATE."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (or (process-tty-name p) "--"))))
 
-(defun all-the-icons-ivy-rich-process-thread (candidate)
+(defun all-the-icons-ivy-rich-process-thread (cand)
   "Return process thread from CANDIDATE."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (cond
        ((or
@@ -917,9 +926,9 @@ If the buffer is killed, return \"--\"."
 	   ((thread-name (process-thread p)))
 	   (t "--")))))
 
-(defun all-the-icons-ivy-rich-process-command (candidate)
+(defun all-the-icons-ivy-rich-process-command (cand)
   "Return process command from CANDIDATE."
-  (let ((p (get-process candidate)))
+  (let ((p (get-process cand)))
     (when (processp p)
       (let ((type (process-type p)))
         (if (memq type '(network serial pipe))
@@ -948,6 +957,23 @@ If the buffer is killed, return \"--\"."
 					          (format " at %s b/s" speed)
 				            "")))))
 		  (mapconcat 'identity (process-command p) " "))))))
+
+;; Support `counsel-find-library' and `counsel-load-library'
+(defun all-the-icons-ivy-rich-library-transformer (cand)
+  "Return library name for CAND."
+  (when-let (sym (intern-soft cand))
+    (if (featurep sym)
+        cand
+      (propertize cand 'face 'ivy-virtual))))
+
+(defun all-the-icons-ivy-rich-library-state (cand)
+  "Return library state for CAND."
+  (when-let (sym (intern-soft cand))
+    (if (featurep sym) "loaded" "")))
+
+(defun all-the-icons-ivy-rich-library-path (cand)
+  "Return library path for CAND."
+  (abbreviate-file-name (find-library-name cand)))
 
 
 ;;
@@ -983,27 +1009,27 @@ If the buffer is killed, return \"--\"."
                                :height ,all-the-icons-ivy-rich-icon-size)))
               (propertize icon 'face new-face)))))
 
-(defun all-the-icons-ivy-rich-buffer-icon (candidate)
-  "Display buffer icon from CANDIDATE in `ivy-rich'."
-  (let ((icon (with-current-buffer (get-buffer candidate)
+(defun all-the-icons-ivy-rich-buffer-icon (cand)
+  "Display buffer icon from CAND in `ivy-rich'."
+  (let ((icon (with-current-buffer (get-buffer cand)
                 (if (eq major-mode 'dired-mode)
-                    (all-the-icons-icon-for-dir candidate :face 'all-the-icons-ivy-rich-dir-face)
+                    (all-the-icons-icon-for-dir cand :face 'all-the-icons-ivy-rich-dir-face)
                   (all-the-icons-icon-for-buffer)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
        (propertize icon 'display '(raise 0.0))))))
 
-(defun all-the-icons-ivy-rich-file-icon (candidate)
-  "Display file icon from CANDIDATE in `ivy-rich'."
+(defun all-the-icons-ivy-rich-file-icon (cand)
+  "Display file icon from CAND in `ivy-rich'."
   (let ((icon (cond
-               ((ivy--dirname-p candidate)
-                (all-the-icons-icon-for-dir candidate
+               ((ivy--dirname-p cand)
+                (all-the-icons-icon-for-dir cand
                                             :height 0.9
                                             :v-adjust 0.01
                                             :face 'all-the-icons-ivy-rich-dir-face))
-               ((not (string-empty-p candidate))
-                (all-the-icons-icon-for-file (file-name-nondirectory candidate) :height 0.9 :v-adjust 0.0)))))
+               ((not (string-empty-p cand))
+                (all-the-icons-icon-for-file (file-name-nondirectory cand) :height 0.9 :v-adjust 0.0)))))
     (all-the-icons-ivy-rich--format-icon
      (if (or (null icon) (symbolp icon))
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
@@ -1019,17 +1045,17 @@ If the buffer is killed, return \"--\"."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)))
 
-(defun all-the-icons-ivy-rich-function-icon (candidate)
+(defun all-the-icons-ivy-rich-function-icon (cand)
   "Display function icon in `ivy-rich'."
-  (if (commandp (intern candidate))
+  (if (commandp (intern cand))
       (all-the-icons-ivy-rich--format-icon
        (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))))
 
-(defun all-the-icons-ivy-rich-variable-icon (candidate)
+(defun all-the-icons-ivy-rich-variable-icon (cand)
   "Display the variable icon in `ivy-rich'."
-  (if (custom-variable-p (intern candidate))
+  (if (custom-variable-p (intern cand))
       (all-the-icons-ivy-rich--format-icon
        (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
     (all-the-icons-ivy-rich--format-icon
@@ -1040,24 +1066,24 @@ If the buffer is killed, return \"--\"."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-blue)))
 
-(defun all-the-icons-ivy-rich-symbol-icon (candidate)
+(defun all-the-icons-ivy-rich-symbol-icon (cand)
   "Display the symbol icon in `ivy-rich'."
-  (let ((sym (intern candidate)))
+  (let ((sym (intern cand)))
     (cond
      ((functionp sym)
-      (all-the-icons-ivy-rich-function-icon candidate))
+      (all-the-icons-ivy-rich-function-icon cand))
      ((facep sym)
-      (all-the-icons-ivy-rich-face-icon candidate))
+      (all-the-icons-ivy-rich-face-icon cand))
      ((symbolp sym)
-      (all-the-icons-ivy-rich-variable-icon candidate))
+      (all-the-icons-ivy-rich-variable-icon cand))
      (t (all-the-icons-ivy-rich--format-icon
          (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))))
 
-(defun all-the-icons-ivy-rich-company-icon (candidate)
+(defun all-the-icons-ivy-rich-company-icon (cand)
   "Display the symbol icon of company in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (if (fboundp 'company-box--get-icon)
-       (company-box--get-icon candidate)
+       (company-box--get-icon cand)
      (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-theme-icon (_candidate)
@@ -1105,39 +1131,39 @@ If the buffer is killed, return \"--\"."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-imenu-icon (candidate)
-  "Display the imenu icon from CANDIDATE in `ivy-rich'."
+(defun all-the-icons-ivy-rich-imenu-icon (cand)
+  "Display the imenu icon from CAND in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (let ((case-fold-search nil))
      (cond
-      ((string-match-p "Type Parameters?[:)]" candidate)
+      ((string-match-p "Type Parameters?[:)]" cand)
        (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
-      ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" candidate)
+      ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
        (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
-      ((string-match-p "Constants?[:)]" candidate)
+      ((string-match-p "Constants?[:)]" cand)
        (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
-      ((string-match-p "Enum\\(erations?\\)?[:)]" candidate)
+      ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
        (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
-      ((string-match-p "References?[:)]" candidate)
+      ((string-match-p "References?[:)]" cand)
        (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
-      ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" candidate)
+      ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" cand)
        (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
-      ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" candidate)
+      ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" cand)
        (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
-      ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" candidate)
+      ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" cand)
        (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
-      ((string-match-p "Interfaces?[:)]" candidate)
+      ((string-match-p "Interfaces?[:)]" cand)
        (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
-      ((string-match-p "Modules?[:)]" candidate)
+      ((string-match-p "Modules?[:)]" cand)
        (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
-      ((string-match-p "Packages?[:)]" candidate)
+      ((string-match-p "Packages?[:)]" cand)
        (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
       (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))
 
-(defun all-the-icons-ivy-rich-bookmark-icon (candidate)
+(defun all-the-icons-ivy-rich-bookmark-icon (cand)
   "Return bookmark type from CANDIDATE."
   (all-the-icons-ivy-rich--format-icon
-   (let ((file (ivy-rich-bookmark-filename candidate)))
+   (let ((file (ivy-rich-bookmark-filename cand)))
      (cond
       ((null file)
        (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
