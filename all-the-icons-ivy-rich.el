@@ -315,13 +315,14 @@ This value is adjusted depending on the `window-width'."
     counsel-describe-function
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-describe-function-transformer (:width 0.3))
+      (counsel-describe-function-transformer (:width 0.25))
+      (all-the-icons-ivy-rich-function-args (:width 0.15 :face all-the-icons-ivy-rich-value-face))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-variable-value (:width 0.12))
+      (counsel-describe-variable-transformer (:width 0.25))
+      (all-the-icons-ivy-rich-variable-value (:width 0.15))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-symbol
     (:columns
@@ -901,7 +902,29 @@ Display the true name when the file is a symlink."
         (setq doc (match-string 1 doc))
       "")))
 
-;; Support `counsel-describe-function', `counsel-describe-variable' and `counsel-describe-symbol'
+;; Support `counsel-describe-function'and `counsel-describe-variable'
+(defun all-the-icons-ivy-rich-function-args (cand)
+  "Return function arguments for CAND."
+  (let ((sym (intern-soft cand))
+        (tmp))
+    (elisp-function-argstring
+     (cond
+      ((listp (setq tmp (gethash (indirect-function sym)
+                                 advertised-signature-table t)))
+       tmp)
+      ((setq tmp (help-split-fundoc
+		          (ignore-errors (documentation sym t))
+		          sym))
+       (substitute-command-keys (car tmp)))
+      ((setq tmp (help-function-arglist sym))
+       (and
+        (if (and (stringp tmp)
+                 (string-match-p "Arg list not available" tmp))
+            ;; A shorter text fits better into the
+            ;; limited Marginalia space.
+            "[autoload]"
+          tmp)))))))
+
 (defun all-the-icons-ivy-rich-variable-value (cand)
   "Return the variable value of CAND as string."
   (let ((sym (intern-soft cand)))
