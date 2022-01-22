@@ -199,6 +199,34 @@
   '((t :inherit success))
   "Face used for loading status of library.")
 
+(defface all-the-icons-ivy-rich-value-face
+  '((t :inherit font-lock-keyword-face))
+  "Face used for variable value.")
+
+(defface all-the-icons-ivy-rich-null-face
+  '((t :inherit font-lock-comment-face))
+  "Face used to highlight null or unbound variable values.")
+
+(defface all-the-icons-ivy-rich-list-face
+  '((t :inherit font-lock-constant-face))
+  "Face used to highlight list expressions.")
+
+(defface all-the-icons-ivy-rich-number-face
+  '((t :inherit font-lock-constant-face))
+  "Face used to highlight numeric values.")
+
+(defface all-the-icons-ivy-rich-string-face
+  '((t :inherit font-lock-string-face))
+  "Face used to highlight string values.")
+
+(defface all-the-icons-ivy-rich-function-face
+  '((t :inherit font-lock-function-name-face))
+  "Face used to highlight function symbols.")
+
+(defface all-the-icons-ivy-rich-symbol-face
+  '((t :inherit font-lock-type-face))
+  "Face used to highlight general symbols.")
+
 (defcustom all-the-icons-ivy-rich-icon t
   "Whether display the icons."
   :group 'all-the-icons-ivy-rich
@@ -214,12 +242,19 @@ It respects `all-the-icons-color-icons'."
 (defcustom all-the-icons-ivy-rich-icon-size 1.0
   "The default icon size in ivy."
   :group 'all-the-icons-ivy-rich
-  :type 'number)
+  :type 'float)
 
 (defcustom all-the-icons-ivy-rich-project t
   "Whether support project root."
   :group 'all-the-icons-ivy-rich
   :type 'boolean)
+
+(defcustom all-the-icons-ivy-rich-field-width 80
+  "Maximum truncation width of annotation fields.
+
+This value is adjusted depending on the `window-width'."
+  :group 'all-the-icons-ivy-rich
+  :type 'integer)
 
 (defcustom all-the-icons-ivy-rich-display-transformers-list
   '(ivy-switch-buffer
@@ -286,6 +321,7 @@ It respects `all-the-icons-color-icons'."
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-variable-value (:width 0.12))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-symbol
     (:columns
@@ -720,13 +756,13 @@ Return `default-directory' if no project was found."
      (t default-directory))))
 
 (defun all-the-icons-ivy-rich--file-path (cand)
-  "Get the file path of CANDIDATE."
+  "Get the file path of CAND."
   (if (eq (ivy-state-caller ivy-last) 'counsel-fzf)
       (expand-file-name cand counsel--fzf-dir)
     (expand-file-name cand ivy--directory)))
 
 (defun all-the-icons-ivy-rich--project-file-path (cand)
-  "Get the project file path of CANDIDATE."
+  "Get the project file path of CAND."
   (expand-file-name cand (all-the-icons-ivy-rich--project-root)))
 
 (defun all-the-icons-ivy-rich-project-find-file-transformer (cand)
@@ -743,7 +779,7 @@ Return `default-directory' if no project was found."
    (t (file-attribute-modes (file-attributes file)))))
 
 (defun all-the-icons-ivy-rich--file-id (path)
-  "Return file uid/gid from CANDIDATE."
+  "Return file uid/gid for CAND."
   (cond
    ((file-remote-p path) "")
    ((not (file-exists-p path)) "")
@@ -770,7 +806,7 @@ Return `default-directory' if no project was found."
 
 ;; Support `counsel-find-file', `counsel-dired', etc.
 (defun all-the-icons-ivy-rich-file-name (cand)
-  "Return file name from CAND when reading files.
+  "Return file name for CAND when reading files.
 Display directories with different color.
 Display the true name when the file is a symlink."
   (let* ((file (ivy-read-file-transformer cand))
@@ -784,60 +820,60 @@ Display the true name when the file is a symlink."
       file)))
 
 (defun all-the-icons-ivy-rich-file-modes (cand)
-  "Return file modes from CANDIDATE."
+  "Return file modes for CAND."
   (all-the-icons-ivy-rich--file-modes
    (all-the-icons-ivy-rich--file-path cand)))
 
 (defun all-the-icons-ivy-rich-file-id (cand)
-  "Return file uid/gid from CANDIDATE."
+  "Return file uid/gid for CAND."
   (all-the-icons-ivy-rich--file-id
    (all-the-icons-ivy-rich--file-path cand)))
 
 (defun all-the-icons-ivy-rich-file-size (cand)
-  "Return file size from CANDIDATE."
+  "Return file size for CAND."
   (all-the-icons-ivy-rich--file-size
    (all-the-icons-ivy-rich--file-path cand)))
 
 (defun all-the-icons-ivy-rich-file-modification-time (cand)
-  "Return file modification time from CANDIDATE."
+  "Return file modification time for CAND."
   (all-the-icons-ivy-rich--file-modification-time
    (all-the-icons-ivy-rich--file-path cand)))
 
 ;; Support `counsel-projectile-find-file', `counsel-projectile-dired', etc.
 (defun all-the-icons-ivy-rich-project-name (cand)
-  "Return project name from CANDIDATE."
+  "Return project name for CAND."
   (if (or (ivy--dirname-p cand)
           (file-directory-p (all-the-icons-ivy-rich--file-path cand)))
       (propertize cand 'face 'ivy-subdir)
     cand))
 
 (defun all-the-icons-ivy-rich-project-file-modes (cand)
-  "Return file modes from CANDIDATE."
+  "Return file modes for CAND."
   (all-the-icons-ivy-rich--file-modes
    (all-the-icons-ivy-rich--project-file-path cand)))
 
 (defun all-the-icons-ivy-rich-project-file-id (cand)
-  "Return file uid/gid from CANDIDATE."
+  "Return file uid/gid for CAND."
   (all-the-icons-ivy-rich--file-id
    (all-the-icons-ivy-rich--project-file-path cand)))
 
 (defun all-the-icons-ivy-rich-project-file-size (cand)
-  "Return file size from CANDIDATE."
+  "Return file size for CAND."
   (all-the-icons-ivy-rich--file-size
    (all-the-icons-ivy-rich--project-file-path cand)))
 
 (defun all-the-icons-ivy-rich-project-file-modification-time (cand)
-  "Return file modification time from CANDIDATE."
+  "Return file modification time for CAND."
   (all-the-icons-ivy-rich--file-modification-time
    (all-the-icons-ivy-rich--project-file-path cand)))
 
 ;; Support `counsel-bookmark'
 (defun all-the-icons-ivy-rich-bookmark-name (cand)
-  "Return bookmark name from CANDIDATE."
+  "Return bookmark name for CAND."
   (car (assoc cand bookmark-alist)))
 
 (defun all-the-icons-ivy-rich-bookmark-info (cand)
-  "Return bookmark name from CANDIDATE."
+  "Return bookmark name for CAND."
   (let ((file (ivy-rich-bookmark-filename cand)))
     (cond
      ((null file) "")
@@ -846,28 +882,74 @@ Display the true name when the file is a symlink."
 
 ;; Support `counsel-package'
 (defun all-the-icons-ivy-rich-package-install-summary (cand)
-  "Return package install summary from CANDIDATE. Used for `counsel-package'."
+  "Return package install summary for CAND. Used for `counsel-package'."
   (ivy-rich-package-install-summary (substring cand 1)))
 
 (defun all-the-icons-ivy-rich-package-archive-summary (cand)
-  "Return package archive summary from CANDIDATE. Used for `counsel-package'."
+  "Return package archive summary for CAND. Used for `counsel-package'."
   (ivy-rich-package-archive-summary (substring cand 1)))
 
 (defun all-the-icons-ivy-rich-package-version (cand)
-  "Return package version from CANDIDATE. Used for `counsel-package'."
+  "Return package version for CAND. Used for `counsel-package'."
   (ivy-rich-package-version (substring cand 1)))
 
 ;; Support `counsel-describe-face'
 (defun all-the-icons-ivy-rich-counsel-face-docstring (cand)
-  "Return face's documentation from CANDIDATE."
+  "Return face's documentation for CAND."
   (let ((doc (face-doc-string (intern-soft cand))))
     (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
         (setq doc (match-string 1 doc))
       "")))
 
+;; Support `counsel-describe-function', `counsel-describe-variable' and `counsel-describe-symbol'
+(defun all-the-icons-ivy-rich-variable-value (cand)
+  "Return the variable value of CAND as string."
+  (let ((sym (intern-soft cand)))
+    (cond
+     ((not (boundp sym))
+      (propertize "#<unbound>" 'face 'all-the-icons-ivy-rich-null-face))
+     (t (let ((val (symbol-value sym)))
+          (pcase val
+            ('nil (propertize "nil" 'face 'all-the-icons-ivy-rich-null-face))
+            ('t (propertize "t" 'face 'marginalia-true))
+            ((pred keymapp) (propertize "#<keymap>" 'face 'all-the-icons-ivy-rich-value-face))
+            ((pred bool-vector-p) (propertize "#<bool-vector>" 'face 'all-the-icons-ivy-rich-value-face))
+            ((pred hash-table-p) (propertize "#<hash-table>" 'face 'all-the-icons-ivy-rich-value-face))
+            ((pred syntax-table-p) (propertize "#<syntax-table>" 'face 'all-the-icons-ivy-rich-value-face))
+            ;; Emacs BUG: abbrev-table-p throws an error
+            ((guard (ignore-errors (abbrev-table-p val))) (propertize "#<abbrev-table>" 'face 'all-the-icons-ivy-rich-value-face))
+            ((pred char-table-p) (propertize "#<char-table>" 'face 'all-the-icons-ivy-rich-value-face))
+            ((pred byte-code-function-p) (propertize "#<byte-code-function>" 'face 'all-the-icons-ivy-rich-function-face))
+            ((and (pred functionp) (pred symbolp))
+             ;; NOTE: We are not consistent here, values are generally printed unquoted. But we
+             ;; make an exception for function symbols to visually distinguish them from symbols.
+             ;; I am not entirely happy with this, but we should not add quotation to every type.
+             (format (propertize "#'%s" 'face 'all-the-icons-ivy-rich-function-face) val))
+            ((pred recordp) (format (propertize "#<record %s>" 'face 'all-the-icons-ivy-rich-value-face) (type-of val)))
+            ((pred symbolp) (propertize (symbol-name val) 'face 'all-the-icons-ivy-rich-symbol-face))
+            ((pred numberp) (propertize (number-to-string val) 'face 'all-the-icons-ivy-rich-number-face))
+            (_ (let ((print-escape-newlines t)
+                     (print-escape-control-characters t)
+                     (print-escape-multibyte t)
+                     (print-level 10)
+                     (print-length all-the-icons-ivy-rich-field-width))
+                 (propertize
+                  (prin1-to-string
+                   (if (stringp val)
+                       ;; Get rid of string properties to save some of the precious space
+                       (substring-no-properties
+                        val 0
+                        (min (length val) all-the-icons-ivy-rich-field-width))
+                     val))
+                  'face
+                  (cond
+                   ((listp val) 'all-the-icons-ivy-rich-list-face)
+                   ((stringp val) 'all-the-icons-ivy-rich-string-face)
+                   (t 'all-the-icons-ivy-rich-value-face)))))))))))
+
 ;; Support `counsel-describe-symbol', `counsel-info-lookup-symbol' and `counsel-apropos'
 (defun all-the-icons-ivy-rich-counsel-symbol-docstring (cand)
-  "Return symbol's documentation from CANDIDATE."
+  "Return symbol's documentation for CAND."
   (let ((symbol (intern-soft cand)))
     (cond
      ((fboundp symbol)
@@ -880,7 +962,7 @@ Display the true name when the file is a symlink."
 
 ;; Support `counsel-list-processes'
 (defun all-the-icons-ivy-rich-process-id (cand)
-  "Return process id from CANDIDATE.
+  "Return process id for CAND.
 
 For a network, serial, and pipe connections, return \"--\"."
   (let ((p (get-process cand)))
@@ -888,7 +970,7 @@ For a network, serial, and pipe connections, return \"--\"."
       (format "%s" (or (process-id p) "--")))))
 
 (defun all-the-icons-ivy-rich-process-status (cand)
-  "Return process status from CANDIDATE."
+  "Return process status for CAND."
   (let ((p (get-process cand)))
     (when (processp p)
       (let* ((status (process-status p))
@@ -898,7 +980,7 @@ For a network, serial, and pipe connections, return \"--\"."
         (propertize (symbol-name status) 'face face)))))
 
 (defun all-the-icons-ivy-rich-process-buffer-name (cand)
-  "Return process buffer name from CANDIDATE.
+  "Return process buffer name for CAND.
 
 If the buffer is killed, return \"--\"."
   (let ((p (get-process cand)))
@@ -909,13 +991,13 @@ If the buffer is killed, return \"--\"."
 		  "--")))))
 
 (defun all-the-icons-ivy-rich-process-tty-name (cand)
-  "Return the name of the terminal process uses from CANDIDATE."
+  "Return the name of the terminal process uses for CAND."
   (let ((p (get-process cand)))
     (when (processp p)
       (or (process-tty-name p) "--"))))
 
 (defun all-the-icons-ivy-rich-process-thread (cand)
-  "Return process thread from CANDIDATE."
+  "Return process thread for CAND."
   (let ((p (get-process cand)))
     (when (processp p)
       (cond
@@ -927,7 +1009,7 @@ If the buffer is killed, return \"--\"."
 	   (t "--")))))
 
 (defun all-the-icons-ivy-rich-process-command (cand)
-  "Return process command from CANDIDATE."
+  "Return process command for CAND."
   (let ((p (get-process cand)))
     (when (processp p)
       (let ((type (process-type p)))
@@ -1010,7 +1092,7 @@ If the buffer is killed, return \"--\"."
               (propertize icon 'face new-face)))))
 
 (defun all-the-icons-ivy-rich-buffer-icon (cand)
-  "Display buffer icon from CAND in `ivy-rich'."
+  "Display buffer icon for CAND in `ivy-rich'."
   (let ((icon (with-current-buffer (get-buffer cand)
                 (if (eq major-mode 'dired-mode)
                     (all-the-icons-icon-for-dir cand :face 'all-the-icons-ivy-rich-dir-face)
@@ -1021,7 +1103,7 @@ If the buffer is killed, return \"--\"."
        (propertize icon 'display '(raise 0.0))))))
 
 (defun all-the-icons-ivy-rich-file-icon (cand)
-  "Display file icon from CAND in `ivy-rich'."
+  "Display file icon for CAND in `ivy-rich'."
   (let ((icon (cond
                ((ivy--dirname-p cand)
                 (all-the-icons-icon-for-dir cand
@@ -1132,7 +1214,7 @@ If the buffer is killed, return \"--\"."
    (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
-  "Display the imenu icon from CAND in `ivy-rich'."
+  "Display the imenu icon for CAND in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (let ((case-fold-search nil))
      (cond
@@ -1161,7 +1243,7 @@ If the buffer is killed, return \"--\"."
       (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))
 
 (defun all-the-icons-ivy-rich-bookmark-icon (cand)
-  "Return bookmark type from CANDIDATE."
+  "Return bookmark type for CAND."
   (all-the-icons-ivy-rich--format-icon
    (let ((file (ivy-rich-bookmark-filename cand)))
      (cond
