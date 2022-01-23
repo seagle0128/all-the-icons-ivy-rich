@@ -532,7 +532,7 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (ivy-rich-candidate))
+      (all-the-icons-ivy-rich-counsel-imenu-transformer))
      :delimiter "\t")
     counsel-company
     (:columns
@@ -1001,6 +1001,13 @@ Display the true name when the file is a symlink."
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
 
+;; Support `counsel-imenu'
+(defun all-the-icons-ivy-rich-counsel-imenu-transformer (cand)
+  "Return prettified imenu for CAND."
+  ;; Remove the types
+  (let ((str (split-string cand ": ")))
+    (or (cadr str) (car str))))
+
 ;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
   "Return charset's documentation for CAND."
@@ -1026,7 +1033,7 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich-process-id (cand)
   "Return process id for CAND.
 
-For a network, serial, and pipe connections, return \"--\"."
+  For a network, serial, and pipe connections, return \"--\"."
   (let ((p (get-process cand)))
     (when (processp p)
       (format "%s" (or (process-id p) "--")))))
@@ -1044,7 +1051,7 @@ For a network, serial, and pipe connections, return \"--\"."
 (defun all-the-icons-ivy-rich-process-buffer-name (cand)
   "Return process buffer name for CAND.
 
-If the buffer is killed, return \"--\"."
+  If the buffer is killed, return \"--\"."
   (let ((p (get-process cand)))
     (when (processp p)
       (let ((buf (process-buffer p)))
