@@ -705,6 +705,13 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
 
+    customize-group
+    (:columns
+     ((all-the-icons-ivy-rich-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-group-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+
     describe-character-set
     (:columns
      ((all-the-icons-ivy-rich-charset-icon)
@@ -1007,6 +1014,15 @@ Display the true name when the file is a symlink."
   ;; Remove the types
   (let ((str (split-string cand ": ")))
     (or (cadr str) (car str))))
+
+;; Support `customize-group'
+(defun all-the-icons-ivy-rich-custom-group-docstring (cand)
+  "Return custom group's documentation for CAND."
+  ;; Remove the types
+  (let ((doc (or (documentation-property (intern cand) 'group-documentation) "")))
+    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
+        (match-string 1 doc)
+      "")))
 
 ;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
@@ -1318,6 +1334,11 @@ Display the true name when the file is a symlink."
       ((file-directory-p file)
        (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
       (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0))))))
+
+(defun all-the-icons-ivy-rich-settings-icon (_cand)
+  "Display settings icon for CAND in `ivy-rich'."
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-octicon "settings" :height 0.9 :v-adjust -0.01 :face 'all-the-icons-lblue)))
 
 (defun all-the-icons-ivy-rich-charset-icon (_cand)
   "Display charset icon for CAND in `ivy-rich'."
