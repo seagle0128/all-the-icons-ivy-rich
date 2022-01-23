@@ -368,7 +368,8 @@ This value is adjusted depending on the `window-width'."
     counsel-descbinds
     (:columns
      ((all-the-icons-ivy-rich-keybinding-icon)
-      (ivy-rich-candidate))
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-keybinding-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-find-file
     (:columns
@@ -1105,6 +1106,15 @@ t cl-type"
      ((and (boundp symbol) (not (keywordp symbol)))
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
+
+;; Support `counsel-descbinds'
+(defun all-the-icons-ivy-rich-keybinding-docstring (cand)
+  "Return keybinding's documentation for CAND."
+  (let ((width 15))
+    (if (length> cand width)
+        (all-the-icons-ivy-rich--truncate-docstring
+         (describe-key-briefly (kbd (substring-no-properties cand 0 width))))
+      "")))
 
 ;; Support `customize-group'
 (defun all-the-icons-ivy-rich-custom-group-docstring (cand)
