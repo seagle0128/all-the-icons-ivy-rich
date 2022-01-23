@@ -726,6 +726,12 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-coding-system-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
+    describe-language-environment
+    (:columns
+     ((all-the-icons-ivy-rich-lang-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+
     set-input-method
     (:columns
      ((all-the-icons-ivy-rich-input-method-icon)
@@ -1343,10 +1349,16 @@ If the buffer is killed, return \"--\"."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-purple)))
 
+(defun all-the-icons-ivy-rich-lang-icon (_cand)
+  "Display language icon in `ivy-rich'."
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "language" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+
 (defun all-the-icons-ivy-rich-input-method-icon (_cand)
-  "Display the input method icon in `ivy-rich'."
+  "Display input method icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
