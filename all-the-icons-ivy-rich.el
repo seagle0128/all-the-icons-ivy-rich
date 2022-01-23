@@ -83,6 +83,9 @@
     (nth 8 attributes)))
 
 
+;;
+;; Faces
+;;
 
 (defgroup all-the-icons-ivy-rich nil
   "Better experience using icons in ivy."
@@ -195,6 +198,10 @@
   '((t :inherit all-the-icons-ivy-rich-doc-face))
   "Face used for process command.")
 
+(defface all-the-icons-ivy-rich-type-face
+  '((t :inherit font-lock-keyword-face))
+  "Face used for type.")
+
 (defface all-the-icons-ivy-rich-value-face
   '((t :inherit font-lock-keyword-face))
   "Face used for variable value.")
@@ -226,6 +233,10 @@
 (defface all-the-icons-ivy-rich-symbol-face
   '((t :inherit font-lock-type-face))
   "Face used to highlight general symbols.")
+
+;;
+;; Customization
+;;
 
 (defcustom all-the-icons-ivy-rich-icon t
   "Whether display the icons."
@@ -316,35 +327,42 @@ This value is adjusted depending on the `window-width'."
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
       (counsel-describe-function-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-function-args (:width 0.12 :face all-the-icons-ivy-rich-value-face))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-variable-value (:width 0.12))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-symbol
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-set-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
       (counsel-describe-variable-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
+      (all-the-icons-ivy-rich-variable-value (:width 0.12))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-apropos
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-info-lookup-symbol
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-descbinds
@@ -757,6 +775,9 @@ See `ivy-rich-display-transformers-list' for details."
   :type '(repeat sexp))
 
 
+;;
+;; Utilities
+;;
 
 ;; Support `kill-buffer'
 (defun all-the-icons-ivy-rich-kill-buffer (&optional buffer-or-name)
@@ -926,13 +947,16 @@ Display the true name when the file is a symlink."
   "Return package version for CAND. Used for `counsel-package'."
   (ivy-rich-package-version (substring cand 1)))
 
+(defun all-the-icons-ivy-rich--truncate-docstring (doc)
+  "Truncate DOC string."
+  (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
+      (setq doc (match-string 1 doc))
+    ""))
+
 ;; Support `counsel-describe-face'
 (defun all-the-icons-ivy-rich-counsel-face-docstring (cand)
   "Return face's documentation for CAND."
-  (let ((doc (face-doc-string (intern-soft cand))))
-    (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
-        (setq doc (match-string 1 doc))
-      "")))
+  (all-the-icons-ivy-rich--truncate-docstring (face-doc-string (intern-soft cand))))
 
 ;; Support `counsel-describe-function'and `counsel-describe-variable'
 (defun all-the-icons-ivy-rich-function-args (cand)
@@ -1002,6 +1026,74 @@ Display the true name when the file is a symlink."
                    (t 'all-the-icons-ivy-rich-value-face)))))))))))
 
 ;; Support `counsel-describe-symbol', `counsel-info-lookup-symbol' and `counsel-apropos'
+
+;; Taken from advice--make-docstring
+(defun all-the-icons-ivy-rich--advised (fun)
+  "Return t if function FUN is advised."
+  (let ((flist (indirect-function fun)))
+    (advice--p (if (eq 'macro (car-safe flist)) (cdr flist) flist))))
+
+;; Symbol class characters from Emacs 28 `help--symbol-completion-table-affixation'
+;; ! and * are additions. Same as marginalia
+(defun all-the-icons-ivy-rich-symbol-class (cand)
+  "Return symbol class characters for symbol S.
+
+Function:
+f function
+c command
+C interactive-only command
+m macro
+M special-form
+p pure
+s side-effect-free
+@ autoloaded
+! advised
+- obsolete
+
+Variable:
+u custom (U modified compared to global value)
+v variable
+l local (L modified compared to default value)
+- obsolete
+
+Other:
+a face
+t cl-type"
+  (let ((s (intern-soft cand)))
+    (format
+     "%-6s"
+     (concat
+      (when (fboundp s)
+        (concat
+         (cond
+          ((get s 'pure) "p")
+          ((get s 'side-effect-free) "s"))
+         (cond
+          ((commandp s) (if (get s 'interactive-only) "C" "c"))
+          ((macrop (symbol-function s)) "m")
+          ((special-form-p (symbol-function s)) "M")
+          (t "f"))
+         (and (autoloadp (symbol-function s)) "@")
+         (and (all-the-icons-ivy-rich--advised s) "!")
+         (and (get s 'byte-obsolete-info) "-")))
+      (when (boundp s)
+        (concat
+         (when (local-variable-if-set-p s)
+           (if (ignore-errors
+                 (not (equal (symbol-value s)
+                             (default-value s))))
+               "L" "l"))
+         (if (custom-variable-p s)
+             (if (ignore-errors
+                   (not (equal
+                         (symbol-value s)
+                         (eval (car (get s 'standard-value))))))
+                 "U" "u")
+           "v")
+         (and (get s 'byte-obsolete-variable) "-")))
+      (and (facep s) "a")
+      (and (fboundp 'cl-find-class) (cl-find-class s) "t")))))
+
 (defun all-the-icons-ivy-rich-counsel-symbol-docstring (cand)
   "Return symbol's documentation for CAND."
   (let ((symbol (intern-soft cand)))
@@ -1017,27 +1109,18 @@ Display the true name when the file is a symlink."
 ;; Support `customize-group'
 (defun all-the-icons-ivy-rich-custom-group-docstring (cand)
   "Return custom group's documentation for CAND."
-  ;; Remove the types
-  (let ((doc (or (documentation-property (intern cand) 'group-documentation) "")))
-    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
-        (match-string 1 doc)
-      "")))
+  (all-the-icons-ivy-rich--truncate-docstring
+   (or (documentation-property (intern cand) 'group-documentation) "")))
 
 ;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
   "Return charset's documentation for CAND."
-  (let ((doc (charset-description (intern cand))))
-    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
-        (match-string 1 doc)
-      "")))
+  (all-the-icons-ivy-rich--truncate-docstring (charset-description (intern cand))))
 
 ;; Support `describe-coding-system'
 (defun all-the-icons-ivy-rich-coding-system-docstring (cand)
   "Return coding system's documentation for CAND."
-  (let ((doc (coding-system-doc-string (intern cand))))
-    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
-        (match-string 1 doc)
-      "")))
+  (all-the-icons-ivy-rich--truncate-docstring (coding-system-doc-string (intern cand))))
 
 ;; Support `set-input-method'
 (defun all-the-icons-ivy-rich-input-method-docstring (cand)
@@ -1359,6 +1442,11 @@ If the buffer is killed, return \"--\"."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
+
+
+;;
+;; Modes
+;;
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
