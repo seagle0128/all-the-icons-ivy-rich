@@ -712,6 +712,13 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-charset-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
+    set-input-method
+    (:columns
+     ((all-the-icons-ivy-rich-input-method-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-input-method-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
@@ -987,9 +994,15 @@ Display the true name when the file is a symlink."
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
 
+;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
   "Return charset's documentation for CAND."
   (charset-description (intern cand)))
+
+;; Support `set-input-method'
+(defun all-the-icons-ivy-rich-input-method-docstring (cand)
+  "Return input method's documentation for CAND."
+  (nth 4 (assoc cand input-method-alist)))
 
 ;; Support `counsel-list-processes'
 (defun all-the-icons-ivy-rich-process-id (cand)
@@ -1283,7 +1296,13 @@ If the buffer is killed, return \"--\"."
 
 (defun all-the-icons-ivy-rich-charset-icon (cand)
   "Display charset icon for CAND in `ivy-rich'."
-  (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+
+(defun all-the-icons-ivy-rich-input-method-icon (_candidate)
+  "Display the input method icon in `ivy-rich'."
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
