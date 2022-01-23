@@ -315,14 +315,14 @@ This value is adjusted depending on the `window-width'."
     counsel-describe-function
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
-      (counsel-describe-function-transformer (:width 0.25))
-      (all-the-icons-ivy-rich-function-args (:width 0.15 :face all-the-icons-ivy-rich-value-face))
+      (counsel-describe-function-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-function-args (:width 0.12 :face all-the-icons-ivy-rich-value-face))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-variable
     (:columns
      ((all-the-icons-ivy-rich-variable-icon)
-      (counsel-describe-variable-transformer (:width 0.25))
-      (all-the-icons-ivy-rich-variable-value (:width 0.15))
+      (counsel-describe-variable-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-variable-value (:width 0.12))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-describe-symbol
     (:columns
@@ -458,13 +458,13 @@ This value is adjusted depending on the `window-width'."
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-theme
     (:columns
