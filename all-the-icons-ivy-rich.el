@@ -712,6 +712,13 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-charset-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
+    describe-coding-system
+    (:columns
+     ((all-the-icons-ivy-rich-coding-system-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-coding-system-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+
     set-input-method
     (:columns
      ((all-the-icons-ivy-rich-input-method-icon)
@@ -997,7 +1004,18 @@ Display the true name when the file is a symlink."
 ;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
   "Return charset's documentation for CAND."
-  (charset-description (intern cand)))
+  (let ((doc (charset-description (intern cand))))
+    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
+        (match-string 1 doc)
+      "")))
+
+;; Support `describe-coding-system'
+(defun all-the-icons-ivy-rich-coding-system-docstring (cand)
+  "Return coding system's documentation for CAND."
+  (let ((doc (coding-system-doc-string (intern cand))))
+    (if (string-match "^\\(.+\\)\\([\r\n]\\)?" doc)
+        (match-string 1 doc)
+      "")))
 
 ;; Support `set-input-method'
 (defun all-the-icons-ivy-rich-input-method-docstring (cand)
@@ -1298,6 +1316,11 @@ If the buffer is killed, return \"--\"."
   "Display charset icon for CAND in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+
+(defun all-the-icons-ivy-rich-coding-system-icon (cand)
+  "Display coding system icon for CAND in `ivy-rich'."
+  (all-the-icons-ivy-rich--format-icon
+   (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-purple)))
 
 (defun all-the-icons-ivy-rich-input-method-icon (_candidate)
   "Display the input method icon in `ivy-rich'."
