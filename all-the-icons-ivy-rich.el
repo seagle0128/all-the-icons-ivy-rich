@@ -705,16 +705,23 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
 
+    describe-character-set
+    (:columns
+     ((all-the-icons-ivy-rich-charset-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-charset-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4)))
+      (all-the-icons-ivy-rich-project-name))
      :delimiter "\t")
 
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4)))
+      (all-the-icons-ivy-rich-project-name))
      :delimiter "\t"))
   "Definitions for ivy-rich transformers.
 
@@ -979,6 +986,10 @@ Display the true name when the file is a symlink."
      ((and (boundp symbol) (not (keywordp symbol)))
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
+
+(defun all-the-icons-ivy-rich-charset-docstring (cand)
+  "Return charset's documentation for CAND."
+  (charset-description (intern cand)))
 
 ;; Support `counsel-list-processes'
 (defun all-the-icons-ivy-rich-process-id (cand)
@@ -1269,6 +1280,10 @@ If the buffer is killed, return \"--\"."
       ((file-directory-p file)
        (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
       (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0))))))
+
+(defun all-the-icons-ivy-rich-charset-icon (cand)
+  "Display charset icon for CAND in `ivy-rich'."
+  (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
 
 (defvar all-the-icons-ivy-rich-display-transformers-old-list ivy-rich-display-transformers-list)
 
