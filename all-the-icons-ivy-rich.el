@@ -1179,12 +1179,12 @@ Display the true name when the file is a symlink."
          (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
        (propertize icon 'display '(raise 0.0))))))
 
-(defun all-the-icons-ivy-rich-dir-icon (_candidate)
+(defun all-the-icons-ivy-rich-dir-icon (_cand)
   "Display project icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver)))
 
-(defun all-the-icons-ivy-rich-mode-icon (_candidate)
+(defun all-the-icons-ivy-rich-mode-icon (_cand)
   "Display mode icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)))
@@ -1205,7 +1205,7 @@ Display the true name when the file is a symlink."
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "tag" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
-(defun all-the-icons-ivy-rich-face-icon (_candidate)
+(defun all-the-icons-ivy-rich-face-icon (_cand)
   "Display face icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-blue)))
@@ -1230,47 +1230,47 @@ Display the true name when the file is a symlink."
        (company-box--get-icon cand)
      (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))
 
-(defun all-the-icons-ivy-rich-theme-icon (_candidate)
+(defun all-the-icons-ivy-rich-theme-icon (_cand)
   "Display the theme icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lcyan)))
 
-(defun all-the-icons-ivy-rich-keybinding-icon (_candidate)
+(defun all-the-icons-ivy-rich-keybinding-icon (_cand)
   "Display the keybindings icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lsilver)))
 
-(defun all-the-icons-ivy-rich-library-icon (_candidate)
+(defun all-the-icons-ivy-rich-library-icon (_cand)
   "Display the library icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-material "view_module" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-package-icon (_candidate)
+(defun all-the-icons-ivy-rich-package-icon (_cand)
   "Display the package icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
 
-(defun all-the-icons-ivy-rich-font-icon (_candidate)
+(defun all-the-icons-ivy-rich-font-icon (_cand)
   "Display the font icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "font" :height 0.85 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-world-clock-icon (_candidate)
+(defun all-the-icons-ivy-rich-world-clock-icon (_cand)
   "Display the world clock icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "globe" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-tramp-icon (_candidate)
+(defun all-the-icons-ivy-rich-tramp-icon (_cand)
   "Display the tramp icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01)))
 
-(defun all-the-icons-ivy-rich-git-branch-icon (_candidate)
+(defun all-the-icons-ivy-rich-git-branch-icon (_cand)
   "Display the git branch icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green)))
 
-(defun all-the-icons-ivy-rich-process-icon (_candidate)
+(defun all-the-icons-ivy-rich-process-icon (_cand)
   "Display the process icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
@@ -1319,17 +1319,17 @@ Display the true name when the file is a symlink."
        (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
       (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0))))))
 
-(defun all-the-icons-ivy-rich-charset-icon (cand)
+(defun all-the-icons-ivy-rich-charset-icon (_cand)
   "Display charset icon for CAND in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
-(defun all-the-icons-ivy-rich-coding-system-icon (cand)
+(defun all-the-icons-ivy-rich-coding-system-icon (_cand)
   "Display coding system icon for CAND in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-purple)))
 
-(defun all-the-icons-ivy-rich-input-method-icon (_candidate)
+(defun all-the-icons-ivy-rich-input-method-icon (_cand)
   "Display the input method icon in `ivy-rich'."
   (all-the-icons-ivy-rich--format-icon
    (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
