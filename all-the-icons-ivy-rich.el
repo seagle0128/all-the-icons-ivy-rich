@@ -1247,210 +1247,229 @@ If the buffer is killed, return \"--\"."
 
 (defun all-the-icons-ivy-rich--format-icon (icon)
   "Format ICON'."
-  (when (and (display-graphic-p)
-             all-the-icons-ivy-rich-icon
-             icon)
-    (format " %s"
-            (let* ((props (get-text-property 0 'face icon))
-                   (family (plist-get props :family))
-                   (face (if all-the-icons-ivy-rich-color-icon
-                             (or (plist-get props :inherit) props)
-                           'all-the-icons-ivy-rich-icon-face))
-                   (new-face `(:inherit ,face
-                               :family ,family
-                               :height ,all-the-icons-ivy-rich-icon-size)))
-              (propertize icon 'face new-face)))))
+  (let* ((props (get-text-property 0 'face icon))
+         (family (plist-get props :family))
+         (face (if all-the-icons-ivy-rich-color-icon
+                   (or (plist-get props :inherit) props)
+                 'all-the-icons-ivy-rich-icon-face))
+         (new-face `(:inherit ,face
+                     :family ,family
+                     :height ,all-the-icons-ivy-rich-icon-size)))
+    (format " %s" (propertize icon 'face new-face))))
 
 (defun all-the-icons-ivy-rich-buffer-icon (cand)
   "Display buffer icon for CAND in `ivy-rich'."
-  (let ((icon (with-current-buffer (get-buffer cand)
-                (if (eq major-mode 'dired-mode)
-                    (all-the-icons-icon-for-dir cand :face 'all-the-icons-ivy-rich-dir-face)
-                  (all-the-icons-icon-for-buffer)))))
-    (all-the-icons-ivy-rich--format-icon
-     (if (or (null icon) (symbolp icon))
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
-       (propertize icon 'display '(raise 0.0))))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (let ((icon (with-current-buffer (get-buffer cand)
+                  (if (eq major-mode 'dired-mode)
+                      (all-the-icons-icon-for-dir cand :face 'all-the-icons-ivy-rich-dir-face)
+                    (all-the-icons-icon-for-buffer)))))
+      (all-the-icons-ivy-rich--format-icon
+       (if (or (null icon) (symbolp icon))
+           (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
+         (propertize icon 'display '(raise 0.0)))))))
 
 (defun all-the-icons-ivy-rich-file-icon (cand)
   "Display file icon for CAND in `ivy-rich'."
-  (let ((icon (cond
-               ((ivy--dirname-p cand)
-                (all-the-icons-icon-for-dir cand
-                                            :height 0.9
-                                            :v-adjust 0.01
-                                            :face 'all-the-icons-ivy-rich-dir-face))
-               ((not (string-empty-p cand))
-                (all-the-icons-icon-for-file (file-name-nondirectory cand) :height 0.9 :v-adjust 0.0)))))
-    (all-the-icons-ivy-rich--format-icon
-     (if (or (null icon) (symbolp icon))
-         (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
-       (propertize icon 'display '(raise 0.0))))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (let ((icon (cond
+                 ((ivy--dirname-p cand)
+                  (all-the-icons-icon-for-dir cand
+                                              :height 0.9
+                                              :v-adjust 0.01
+                                              :face 'all-the-icons-ivy-rich-dir-face))
+                 ((not (string-empty-p cand))
+                  (all-the-icons-icon-for-file (file-name-nondirectory cand) :height 0.9 :v-adjust 0.0)))))
+      (all-the-icons-ivy-rich--format-icon
+       (if (or (null icon) (symbolp icon))
+           (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
+         (propertize icon 'display '(raise 0.0)))))))
 
 (defun all-the-icons-ivy-rich-dir-icon (_cand)
   "Display project icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-mode-icon (_cand)
   "Display mode icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))))
 
 (defun all-the-icons-ivy-rich-function-icon (cand)
   "Display function icon in `ivy-rich'."
-  (if (commandp (intern cand))
-      (all-the-icons-ivy-rich--format-icon
-       (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (all-the-icons-ivy-rich--format-icon
-     (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))))
+     (if (commandp (intern cand))
+         (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)
+       (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple)))))
 
 (defun all-the-icons-ivy-rich-variable-icon (cand)
   "Display the variable icon in `ivy-rich'."
-  (if (custom-variable-p (intern cand))
-      (all-the-icons-ivy-rich--format-icon
-       (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (all-the-icons-ivy-rich--format-icon
-     (all-the-icons-octicon "tag" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-lblue))))
+     (if (custom-variable-p (intern cand))
+         (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)
+       (all-the-icons-octicon "tag" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-lblue)))))
 
 (defun all-the-icons-ivy-rich-face-icon (_cand)
   "Display face icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-blue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-blue))))
 
 (defun all-the-icons-ivy-rich-symbol-icon (cand)
   "Display the symbol icon in `ivy-rich'."
-  (let ((sym (intern cand)))
-    (cond
-     ((functionp sym)
-      (all-the-icons-ivy-rich-function-icon cand))
-     ((facep sym)
-      (all-the-icons-ivy-rich-face-icon cand))
-     ((symbolp sym)
-      (all-the-icons-ivy-rich-variable-icon cand))
-     (t (all-the-icons-ivy-rich--format-icon
-         (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (let ((sym (intern cand)))
+      (cond
+       ((functionp sym)
+        (all-the-icons-ivy-rich-function-icon cand))
+       ((facep sym)
+        (all-the-icons-ivy-rich-face-icon cand))
+       ((symbolp sym)
+        (all-the-icons-ivy-rich-variable-icon cand))
+       (t (all-the-icons-ivy-rich--format-icon
+           (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))))))
 
 (defun all-the-icons-ivy-rich-company-icon (cand)
   "Display the symbol icon of company in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (if (fboundp 'company-box--get-icon)
-       (company-box--get-icon cand)
-     (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (if (fboundp 'company-box--get-icon)
+         (company-box--get-icon cand)
+       (all-the-icons-octicon "gear" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))))
 
 (defun all-the-icons-ivy-rich-theme-icon (_cand)
   "Display the theme icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lcyan)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-material "palette" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lcyan))))
 
 (defun all-the-icons-ivy-rich-keybinding-icon (_cand)
   "Display the keybindings icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lsilver)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lsilver))))
 
 (defun all-the-icons-ivy-rich-library-icon (_cand)
   "Display the library icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-material "view_module" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-material "view_module" :height 1.0 :v-adjust -0.225 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-package-icon (_cand)
   "Display the package icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-font-icon (_cand)
   "Display the font icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "font" :height 0.85 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "font" :height 0.85 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-world-clock-icon (_cand)
   "Display the world clock icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "globe" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "globe" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-tramp-icon (_cand)
   "Display the tramp icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))))
 
 (defun all-the-icons-ivy-rich-git-branch-icon (_cand)
   "Display the git branch icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green))))
 
 (defun all-the-icons-ivy-rich-process-icon (_cand)
   "Display the process icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (let ((case-fold-search nil))
-     (cond
-      ((string-match-p "Type Parameters?[:)]" cand)
-       (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
-      ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
-       (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
-      ((string-match-p "Constants?[:)]" cand)
-       (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
-      ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
-       (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
-      ((string-match-p "References?[:)]" cand)
-       (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
-      ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" cand)
-       (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
-      ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" cand)
-       (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
-      ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" cand)
-       (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
-      ((string-match-p "Interfaces?[:)]" cand)
-       (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
-      ((string-match-p "Modules?[:)]" cand)
-       (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
-      ((string-match-p "Packages?[:)]" cand)
-       (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
-      (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (let ((case-fold-search nil))
+       (cond
+        ((string-match-p "Type Parameters?[:)]" cand)
+         (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
+        ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
+         (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+        ((string-match-p "Constants?[:)]" cand)
+         (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
+        ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
+         (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
+        ((string-match-p "References?[:)]" cand)
+         (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
+        ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" cand)
+         (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
+        ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" cand)
+         (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
+        ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" cand)
+         (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
+        ((string-match-p "Interfaces?[:)]" cand)
+         (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
+        ((string-match-p "Modules?[:)]" cand)
+         (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
+        ((string-match-p "Packages?[:)]" cand)
+         (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
+        (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))))))
 
 (defun all-the-icons-ivy-rich-bookmark-icon (cand)
   "Return bookmark type for CAND."
-  (all-the-icons-ivy-rich--format-icon
-   (let ((file (ivy-rich-bookmark-filename cand)))
-     (cond
-      ((null file)
-       (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
-      ((file-remote-p file)
-       (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
-      ((not (file-exists-p file))
-       (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
-      ((file-directory-p file)
-       (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
-      (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0))))))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (let ((file (ivy-rich-bookmark-filename cand)))
+       (cond
+        ((null file)
+         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
+        ((file-remote-p file)
+         (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
+        ((not (file-exists-p file))
+         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
+        ((file-directory-p file)
+         (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
+        (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0)))))))
 
 (defun all-the-icons-ivy-rich-settings-icon (_cand)
   "Display settings icon for CAND in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-octicon "settings" :height 0.9 :v-adjust -0.01 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "settings" :height 0.9 :v-adjust -0.01 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-charset-icon (_cand)
   "Display charset icon for CAND in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-coding-system-icon (_cand)
   "Display coding system icon for CAND in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-purple)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "table" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-purple))))
 
 (defun all-the-icons-ivy-rich-lang-icon (_cand)
   "Display language icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "language" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "language" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-input-method-icon (_cand)
   "Display input method icon in `ivy-rich'."
-  (all-the-icons-ivy-rich--format-icon
-   (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 
 
