@@ -951,7 +951,7 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich--truncate-docstring (doc)
   "Truncate DOC string."
   (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
-      (setq doc (match-string 1 doc))
+      (match-string 1 doc)
     ""))
 
 ;; Support `counsel-describe-face'
