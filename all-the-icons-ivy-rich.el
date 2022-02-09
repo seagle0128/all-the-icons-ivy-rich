@@ -342,7 +342,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-set-variable
     (:columns
@@ -356,14 +356,14 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-info-lookup-symbol
     (:columns
      ((all-the-icons-ivy-rich-symbol-icon)
       (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
-      (all-the-icons-ivy-rich-counsel-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-symbol-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-descbinds
     (:columns
@@ -551,7 +551,9 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (ivy-rich-candidate))
+      (ivy-rich-candidate (:width 0.4))
+      (all-the-icons-ivy-rich-imenu-class (:width 8 :face all-the-icons-ivy-rich-type-face))
+      (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-company
     (:columns
@@ -1095,7 +1097,7 @@ t cl-type"
       (and (facep s) "a")
       (and (fboundp 'cl-find-class) (cl-find-class s) "t")))))
 
-(defun all-the-icons-ivy-rich-counsel-symbol-docstring (cand)
+(defun all-the-icons-ivy-rich-symbol-docstring (cand)
   "Return symbol's documentation for CAND."
   (let ((symbol (intern-soft cand)))
     (cond
@@ -1106,6 +1108,25 @@ t cl-type"
      ((and (boundp symbol) (not (keywordp symbol)))
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
+
+;; Support `counsel-imenu'
+(defun all-the-icons-ivy-rich-imenu-class (cand)
+  "Return imenu's class characters for CAND.
+
+Only available in `emacs-lisp-mode'."
+  (if (derived-mode-p 'emacs-lisp-mode)
+      (let ((str (split-string cand ": ")))
+        (all-the-icons-ivy-rich-symbol-class (or (cadr str) (car str))))
+    ""))
+
+(defun all-the-icons-ivy-rich-imenu-docstring (cand)
+  "Return imenu's documentation for CAND.
+
+Only available in `emacs-lisp-mode'."
+  (if (derived-mode-p 'emacs-lisp-mode)
+      (let ((str (split-string cand ": ")))
+        (all-the-icons-ivy-rich-symbol-docstring (or (cadr str) (car str))))
+    ""))
 
 ;; Support `counsel-descbinds'
 (defun all-the-icons-ivy-rich-keybinding-docstring (cand)
@@ -1397,33 +1418,36 @@ If the buffer is killed, return \"--\"."
 
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
-  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
-    (all-the-icons-ivy-rich--format-icon
-     (let ((case-fold-search nil))
-       (cond
-        ((string-match-p "Type Parameters?[:)]" cand)
-         (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
-        ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
-         (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
-        ((string-match-p "Constants?[:)]" cand)
-         (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
-        ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
-         (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
-        ((string-match-p "References?[:)]" cand)
-         (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
-        ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" cand)
-         (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
-        ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" cand)
-         (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
-        ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" cand)
-         (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
-        ((string-match-p "Interfaces?[:)]" cand)
-         (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
-        ((string-match-p "Modules?[:)]" cand)
-         (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
-        ((string-match-p "Packages?[:)]" cand)
-         (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
-        (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue)))))))
+  (if (derived-mode-p 'emacs-lisp-mode)
+      (let ((str (split-string cand ": ")))
+        (all-the-icons-ivy-rich-symbol-icon (or (cadr str) (car str))))
+    (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+      (all-the-icons-ivy-rich--format-icon
+       (let ((case-fold-search nil))
+         (cond
+          ((string-match-p "Type Parameters?[:)]" cand)
+           (all-the-icons-faicon "arrows" :height 0.85 :v-adjust -0.05))
+          ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
+           (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
+          ((string-match-p "Constants?[:)]" cand)
+           (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
+          ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
+           (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
+          ((string-match-p "References?[:)]" cand)
+           (all-the-icons-material "collections_bookmark" :height 0.95 :v-adjust -0.2))
+          ((string-match-p "\\(Types?\\)\\|\\(Property\\)[:)]" cand)
+           (all-the-icons-faicon "wrench" :height 0.9 :v-adjust -0.05))
+          ((string-match-p "\\(Functions?\\)\\|\\(Methods?\\)\\|\\(Constructors?\\)[:)]" cand)
+           (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple))
+          ((string-match-p "\\(Class\\)\\|\\(Structs?\\)[:)]" cand)
+           (all-the-icons-material "settings_input_component" :height 0.9 :v-adjust -0.15 :face 'all-the-icons-orange))
+          ((string-match-p "Interfaces?[:)]" cand)
+           (all-the-icons-material "share" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-lblue))
+          ((string-match-p "Modules?[:)]" cand)
+           (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
+          ((string-match-p "Packages?[:)]" cand)
+           (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
+          (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))))
 
 (defun all-the-icons-ivy-rich-bookmark-icon (cand)
   "Return bookmark type for CAND."
