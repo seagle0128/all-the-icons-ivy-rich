@@ -551,7 +551,7 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (ivy-rich-candidate (:width 0.4))
+      (ivy-rich-candidate (:width 0.5))
       (all-the-icons-ivy-rich-imenu-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
