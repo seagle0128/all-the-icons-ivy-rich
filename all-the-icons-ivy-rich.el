@@ -551,7 +551,7 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (ivy-rich-candidate (:width 0.5))
+      (all-the-icons-ivy-rich-counsel-imenu-transformer (:width 0.4))
       (all-the-icons-ivy-rich-imenu-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
@@ -1110,13 +1110,25 @@ t cl-type"
      (t ""))))
 
 ;; Support `counsel-imenu'
+(defun all-the-icons-ivy-rich--counsel-imenu-symbol (cand)
+  "Return imenu symbol from CAND."
+  (let ((str (split-string cand ": ")))
+    (or (cadr str) (car str))))
+
+(defun all-the-icons-ivy-rich-counsel-imenu-transformer (cand)
+  "Return prettified imenu for CAND."
+  ;; Don't display types with icons
+  (if (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+      (all-the-icons-ivy-rich--counsel-imenu-symbol cand)
+    cand))
+
 (defun all-the-icons-ivy-rich-imenu-class (cand)
   "Return imenu's class characters for CAND.
 
 Only available in `emacs-lisp-mode'."
   (if (derived-mode-p 'emacs-lisp-mode)
-      (let ((str (split-string cand ": ")))
-        (all-the-icons-ivy-rich-symbol-class (or (cadr str) (car str))))
+      (all-the-icons-ivy-rich-symbol-class
+       (all-the-icons-ivy-rich--counsel-imenu-symbol cand))
     ""))
 
 (defun all-the-icons-ivy-rich-imenu-docstring (cand)
@@ -1124,8 +1136,8 @@ Only available in `emacs-lisp-mode'."
 
 Only available in `emacs-lisp-mode'."
   (if (derived-mode-p 'emacs-lisp-mode)
-      (let ((str (split-string cand ": ")))
-        (all-the-icons-ivy-rich-symbol-docstring (or (cadr str) (car str))))
+      (all-the-icons-ivy-rich-symbol-docstring
+       (all-the-icons-ivy-rich--counsel-imenu-symbol cand))
     ""))
 
 ;; Support `counsel-descbinds'
@@ -1419,8 +1431,7 @@ If the buffer is killed, return \"--\"."
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
   (if (derived-mode-p 'emacs-lisp-mode)
-      (let ((str (split-string cand ": ")))
-        (all-the-icons-ivy-rich-symbol-icon (or (cadr str) (car str))))
+      (all-the-icons-ivy-rich-symbol-icon (all-the-icons-ivy-rich--counsel-imenu-symbol cand))
     (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
       (all-the-icons-ivy-rich--format-icon
        (let ((case-fold-search nil))
