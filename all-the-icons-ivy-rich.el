@@ -551,8 +551,8 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (all-the-icons-ivy-rich-counsel-imenu-transformer (:width 0.4))
-      (all-the-icons-ivy-rich-imenu-class (:width 8 :face all-the-icons-ivy-rich-type-face))
+      (all-the-icons-ivy-rich-counsel-imenu-transformer)
+      (all-the-icons-ivy-rich-imenu-class (:face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-company
@@ -1117,8 +1117,9 @@ t cl-type"
 
 (defun all-the-icons-ivy-rich-counsel-imenu-transformer (cand)
   "Return prettified imenu for CAND."
-  ;; Don't display types with icons
-  (if (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+  (if (and (display-graphic-p)
+           all-the-icons-ivy-rich-icon
+           (derived-mode-p 'emacs-lisp-mode))
       (all-the-icons-ivy-rich--counsel-imenu-symbol cand)
     cand))
 
@@ -1127,8 +1128,9 @@ t cl-type"
 
 Only available in `emacs-lisp-mode'."
   (if (derived-mode-p 'emacs-lisp-mode)
-      (all-the-icons-ivy-rich-symbol-class
-       (all-the-icons-ivy-rich--counsel-imenu-symbol cand))
+      (string-trim
+       (all-the-icons-ivy-rich-symbol-class
+        (all-the-icons-ivy-rich--counsel-imenu-symbol cand)))
     ""))
 
 (defun all-the-icons-ivy-rich-imenu-docstring (cand)
