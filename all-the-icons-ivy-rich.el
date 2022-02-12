@@ -234,6 +234,16 @@
   '((t :inherit font-lock-type-face))
   "Face used to highlight general symbols.")
 
+(defface all-the-icons-ivy-rich-imenu-type-face
+  '((t (:inherit all-the-icons-ivy-rich-type-face :height 0.9)))
+  "Face used for imenu type."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-imenu-doc-face
+  '((t (:inherit all-the-icons-ivy-rich-doc-face :height 0.9)))
+  "Face used for imenu documentation."
+  :group 'all-the-icons-ivy-rich)
+
 ;;
 ;; Customization
 ;;
@@ -552,8 +562,8 @@ This value is adjusted depending on the `window-width'."
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
       (all-the-icons-ivy-rich-counsel-imenu-transformer)
-      (all-the-icons-ivy-rich-imenu-class (:face all-the-icons-ivy-rich-type-face))
-      (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-doc-face)))
+      (all-the-icons-ivy-rich-imenu-class (:face all-the-icons-ivy-rich-imenu-type-face))
+      (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-imenu-doc-face)))
      :delimiter "\t")
     counsel-company
     (:columns
