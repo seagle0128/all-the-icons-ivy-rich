@@ -561,7 +561,7 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((all-the-icons-ivy-rich-imenu-icon)
-      (all-the-icons-ivy-rich-counsel-imenu-transformer)
+      (ivy-rich-candidate)
       (all-the-icons-ivy-rich-imenu-class (:face all-the-icons-ivy-rich-imenu-type-face))
       (all-the-icons-ivy-rich-imenu-docstring (:face all-the-icons-ivy-rich-imenu-doc-face)))
      :delimiter "\t")
@@ -1124,14 +1124,6 @@ t cl-type"
   "Return imenu symbol from CAND."
   (let ((str (split-string cand ": ")))
     (or (cadr str) (car str))))
-
-(defun all-the-icons-ivy-rich-counsel-imenu-transformer (cand)
-  "Return prettified imenu for CAND."
-  (if (and (display-graphic-p)
-           all-the-icons-ivy-rich-icon
-           (derived-mode-p 'emacs-lisp-mode))
-      (all-the-icons-ivy-rich--counsel-imenu-symbol cand)
-    cand))
 
 (defun all-the-icons-ivy-rich-imenu-class (cand)
   "Return imenu's class characters for CAND.
