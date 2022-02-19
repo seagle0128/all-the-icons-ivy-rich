@@ -105,6 +105,12 @@ all-the-icons-ivy-rich-display-transformers-list
 ![counsel-M-x](https://user-images.githubusercontent.com/140797/154795826-0fb8f5ea-825a-4108-a565-daeb5a6e7e96.png
 "counsel-M-x")
 
+![counsel-describe-function](https://user-images.githubusercontent.com/140797/154796653-718aabfa-dca8-4478-afa1-6272f1399362.png
+"counsel-describe-function")
+
+![counsel-describe-variable](https://user-images.githubusercontent.com/140797/154796713-f2d11548-83bb-46d1-bb0b-a1b621cac5b7.png
+"counsel-describe-variable")
+
 ![counsel-imenu](https://user-images.githubusercontent.com/140797/154795862-a56b92a4-be07-42d7-9fec-9392e87cb83c.png
 "counsel-imenu")
 
