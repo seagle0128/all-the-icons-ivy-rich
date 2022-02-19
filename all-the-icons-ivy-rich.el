@@ -1462,7 +1462,7 @@ If the buffer is killed, return \"--\"."
            (all-the-icons-material "view_module" :height 0.95 :v-adjust -0.15 :face 'all-the-icons-lblue))
           ((string-match-p "Packages?[:)]" cand)
            (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver))
-          (t (all-the-icons-faicon "tag" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))))))
+          (t (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-blue))))))))
 
 (defun all-the-icons-ivy-rich-bookmark-icon (cand)
   "Return bookmark type for CAND."
