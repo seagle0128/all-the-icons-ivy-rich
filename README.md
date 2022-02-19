@@ -77,6 +77,10 @@ Enjoy! :smile:
 ;; Whether support project root
 (setq all-the-icons-ivy-rich-project t)
 
+;; Maximum truncation width of annotation fields.
+;; This value is adjusted depending on the `window-width'.
+(setq all-the-icons-ivy-rich-field-width 80)
+
 ;; Definitions for ivy-rich transformers.
 ;; See `ivy-rich-display-transformers-list' for details."
 all-the-icons-ivy-rich-display-transformers-list
@@ -89,20 +93,25 @@ all-the-icons-ivy-rich-display-transformers-list
 
 ## Screenshots
 
-![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/73594570-6c97b700-454a-11ea-90bd-fdee19c4c4b2.png
+![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/154795765-786a29c2-3dc6-4a81-9992-fcd7043ae1ab.png
 "ivy-switch-buffer")
 
-![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/73594526-2b070c00-454a-11ea-923d-d0621d589819.png
+![counsel-find-file](https://user-images.githubusercontent.com/140797/154795929-0987d4fe-14d8-4866-bf98-1e95d5493014.png
+"counsel-find-file")
+
+![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/154795792-f95a119f-c313-4b1f-b32f-9e312bb2fa15.png
 "counsel-buffer-or-recentf")
 
-![counsel-M-x](https://user-images.githubusercontent.com/140797/73594512-0b6fe380-454a-11ea-9289-d6bfb8c53a38.png
+![counsel-M-x](https://user-images.githubusercontent.com/140797/154795826-0fb8f5ea-825a-4108-a565-daeb5a6e7e96.png
 "counsel-M-x")
 
-![counsel-imenu](https://user-images.githubusercontent.com/140797/73594509-014de500-454a-11ea-89c9-7360ebe198b7.png
+![counsel-imenu](https://user-images.githubusercontent.com/140797/154795862-a56b92a4-be07-42d7-9fec-9392e87cb83c.png
 "counsel-imenu")
 
-![counsel-bookmark](https://user-images.githubusercontent.com/140797/73594541-3e19dc00-454a-11ea-8e84-ac97f55518d2.png
+![counsel-bookmark](https://user-images.githubusercontent.com/140797/154795890-3b86a6c6-850c-4153-afdd-748d503ff265.png
 "counsel-bookmark")
+
+And more...
 
 ## Donate
 
