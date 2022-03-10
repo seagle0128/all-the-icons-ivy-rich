@@ -963,7 +963,7 @@ Display the true name when the file is a symlink."
 (defun all-the-icons-ivy-rich--truncate-docstring (doc)
   "Truncate DOC string."
   (if (and doc (string-match "^\\(.+\\)\\([\r\n]\\)?" doc))
-      (match-string 1 doc)
+      (truncate-string-to-width (match-string 1 doc) 80)
     ""))
 
 ;; Support `counsel-describe-face'
@@ -1147,11 +1147,12 @@ Only available in `emacs-lisp-mode'."
 ;; Support `counsel-descbinds'
 (defun all-the-icons-ivy-rich-keybinding-docstring (cand)
   "Return keybinding's documentation for CAND."
-  (let ((width 15))
-    (if (length> cand width)
+  ;; The magic number 15 is from `counsel--descbinds-cands'
+  (if (not (string-match-p " ignore" cand))
+      (let ((pos (string-match-p " .+" cand (min 15 (length cand)))))
         (all-the-icons-ivy-rich--truncate-docstring
-         (describe-key-briefly (kbd (substring-no-properties cand 0 width))))
-      "")))
+         (describe-key-briefly (kbd (substring cand 0 pos)))))
+    ""))
 
 ;; Support `customize-group'
 (defun all-the-icons-ivy-rich-custom-group-docstring (cand)
