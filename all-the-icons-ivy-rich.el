@@ -1149,9 +1149,9 @@ Only available in `emacs-lisp-mode'."
   "Return keybinding's documentation for CAND."
   ;; The magic number 15 is from `counsel--descbinds-cands'
   (if (not (string-match-p " ignore" cand))
-      (let ((pos (string-match-p " .+" cand (min 15 (length cand)))))
-        (all-the-icons-ivy-rich--truncate-docstring
-         (describe-key-briefly (kbd (substring cand 0 pos)))))
+      (let* ((pos (string-match-p " .+" cand 15))
+             (sym (string-trim (substring cand pos))))
+        (all-the-icons-ivy-rich-symbol-docstring sym))
     ""))
 
 ;; Support `customize-group'
