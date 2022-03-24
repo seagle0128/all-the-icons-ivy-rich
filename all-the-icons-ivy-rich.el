@@ -58,8 +58,10 @@
 (defvar ivy--directory)
 (defvar ivy-last)
 (defvar ivy-posframe-buffer)
-(declare-function find-library-name 'find-func)
-(declare-function ivy-posframe--display 'ivy-posframe)
+
+(declare-function counsel-world-clock--local-time "ext:counsel-world-clock")
+(declare-function find-library-name "find-func")
+(declare-function ivy-posframe--display "ext:ivy-posframe")
 
 ;; Compatibility
 (unless (fboundp #'file-attribute-user-id)
@@ -503,7 +505,8 @@ This value is adjusted depending on the `window-width'."
     counsel-world-clock
     (:columns
      ((all-the-icons-ivy-rich-world-clock-icon)
-      (ivy-rich-candidate))
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-world-clock (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
     counsel-tramp
     (:columns
@@ -1265,6 +1268,11 @@ If the buffer is killed, return \"--\"."
 (defun all-the-icons-ivy-rich-library-path (cand)
   "Return library path for CAND."
   (abbreviate-file-name (find-library-name cand)))
+
+;; Support `counsel-world-clock'
+(defun all-the-icons-ivy-rich-world-clock (cand)
+  "Return local time of timezone (CAND)."
+  (counsel-world-clock--local-time cand))
 
 ;;
 ;; Icons
