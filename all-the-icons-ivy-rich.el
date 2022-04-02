@@ -1139,7 +1139,7 @@ Display the true name when the file is a symlink."
 ;; Symbol class characters from Emacs 28 `help--symbol-completion-table-affixation'
 ;; ! and * are additions. Same as marginalia
 (defun all-the-icons-ivy-rich-symbol-class (cand)
-  "Return symbol class characters for symbol S.
+  "Return symbol class characters for symbol CAND.
 
 Function:
 f function
@@ -1147,6 +1147,7 @@ c command
 C interactive-only command
 m macro
 M special-form
+g cl-generic
 p pure
 s side-effect-free
 @ autoloaded
@@ -1173,6 +1174,7 @@ t cl-type"
           ((get s 'side-effect-free) "s"))
          (cond
           ((commandp s) (if (get s 'interactive-only) "C" "c"))
+          ((cl-generic-p s) "g")
           ((macrop (symbol-function s)) "m")
           ((special-form-p (symbol-function s)) "M")
           (t "f"))
