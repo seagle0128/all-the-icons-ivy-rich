@@ -59,6 +59,7 @@
 (defvar ivy-last)
 (defvar ivy-posframe-buffer)
 
+(declare-function bookmark-get-front-context-string "bookmark")
 (declare-function counsel-world-clock--local-time "ext:counsel-world-clock")
 (declare-function find-library-name "find-func")
 (declare-function ivy-posframe--display "ext:ivy-posframe")
@@ -496,9 +497,10 @@ This value is adjusted depending on the `window-width'."
     counsel-bookmark
     (:columns
      ((all-the-icons-ivy-rich-bookmark-icon)
-      (all-the-icons-ivy-rich-bookmark-name (:width 0.3))
-      (ivy-rich-bookmark-type)
-      (all-the-icons-ivy-rich-bookmark-info (:face all-the-icons-ivy-rich-bookmark-face)))
+      (all-the-icons-ivy-rich-bookmark-name (:width 0.25))
+      (ivy-rich-bookmark-type (:width 10))
+      (all-the-icons-ivy-rich-bookmark-filename (:width 0.3 :face all-the-icons-ivy-rich-bookmark-face))
+      (all-the-icons-ivy-rich-bookmark-context (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
     counsel-bookmarked-directory
     (:columns
@@ -1011,13 +1013,24 @@ Display the true name when the file is a symlink."
   "Return bookmark name for CAND."
   (car (assoc cand bookmark-alist)))
 
-(defun all-the-icons-ivy-rich-bookmark-info (cand)
-  "Return bookmark name for CAND."
+(defun all-the-icons-ivy-rich-bookmark-filename (cand)
+  "Return bookmark info for CAND."
   (let ((file (ivy-rich-bookmark-filename cand)))
     (cond
      ((null file) "")
      ((file-remote-p file) file)
      (t file))))
+
+(defun all-the-icons-ivy-rich-bookmark-context (cand)
+  "Return bookmark context for CAND."
+  (let ((context (bookmark-get-front-context-string
+                  (assoc cand (bound-and-true-p bookmark-alist)))))
+    (unless (or (not context) (string= context ""))
+      (concat (string-trim
+               (replace-regexp-in-string
+                "[ \t]+" " "
+                (replace-regexp-in-string "\n" "\\\\n" context)))
+              "…"))))
 
 ;; Support `counsel-package', `package-delete', `package-reinstall' and `package-delete'
 (defun all-the-icons-ivy-rich-package-name (cand)
