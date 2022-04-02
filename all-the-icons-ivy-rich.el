@@ -1025,12 +1025,13 @@ Display the true name when the file is a symlink."
   "Return bookmark context for CAND."
   (let ((context (bookmark-get-front-context-string
                   (assoc cand (bound-and-true-p bookmark-alist)))))
-    (unless (or (not context) (string= context ""))
-      (concat (string-trim
-               (replace-regexp-in-string
-                "[ \t]+" " "
-                (replace-regexp-in-string "\n" "\\\\n" context)))
-              "…"))))
+    (if (and context (not (string-empty-p context)))
+        (concat (string-trim
+                 (replace-regexp-in-string
+                  "[ \t]+" " "
+                  (replace-regexp-in-string "\n" "\\\\n" context)))
+                "…")
+      "")))
 
 ;; Support `counsel-package', `package-delete', `package-reinstall' and `package-delete'
 (defun all-the-icons-ivy-rich-package-name (cand)
