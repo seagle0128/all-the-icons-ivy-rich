@@ -62,6 +62,8 @@
 (declare-function counsel-world-clock--local-time "ext:counsel-world-clock")
 (declare-function find-library-name "find-func")
 (declare-function ivy-posframe--display "ext:ivy-posframe")
+(declare-function package--from-builtin "package")
+(declare-function package-desc-status "package")
 
 ;; Compatibility
 (unless (fboundp #'file-attribute-user-id)
@@ -135,8 +137,8 @@
   "Face used for package archive."
   :group 'all-the-icons-ivy-rich)
 
-(defface all-the-icons-ivy-rich-install-face
-  '((t (:inherit font-lock-string-face)))
+(defface all-the-icons-ivy-rich-pacage-desc-face
+  '((t (:inherit all-the-icons-ivy-rich-doc-face)))
   "Face used for package install."
   :group 'all-the-icons-ivy-rich)
 
@@ -273,6 +275,14 @@
   '((t (:inherit all-the-icons-ivy-rich-doc-face :height 0.9)))
   "Face used for imenu documentation."
   :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-on-face
+  '((t :inherit success))
+  "Face used to signal enabled modes.")
+
+(defface all-the-icons-ivy-rich-off-face
+  '((t :inherit shadow))
+  "Face used to signal disabled modes.")
 
 ;;
 ;; Customization
@@ -498,10 +508,11 @@ This value is adjusted depending on the `window-width'."
     counsel-package
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 0.3))
+      (ivy-rich-candidate (:width 0.25))
       (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
-      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
     counsel-fonts
     (:columns
@@ -653,23 +664,28 @@ This value is adjusted depending on the `window-width'."
     package-install
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 0.3))
-      (ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
-      (ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
-      (ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
     package-reinstall
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate (:width 0.3))
-      (ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
-      (ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
-      (ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-install-face)))
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
     package-delete
     (:columns
      ((all-the-icons-ivy-rich-package-icon)
-      (ivy-rich-candidate))
+      (all-the-icons-ivy-rich-package-name (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
 
     persp-switch-to-buffer
@@ -1003,18 +1019,36 @@ Display the true name when the file is a symlink."
      ((file-remote-p file) file)
      (t file))))
 
-;; Support `counsel-package'
+;; Support `counsel-package', `package-delete', `package-reinstall' and `package-delete'
+(defun all-the-icons-ivy-rich-package-name (cand)
+  "Return formalized package name for CAND."
+  (replace-regexp-in-string "-[[:digit:]\\.-]+\\'" ""
+                            (replace-regexp-in-string "^\\(\\+\\|-\\)" "" cand)))
+
+(defun all-the-icons-ivy-rich-package-status (cand)
+  "Return package status for CAND."
+  (let* ((pkg-alist (bound-and-true-p package-alist))
+         (pkg (intern-soft (all-the-icons-ivy-rich-package-name cand)))
+         ;; taken from `describe-package-1'
+         (package-desc (or (car (alist-get pkg pkg-alist))
+                           (if-let (built-in (assq pkg package--builtins))
+                               (package--from-builtin built-in)
+                             (car (alist-get pkg package-archive-contents))))))
+    (if package-desc
+        (or (package-desc-status package-desc) "orphan")
+      "")))
+
 (defun all-the-icons-ivy-rich-package-install-summary (cand)
   "Return package install summary for CAND. Used for `counsel-package'."
-  (ivy-rich-package-install-summary (substring cand 1)))
+  (ivy-rich-package-install-summary (all-the-icons-ivy-rich-package-name cand)))
 
 (defun all-the-icons-ivy-rich-package-archive-summary (cand)
   "Return package archive summary for CAND. Used for `counsel-package'."
-  (ivy-rich-package-archive-summary (substring cand 1)))
+  (ivy-rich-package-archive-summary (all-the-icons-ivy-rich-package-name cand)))
 
 (defun all-the-icons-ivy-rich-package-version (cand)
   "Return package version for CAND. Used for `counsel-package'."
-  (ivy-rich-package-version (substring cand 1)))
+  (ivy-rich-package-version (all-the-icons-ivy-rich-package-name cand)))
 
 (defun all-the-icons-ivy-rich--truncate-docstring (doc)
   "Truncate DOC string."
@@ -1316,7 +1350,7 @@ If the buffer is killed, return \"--\"."
   "Return library name for CAND."
   (if (featurep (intern-soft cand))
       cand
-    (propertize cand 'face 'ivy-virtual)))
+    (propertize cand 'face 'all-the-icons-ivy-rich-off-face)))
 
 (defun all-the-icons-ivy-rich-library-path (cand)
   "Return library path for CAND."
