@@ -325,7 +325,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
@@ -337,7 +337,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
@@ -351,7 +351,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
@@ -363,7 +363,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
@@ -696,7 +696,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :predicate
@@ -743,7 +743,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
@@ -753,7 +753,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
@@ -769,7 +769,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
@@ -780,7 +780,7 @@ This value is adjusted depending on the `window-width'."
       (ivy-switch-buffer-transformer (:width 0.3))
       (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
-      (ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
@@ -840,6 +840,11 @@ See `ivy-rich-display-transformers-list' for details."
 ;;
 ;; Utilities
 ;;
+
+;; Support`ivy-switch-buffer'
+(defun all-the-icons-ivy-rich-switch-buffer-major-mode (cand)
+  "Return the mode name for CAND."
+  (format-mode-line (ivy-rich--local-values cand 'mode-name)))
 
 ;; Support `kill-buffer'
 (defun all-the-icons-ivy-rich-kill-buffer (&optional buffer-or-name)
