@@ -164,9 +164,37 @@
   '((t :inherit all-the-icons-ivy-rich-doc-face))
   "Face used for highlight file names.")
 
-(defface all-the-icons-ivy-rich-file-modes-face
-  '((t :inherit font-lock-string-face))
-  "Face used for highlight file modes.")
+(defface all-the-icons-ivy-rich-file-priv-no
+  '((t :inherit shadow))
+  "Face used to highlight the no file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-dir
+  '((t :inherit font-lock-keyword-face))
+  "Face used to highlight the dir file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-link
+  '((t :inherit font-lock-keyword-face))
+  "Face used to highlight the link file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-read
+  '((t :inherit font-lock-type-face))
+  "Face used to highlight the read file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-write
+  '((t :inherit font-lock-builtin-face))
+  "Face used to highlight the write file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-exec
+  '((t :inherit font-lock-function-name-face))
+  "Face used to highlight the exec file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-other
+  '((t :inherit font-lock-constant-face))
+  "Face used to highlight some other file privilege attribute.")
+
+(defface all-the-icons-ivy-rich-file-priv-rare
+  '((t :inherit font-lock-variable-name-face))
+  "Face used to highlight a rare file privilege attribute.")
 
 (defface all-the-icons-ivy-rich-file-owner-face
   '((t :inherit font-lock-keyword-face))
@@ -388,7 +416,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -397,7 +425,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -406,7 +434,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -415,7 +443,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -424,7 +452,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -433,7 +461,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.4))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -442,7 +470,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-file-name (:width 0.5))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -451,7 +479,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-buffer-or-recentf-transformer (:width 0.5))
       (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
       (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (ivy-rich-file-last-modified-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -543,7 +571,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (counsel-projectile-find-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -552,7 +580,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-dir-icon)
       (counsel-projectile-find-dir-transformer (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -580,7 +608,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -589,7 +617,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-project-find-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -598,7 +626,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-project-find-file-transformer (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -607,7 +635,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -616,7 +644,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-file-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12 :face all-the-icons-ivy-rich-file-modes-face))
+      (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
@@ -841,12 +869,32 @@ Return `default-directory' if no project was found."
       (propertize cand 'face 'ivy-virtual)
     cand))
 
+(defvar all-the-icons-ivy-rich--file-modes-cache nil
+  "File modes cache.")
 (defun all-the-icons-ivy-rich--file-modes (file)
   "Return FILE modes."
   (cond
    ((file-remote-p file) "")
    ((not (file-exists-p file)) "")
-   (t (file-attribute-modes (file-attributes file)))))
+   (t (let ((modes (file-attribute-modes (file-attributes file))))
+        (or (car (member modes all-the-icons-ivy-rich--file-modes-cache))
+            (progn
+              (dotimes (i (length modes))
+                (put-text-property
+                 i (1+ i) 'face
+                 (pcase (aref modes i)
+                   (?- 'all-the-icons-ivy-rich-file-priv-no)
+                   (?d 'all-the-icons-ivy-rich-file-priv-dir)
+                   (?l 'all-the-icons-ivy-rich-file-priv-link)
+                   (?r 'all-the-icons-ivy-rich-file-priv-read)
+                   (?w 'all-the-icons-ivy-rich-file-priv-write)
+                   (?x 'all-the-icons-ivy-rich-file-priv-exec)
+                   ((or ?s ?S ?t ?T) 'all-the-icons-ivy-rich-file-priv-other)
+                   (_ 'all-the-icons-ivy-rich-file-priv-rare))
+                 modes))
+              (push modes all-the-icons-ivy-rich--file-modes-cache)
+              modes)
+            "")))))
 
 (defun all-the-icons-ivy-rich--file-id (path)
   "Return file uid/gid for CAND."
