@@ -98,6 +98,22 @@
   :group 'ivy-rich
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ivy-rich"))
 
+(defface all-the-icons-ivy-rich-on-face
+  '((t :inherit success))
+  "Face used to signal enabled modes.")
+
+(defface all-the-icons-ivy-rich-off-face
+  '((t :inherit shadow))
+  "Face used to signal disabled modes.")
+
+(defface all-the-icons-ivy-rich-error-face
+  '((t :inherit error))
+  "Face used to signal disabled modes.")
+
+(defface all-the-icons-ivy-rich-warn-face
+  '((t :inherit warning))
+  "Face used to signal disabled modes.")
+
 (defface all-the-icons-ivy-rich-icon-face
   '((t (:inherit default)))
   "Face used for the icons while `all-the-icons-ivy-rich-color-icon' is nil."
@@ -134,13 +150,38 @@
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-archive-face
-  '((t (:inherit font-lock-type-face)))
+  '((t (:inherit font-lock-doc-face)))
   "Face used for package archive."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-package-status-avaible-face
+  '((t (:inherit all-the-icons-ivy-rich-on-face)))
+  "Face used for package status."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-package-status-new-face
+  '((t (:inherit all-the-icons-ivy-rich-on-face)))
+  "Face used for package status."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-package-status-held-face
+  '((t (:inherit all-the-icons-ivy-rich-on-face)))
+  "Face used for package status."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-package-status-installed-face
+  '((t (:inherit all-the-icons-ivy-rich-off-face)))
+  "Face used for package status."
+  :group 'all-the-icons-ivy-rich)
+
+(defface all-the-icons-ivy-rich-package-status-warn-face
+  '((t (:inherit all-the-icons-ivy-rich-warn-face)))
+  "Face used for package status."
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-pacage-desc-face
   '((t (:inherit all-the-icons-ivy-rich-doc-face)))
-  "Face used for package install."
+  "Face used for package description."
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-path-face
@@ -149,7 +190,7 @@
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-indicator-face
-  '((t (:inherit error)))
+  '((t (:inherit all-the-icons-ivy-rich-error-face)))
   "Face used for file indicators."
   :group 'all-the-icons-ivy-rich)
 
@@ -212,7 +253,7 @@
   "Face used for process status.")
 
 (defface all-the-icons-ivy-rich-process-status-alt-face
-  '((t :inherit error))
+  '((t :inherit all-the-icons-ivy-rich-error-face))
   "Face used for process status: stop, exit, closed and failed.")
 
 (defface all-the-icons-ivy-rich-process-buffer-face
@@ -276,14 +317,6 @@
   '((t (:inherit all-the-icons-ivy-rich-doc-face :height 0.9)))
   "Face used for imenu documentation."
   :group 'all-the-icons-ivy-rich)
-
-(defface all-the-icons-ivy-rich-on-face
-  '((t :inherit success))
-  "Face used to signal enabled modes.")
-
-(defface all-the-icons-ivy-rich-off-face
-  '((t :inherit shadow))
-  "Face used to signal disabled modes.")
 
 ;;
 ;; Customization
@@ -512,7 +545,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.25))
       (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
-      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
@@ -685,6 +718,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.25))
       (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
@@ -693,7 +727,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-package-icon)
       (ivy-rich-candidate (:width 0.25))
       (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
-      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
@@ -702,7 +736,7 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-package-icon)
       (all-the-icons-ivy-rich-package-name (:width 0.25))
       (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
-      (all-the-icons-ivy-rich-package-status (:width 12 :face all-the-icons-ivy-rich-on-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
@@ -1058,7 +1092,7 @@ Display the true name when the file is a symlink."
 ;; Support `counsel-package', `package-delete', `package-reinstall' and `package-delete'
 (defun all-the-icons-ivy-rich-package-name (cand)
   "Return formalized package name for CAND."
-  (replace-regexp-in-string "-[[:digit:]\\.-]+\\'" ""
+  (replace-regexp-in-string "-[[:digit:]]+\\.?[[:digit:]+\\.]+\\'" ""
                             (replace-regexp-in-string "^\\(\\+\\|-\\)" "" cand)))
 
 (defun all-the-icons-ivy-rich-package-status (cand)
@@ -1066,13 +1100,23 @@ Display the true name when the file is a symlink."
   (let* ((pkg-alist (bound-and-true-p package-alist))
          (pkg (intern-soft (all-the-icons-ivy-rich-package-name cand)))
          ;; taken from `describe-package-1'
-         (package-desc (or (car (alist-get pkg pkg-alist))
-                           (if-let (built-in (assq pkg package--builtins))
-                               (package--from-builtin built-in)
-                             (car (alist-get pkg package-archive-contents))))))
-    (if package-desc
-        (or (package-desc-status package-desc) "orphan")
-      "")))
+         (pkg-desc (or (car (alist-get pkg pkg-alist))
+                       (if-let (built-in (assq pkg package--builtins))
+                           (package--from-builtin built-in)
+                         (car (alist-get pkg package-archive-contents))))))
+    (if-let ((status (and pkg-desc (package-desc-status pkg-desc))))
+        (cond ((string= status "available")
+               (propertize status 'face 'all-the-icons-ivy-rich-package-status-avaible-face))
+              ((string= status "new")
+               (propertize status 'face 'all-the-icons-ivy-rich-package-status-new-face))
+              ((string= status "held")
+               (propertize status 'face 'all-the-icons-ivy-rich-package-status-held-face))
+              ((member status '("avail-obso" "installed" "dependency" "incompat" "deleted"))
+               (propertize status 'face 'all-the-icons-ivy-rich-package-status-installed-face))
+              ((member status '("disabled" "unsigned"))
+               (propertize status 'face 'all-the-icons-ivy-rich-package-status-warn-face))
+              (t status))
+      (propertize "orphan" 'face 'all-the-icons-ivy-rich-error-face))))
 
 (defun all-the-icons-ivy-rich-package-install-summary (cand)
   "Return package install summary for CAND. Used for `counsel-package'."
@@ -1605,11 +1649,11 @@ If the buffer is killed, return \"--\"."
      (let ((file (ivy-rich-bookmark-filename cand)))
        (cond
         ((null file)
-         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'warning))  ; fixed #38
+         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-ivy-rich-warn-face))  ; fixed #38
         ((file-remote-p file)
          (all-the-icons-octicon "radio-tower" :height 0.8 :v-adjust 0.01))
         ((not (file-exists-p file))
-         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'error))
+         (all-the-icons-material "block" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-ivy-rich-error-face))
         ((file-directory-p file)
          (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
         (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0)))))))
