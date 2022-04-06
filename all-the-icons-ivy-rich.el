@@ -615,6 +615,23 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    ;; Execute command
+    execute-extended-command
+    (:columns
+     ((all-the-icons-ivy-rich-function-icon)
+      (counsel-M-x-transformer (:width 0.3))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
+    execute-extended-command-for-buffer
+    (:columns
+     ((all-the-icons-ivy-rich-function-icon)
+      (counsel-M-x-transformer (:width 0.3))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
+    project-execute-extended-command
+    (:columns
+     ((all-the-icons-ivy-rich-function-icon)
+      (counsel-M-x-transformer (:width 0.3))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
+
     ;; project
     project-switch-project
     (:columns
