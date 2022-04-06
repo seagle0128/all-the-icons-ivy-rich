@@ -91,6 +91,22 @@ all-the-icons-ivy-rich-display-transformers-list
 (setq inhibit-compacting-font-caches t)
 ```
 
+In `counsel-describe-function`, `counsel-describe-variable`and `counsel-describe-symbol`, the symbol
+classes will be displayed. The details are below.
+
+ | Function                   | Variable                                       | Other     |
+ |----------------------------|------------------------------------------------|-----------|
+ | f function                 | u custom (U modified compared to global value) | a face    |
+ | c cooamd                   | v variable                                     | t cl-type |
+ | C interactive-only command | l local (L modified compared to default value) |           |
+ | m macto                    | - obsolete                                     |           |
+ | M special form             |                                                |           |
+ | g cl-generic               |                                                |           |
+ | p pure                     |                                                |           |
+ | s side-effect-free         |                                                |           |
+ | @ autoloaded               |                                                |           |
+ | ! advised                  |                                                |           |
+
 ## Screenshots
 
 ![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/154795765-786a29c2-3dc6-4a81-9992-fcd7043ae1ab.png
