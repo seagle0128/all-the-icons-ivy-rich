@@ -160,12 +160,12 @@
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-package-status-new-face
-  '((t (:inherit all-the-icons-ivy-rich-on-face)))
+  '((t (:inherit (all-the-icons-ivy-rich-on-face bold))))
   "Face used for package status."
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-package-status-held-face
-  '((t (:inherit all-the-icons-ivy-rich-on-face)))
+  '((t (:inherit font-lock-constant-face)))
   "Face used for package status."
   :group 'all-the-icons-ivy-rich)
 
