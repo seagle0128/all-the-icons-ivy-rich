@@ -562,8 +562,7 @@ This value is adjusted depending on the `window-width'."
     counsel-major
     (:columns
      ((all-the-icons-ivy-rich-mode-icon)
-      (counsel-describe-function-transformer (:width 0.25))
-      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
+      (counsel-describe-function-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     counsel-minor
     (:columns
