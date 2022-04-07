@@ -661,6 +661,11 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-history-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+    counsel-read-directory-name
+    (:columns
+     ((all-the-icons-ivy-rich-dir-icon)
+      (all-the-icons-ivy-rich-project-name))
+     :delimiter "\t")
 
     ;; Execute command
     execute-extended-command
