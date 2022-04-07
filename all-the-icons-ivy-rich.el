@@ -204,6 +204,11 @@
   "Face used for project."
   :group 'all-the-icons-ivy-rich)
 
+(defface all-the-icons-ivy-rich-persp-face
+  '((t (:inherit font-lock-string-face)))
+  "Face used for persp."
+  :group 'all-the-icons-ivy-rich)
+
 (defface all-the-icons-ivy-rich-file-name-face
   '((t :inherit all-the-icons-ivy-rich-doc-face))
   "Face used for highlight file names.")
@@ -771,6 +776,7 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
 
+    ;; persp
     persp-switch-to-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
@@ -785,38 +791,38 @@ This value is adjusted depending on the `window-width'."
      :delimiter "\t")
     persp-switch
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-frame-switch
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-window-switch
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-kill
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-save-and-kill
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-import-buffers
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-import-win-conf
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
-      (ivy-rich-candidate))
+     ((all-the-icons-ivy-rich-project-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-persp-face)))
      :delimiter "\t")
     persp-kill-buffer
     (:columns
@@ -841,7 +847,12 @@ This value is adjusted depending on the `window-width'."
     persp-add-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
-      (ivy-rich-candidate))
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face all-the-icons-ivy-rich-indicator-face :align right))
+      (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
+      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
 
     all-the-icons-ivy-rich-kill-buffer
@@ -1543,6 +1554,12 @@ If the buffer is killed, return \"--\"."
   (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "file-directory" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver))))
+
+(defun all-the-icons-ivy-rich-project-icon (_cand)
+  "Display project icon in `ivy-rich'."
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "folder" :height 0.9 :v-adjust 0.0 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-mode-icon (_cand)
   "Display mode icon in `ivy-rich'."
