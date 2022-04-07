@@ -651,6 +651,16 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-company-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
+    counsel-command-history
+    (:columns
+     ((all-the-icons-ivy-rich-command-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    counsel-minibuffer-history
+    (:columns
+     ((all-the-icons-ivy-rich-history-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
 
     ;; Execute command
     execute-extended-command
@@ -1542,6 +1552,18 @@ If the buffer is killed, return \"--\"."
      (if (commandp (intern cand))
          (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue)
        (all-the-icons-faicon "cube" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-purple)))))
+
+(defun all-the-icons-ivy-rich-command-icon (_cand)
+  "Display command icon in `ivy-rich'."
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "cog" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-blue))))
+
+(defun all-the-icons-ivy-rich-history-icon (_cand)
+  "Display command icon in `ivy-rich'."
+  (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-material "history" :height 1.1 :v-adjust -0.1 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-variable-icon (cand)
   "Display the variable icon in `ivy-rich'."
