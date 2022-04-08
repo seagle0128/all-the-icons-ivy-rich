@@ -923,7 +923,7 @@ This value is adjusted depending on the `window-width'."
 
     treemacs-projectile
     (:columns
-     ((all-the-icons-ivy-rich-dir-icon)
+     ((all-the-icons-ivy-rich-project-icon)
       (all-the-icons-ivy-rich-project-name (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
       (all-the-icons-ivy-rich-project-file-modes (:width 12))
@@ -1559,7 +1559,7 @@ If the buffer is killed, return \"--\"."
   "Display project icon in `ivy-rich'."
   (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (all-the-icons-ivy-rich--format-icon
-     (all-the-icons-faicon "folder" :height 0.9 :v-adjust 0.0 :face 'all-the-icons-silver))))
+     (all-the-icons-octicon "repo" :height 1.0 :v-adjust 0.01 :face 'all-the-icons-silver))))
 
 (defun all-the-icons-ivy-rich-mode-icon (_cand)
   "Display mode icon in `ivy-rich'."
