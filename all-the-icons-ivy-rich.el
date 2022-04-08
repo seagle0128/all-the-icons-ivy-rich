@@ -911,6 +911,14 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-input-method-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
+    remove-hook
+    (:columns
+     ((all-the-icons-ivy-rich-variable-icon)
+      (counsel-describe-variable-transformer (:width 0.3))
+      (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
+      (all-the-icons-ivy-rich-variable-value (:width 0.12))
+      (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
+
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
