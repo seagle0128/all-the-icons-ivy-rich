@@ -671,6 +671,16 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-dir-icon)
       (all-the-icons-ivy-rich-project-name))
      :delimiter "\t")
+    counsel-rpm
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    counsel-dpkg
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
 
     ;; Execute command
     execute-extended-command
