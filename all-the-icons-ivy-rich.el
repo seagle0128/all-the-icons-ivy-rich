@@ -1503,7 +1503,8 @@ If the buffer is killed, return \"--\"."
 
 (defun all-the-icons-ivy-rich-library-path (cand)
   "Return library path for CAND."
-  (abbreviate-file-name (find-library-name cand)))
+  (abbreviate-file-name
+   (or (ignore-errors (find-library-name cand)) "")))
 
 ;; Support `counsel-world-clock'
 (defun all-the-icons-ivy-rich-world-clock (cand)
