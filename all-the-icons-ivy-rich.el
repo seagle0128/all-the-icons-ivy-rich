@@ -1557,10 +1557,7 @@ If the buffer is killed, return \"--\"."
   (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (let ((icon (cond
                  ((ivy--dirname-p cand)
-                  (all-the-icons-icon-for-dir cand
-                                              :height 0.9
-                                              :v-adjust 0.01
-                                              :face 'all-the-icons-ivy-rich-dir-face))
+                  (all-the-icons-icon-for-dir cand :face 'all-the-icons-ivy-rich-dir-face))
                  ((not (string-empty-p cand))
                   (all-the-icons-icon-for-file (file-name-nondirectory cand) :height 0.9 :v-adjust 0.0)))))
       (all-the-icons-ivy-rich--format-icon
