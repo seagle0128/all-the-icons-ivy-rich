@@ -1452,15 +1452,20 @@ If the buffer is killed, return \"--\"."
 
 (defun all-the-icons-ivy-rich-process-thread (cand)
   "Return process thread for CAND."
-  (let ((p (get-process cand)))
-    (when (processp p)
-      (cond
-       ((or
-         (null (process-thread p))
-         (not (fboundp 'thread-name))) "--")
-       ((eq (process-thread p) main-thread) "Main")
-	   ((thread-name (process-thread p)))
-	   (t "--")))))
+  (if (> emacs-major-version 26)
+      (propertize
+       (format "%-12s"
+               (let ((p (get-process cand)))
+                 (when (processp p)
+                   (cond
+                    ((or
+                      (null (process-thread p))
+                      (not (fboundp 'thread-name))) "--")
+                    ((eq (process-thread p) main-thread) "Main")
+	                ((thread-name (process-thread p)))
+	                (t "--")))))
+       'face 'all-the-icons-ivy-rich-process-thread-face)
+    ""))
 
 (defun all-the-icons-ivy-rich-process-command (cand)
   "Return process command for CAND."
@@ -1468,7 +1473,9 @@ If the buffer is killed, return \"--\"."
     (when (processp p)
       (let ((type (process-type p)))
         (if (memq type '(network serial pipe))
-		    (let ((contact (process-contact p t t)))
+		    (let ((contact (if (> emacs-major-version 26)
+                               (process-contact p t t)
+                             (process-contact p t))))
 			  (if (eq type 'network)
 			      (format "(%s %s)"
 				          (if (plist-get contact :type)
