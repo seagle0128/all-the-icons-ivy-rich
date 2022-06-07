@@ -989,9 +989,9 @@ Return `default-directory' if no project was found."
         (ffip-get-project-root-directory)))
      ((fboundp 'projectile-project-root)
       (projectile-project-root))
-     ((fboundp 'project-current)
+     ((and (fboundp 'project-current) (fboundp 'project-root))
       (when-let ((project (project-current)))
-        (expand-file-name (cdr project))))
+        (expand-file-name (project-root project))))
      (t default-directory))))
 
 (defun all-the-icons-ivy-rich--file-path (cand)
@@ -1006,7 +1006,7 @@ Return `default-directory' if no project was found."
 
 (defun all-the-icons-ivy-rich-project-find-file-transformer (cand)
   "Transform non-visited file names with `ivy-virtual' face."
-  (if (not (get-file-buffer (expand-file-name cand (cdr (project-current)))))
+  (if (not (get-file-buffer (expand-file-name cand (project-root (project-current)))))
       (propertize cand 'face 'ivy-virtual)
     cand))
 
