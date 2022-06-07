@@ -989,7 +989,7 @@ Return `default-directory' if no project was found."
         (ffip-get-project-root-directory)))
      ((fboundp 'projectile-project-root)
       (projectile-project-root))
-     ((and (fboundp 'project-current) (fboundp 'project-root))
+     ((fboundp 'project-current)
       (when-let ((project (project-current)))
         (expand-file-name (project-root project))))
      (t default-directory))))
