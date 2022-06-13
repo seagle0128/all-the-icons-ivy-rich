@@ -1008,10 +1008,14 @@ Return `default-directory' if no project was found."
 
 (defun all-the-icons-ivy-rich-project-find-file-transformer (cand)
   "Transform non-visited file names with `ivy-virtual' face."
-  (if (get-file-buffer
-       (expand-file-name cand (all-the-icons-ivy-rich--project-root)))
-      cand
-    (propertize cand 'face 'ivy-virtual)))
+  (cond
+   ((or (ivy--dirname-p cand)
+        (file-directory-p (all-the-icons-ivy-rich--file-path cand)))
+    (propertize cand 'face 'ivy-subdir))
+   ((not (get-file-buffer
+          (expand-file-name cand (all-the-icons-ivy-rich--project-root))))
+    (propertize cand 'face 'ivy-virtual))
+   (t cand)))
 
 (defvar all-the-icons-ivy-rich--file-modes-cache nil
   "File modes cache.")
