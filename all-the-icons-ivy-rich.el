@@ -682,6 +682,27 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    counsel-ack
+    (:columns
+     ((all-the-icons-ivy-rich-ag-file-icon)
+      (all-the-icons-ivy-rich-ag-transformer))
+     :delimiter "\t")
+    counsel-ag
+    (:columns
+     ((all-the-icons-ivy-rich-ag-file-icon)
+      (all-the-icons-ivy-rich-ag-transformer))
+     :delimiter "\t")
+    counsel-pt
+    (:columns
+     ((all-the-icons-ivy-rich-ag-file-icon)
+      (all-the-icons-ivy-rich-ag-transformer))
+     :delimiter "\t")
+    counsel-rg
+    (:columns
+     ((all-the-icons-ivy-rich-ag-file-icon)
+      (all-the-icons-ivy-rich-ag-transformer))
+     :delimiter "\t")
+
     ;; Execute command
     execute-extended-command
     (:columns
@@ -1525,6 +1546,18 @@ If the buffer is killed, return \"--\"."
   "Return local time of timezone (CAND)."
   (counsel-world-clock--local-time cand))
 
+(defun all-the-icons-ivy-rich-ag-transformer (cand)
+  "Transform `counsel-ag' search results (CAND).
+Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
+  (when (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+    (let ((file (match-string 1 cand))
+          (line (match-string 2 cand))
+          (result (match-string 3 cand)))
+      (format "%s:%s:%s"
+              (propertize file 'face 'compilation-info)
+              (propertize line 'face 'compilation-info)
+              result))))
+
 ;;
 ;; Icons
 ;;
@@ -1785,6 +1818,11 @@ If the buffer is killed, return \"--\"."
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
+(defun all-the-icons-ivy-rich-ag-file-icon (cand)
+  "Display `counsel-ag' file icon for CAND in `ivy-rich'.
+Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
+  (when (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+    (all-the-icons-ivy-rich-file-icon (match-string 1 cand))))
 
 
 ;;
