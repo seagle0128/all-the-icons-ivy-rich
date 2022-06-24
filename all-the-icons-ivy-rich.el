@@ -1705,7 +1705,7 @@ If the buffer is killed, return \"--\"."
   "Display the process icon in `ivy-rich'."
   (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
     (all-the-icons-ivy-rich--format-icon
-     (all-the-icons-octicon "zap" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue))))
+     (all-the-icons-faicon "bolt" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
@@ -1720,7 +1720,7 @@ If the buffer is killed, return \"--\"."
           ((string-match-p "\\(Variables?\\)\\|\\(Fields?\\)\\|\\(Parameters?\\)[:)]" cand)
            (all-the-icons-octicon "tag" :height 0.95 :v-adjust 0 :face 'all-the-icons-lblue))
           ((string-match-p "Constants?[:)]" cand)
-           (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.15))
+           (all-the-icons-faicon "square-o" :height 0.95 :v-adjust -0.05))
           ((string-match-p "Enum\\(erations?\\)?[:)]" cand)
            (all-the-icons-material "storage" :height 0.95 :v-adjust -0.2 :face 'all-the-icons-orange))
           ((string-match-p "References?[:)]" cand)
