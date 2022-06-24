@@ -1549,14 +1549,15 @@ If the buffer is killed, return \"--\"."
 (defun all-the-icons-ivy-rich-ag-transformer (cand)
   "Transform `counsel-ag' search results (CAND).
 Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
-  (when (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
-    (let ((file (match-string 1 cand))
-          (line (match-string 2 cand))
-          (result (match-string 3 cand)))
-      (format "%s:%s:%s"
-              (propertize file 'face 'compilation-info)
-              (propertize line 'face 'compilation-info)
-              result))))
+  (if (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+      (let ((file (match-string 1 cand))
+            (line (match-string 2 cand))
+            (result (match-string 3 cand)))
+        (format "%s:%s:%s"
+                (propertize file 'face 'compilation-info)
+                (propertize line 'face 'compilation-info)
+                result))
+    cand))
 
 ;;
 ;; Icons
