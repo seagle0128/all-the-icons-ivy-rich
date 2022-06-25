@@ -1549,15 +1549,24 @@ If the buffer is killed, return \"--\"."
 (defun all-the-icons-ivy-rich-ag-transformer (cand)
   "Transform `counsel-ag' search results (CAND).
 Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
-  (if (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
-      (let ((file (match-string 1 cand))
-            (line (match-string 2 cand))
-            (result (match-string 3 cand)))
-        (format "%s:%s:%s"
-                (propertize file 'face 'compilation-info)
-                (propertize line 'face 'compilation-info)
-                result))
-    cand))
+  (cond
+   ((string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+    (let ((file (match-string 1 cand))
+          (line (match-string 2 cand))
+          (result (match-string 3 cand)))
+      (format "%s:%s:%s"
+              (propertize file 'face 'compilation-info)
+              (propertize line 'face 'compilation-info)
+              result)))
+   ((string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand)
+    (let ((file (match-string 1 cand))
+          (msg (match-string 2 cand))
+          (err (match-string 3 cand)))
+      (format "%s:%s(%s)"
+              (propertize file 'face 'compilation-info)
+              msg
+              (propertize err 'face 'error))))
+   (t cand)))
 
 ;;
 ;; Icons
@@ -1822,7 +1831,8 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
 (defun all-the-icons-ivy-rich-ag-file-icon (cand)
   "Display `counsel-ag' file icon for CAND in `ivy-rich'.
 Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
-  (when (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+  (when (or (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
+            (string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand))
     (all-the-icons-ivy-rich-file-icon (match-string 1 cand))))
 
 
