@@ -1678,8 +1678,11 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
 (defun all-the-icons-ivy-rich-symbol-icon (cand)
   "Display the symbol icon in `ivy-rich'."
   (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
-    (let ((sym (intern cand)))
+    (let ((sym (intern (all-the-icons-ivy-rich--counsel-imenu-symbol cand))))
       (cond
+       ((string-match-p "Packages?[:)]" cand)
+        (all-the-icons-ivy-rich--format-icon
+         (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
        ((functionp sym)
         (all-the-icons-ivy-rich-function-icon cand))
        ((facep sym)
@@ -1754,7 +1757,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
 (defun all-the-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
   (if (derived-mode-p 'emacs-lisp-mode)
-      (all-the-icons-ivy-rich-symbol-icon (all-the-icons-ivy-rich--counsel-imenu-symbol cand))
+      (all-the-icons-ivy-rich-symbol-icon cand)
     (when (and (display-graphic-p) all-the-icons-ivy-rich-icon)
       (all-the-icons-ivy-rich--format-icon
        (let ((case-fold-search nil))
