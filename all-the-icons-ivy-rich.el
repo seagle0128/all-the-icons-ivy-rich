@@ -1234,7 +1234,8 @@ Display the true name when the file is a symlink."
 ;; Support `counsel-describe-face'
 (defun all-the-icons-ivy-rich-counsel-face-docstring (cand)
   "Return face's documentation for CAND."
-  (all-the-icons-ivy-rich--truncate-docstring (face-doc-string (intern-soft cand))))
+  (all-the-icons-ivy-rich--truncate-docstring
+   (documentation-property (intern-soft cand) 'face-documentation)))
 
 ;; Support `counsel-describe-function'and `counsel-describe-variable'
 (defun all-the-icons-ivy-rich-function-args (cand)
