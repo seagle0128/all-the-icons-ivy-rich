@@ -925,7 +925,7 @@ This value is adjusted depending on the `window-width'."
     describe-coding-system
     (:columns
      ((all-the-icons-ivy-rich-coding-system-icon)
-      (ivy-rich-candidate (:width 0.3))
+
       (all-the-icons-ivy-rich-coding-system-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
@@ -949,6 +949,17 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-symbol-class (:width 8 :face all-the-icons-ivy-rich-type-face))
       (all-the-icons-ivy-rich-variable-value (:width 0.12))
       (ivy-rich-counsel-variable-docstring (:face all-the-icons-ivy-rich-doc-face))))
+
+    markdown-insert-link
+    (:columns
+     ((all-the-icons-ivy-rich-link-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    markdown-insert-image
+    (:columns
+     ((all-the-icons-ivy-rich-link-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
 
     lsp-ivy-workspace-folders-remove
     (:columns
@@ -1838,6 +1849,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
   (when (or (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
             (string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand))
     (all-the-icons-ivy-rich-file-icon (match-string 1 cand))))
+
+(defun all-the-icons-ivy-rich-link-icon (cand)
+  "Display link icon in `ivy-rich'."
+  (if (string-prefix-p "#" cand)
+      (all-the-icons-faicon "anchor" :height 0.8 :v-adjust -0.05 :face 'all-the-icons-green)
+    (all-the-icons-material "link" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-blue)))
 
 
 ;;
