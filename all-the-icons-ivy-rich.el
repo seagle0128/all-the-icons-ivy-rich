@@ -1016,9 +1016,9 @@ Return `default-directory' if no project was found."
      ;; Ignore remote files due to performance issue
      ((file-remote-p default-directory)
       default-directory)
-     ((fboundp 'ffip-get-project-root-directory)
+     ((fboundp 'ffip-project-root)
       (let ((inhibit-message t))
-        (ffip-get-project-root-directory)))
+        (ffip-project-root)))
      ((fboundp 'projectile-project-root)
       (projectile-project-root))
      ((fboundp 'project-current)
