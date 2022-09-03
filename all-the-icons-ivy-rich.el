@@ -65,6 +65,7 @@
 (declare-function ivy-posframe--display "ext:ivy-posframe")
 (declare-function package--from-builtin "package")
 (declare-function package-desc-status "package")
+(declare-function projectile-project-root "ext:projectile")
 
 ;; Compatibility
 (unless (fboundp #'file-attribute-user-id)
@@ -1019,7 +1020,7 @@ Return `default-directory' if no project was found."
      ((fboundp 'ffip-project-root)
       (let ((inhibit-message t))
         (ffip-project-root)))
-     ((fboundp 'projectile-project-root)
+     ((bound-and-true-p projectile-mode)
       (projectile-project-root))
      ((fboundp 'project-current)
       (when-let ((project (project-current)))
