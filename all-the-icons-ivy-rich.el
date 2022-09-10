@@ -685,23 +685,23 @@ This value is adjusted depending on the `window-width'."
 
     counsel-ack
     (:columns
-     ((all-the-icons-ivy-rich-ag-file-icon)
-      (all-the-icons-ivy-rich-ag-transformer))
+     ((all-the-icons-ivy-rich-grep-file-icon)
+      (all-the-icons-ivy-rich-grep-transformer))
      :delimiter "\t")
     counsel-ag
     (:columns
-     ((all-the-icons-ivy-rich-ag-file-icon)
-      (all-the-icons-ivy-rich-ag-transformer))
+     ((all-the-icons-ivy-rich-grep-file-icon)
+      (all-the-icons-ivy-rich-grep-transformer))
      :delimiter "\t")
     counsel-pt
     (:columns
-     ((all-the-icons-ivy-rich-ag-file-icon)
-      (all-the-icons-ivy-rich-ag-transformer))
+     ((all-the-icons-ivy-rich-grep-file-icon)
+      (all-the-icons-ivy-rich-grep-transformer))
      :delimiter "\t")
     counsel-rg
     (:columns
-     ((all-the-icons-ivy-rich-ag-file-icon)
-      (all-the-icons-ivy-rich-ag-transformer))
+     ((all-the-icons-ivy-rich-grep-file-icon)
+      (all-the-icons-ivy-rich-grep-transformer))
      :delimiter "\t")
 
     ;; Execute command
@@ -711,11 +711,6 @@ This value is adjusted depending on the `window-width'."
       (counsel-M-x-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
     execute-extended-command-for-buffer
-    (:columns
-     ((all-the-icons-ivy-rich-function-icon)
-      (counsel-M-x-transformer (:width 0.3))
-      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
-    project-execute-extended-command
     (:columns
      ((all-the-icons-ivy-rich-function-icon)
       (counsel-M-x-transformer (:width 0.3))
@@ -733,6 +728,12 @@ This value is adjusted depending on the `window-width'."
      :delimiter "\t")
 
     ;; project
+    project-execute-extended-command
+    (:columns
+     ((all-the-icons-ivy-rich-function-icon)
+      (counsel-M-x-transformer (:width 0.3))
+      (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
+
     project-switch-project
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
@@ -777,6 +778,11 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    project-find-regexp
+    (:columns
+     ((all-the-icons-ivy-rich-grep-file-icon)
+      (all-the-icons-ivy-rich-grep-transformer))
      :delimiter "\t")
 
     ;; package
@@ -1559,9 +1565,9 @@ If the buffer is killed, return \"--\"."
   "Return local time of timezone (CAND)."
   (counsel-world-clock--local-time cand))
 
-(defun all-the-icons-ivy-rich-ag-transformer (cand)
-  "Transform `counsel-ag' search results (CAND).
-Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
+(defun all-the-icons-ivy-rich-grep-transformer (cand)
+  "Transform search results (CAND).
+Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (cond
    ((string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
     (let ((file (match-string 1 cand))
@@ -1844,9 +1850,9 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-faicon "keyboard-o" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-lblue))))
 
-(defun all-the-icons-ivy-rich-ag-file-icon (cand)
-  "Display `counsel-ag' file icon for CAND in `ivy-rich'.
-Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg'."
+(defun all-the-icons-ivy-rich-grep-file-icon (cand)
+  "Display file icon for CAND in `ivy-rich'.
+Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (when (or (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
             (string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand))
     (all-the-icons-ivy-rich-file-icon (match-string 1 cand))))
