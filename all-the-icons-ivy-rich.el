@@ -574,13 +574,13 @@ This value is adjusted depending on the `window-width'."
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
       (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
      :delimiter "\t")
     counsel-load-theme
     (:columns
@@ -626,6 +626,8 @@ This value is adjusted depending on the `window-width'."
     counsel-projectile-switch-to-buffer
     (:columns
      ((counsel-projectile-switch-to-buffer-transformer))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
     counsel-projectile-find-file
     (:columns
@@ -871,6 +873,8 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
     persp-remove-buffer
     (:columns
@@ -881,6 +885,8 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
     persp-add-buffer
     (:columns
@@ -891,6 +897,8 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
 
     all-the-icons-ivy-rich-kill-buffer
@@ -902,6 +910,8 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
 
     org-switchb
@@ -913,6 +923,8 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face all-the-icons-ivy-rich-major-mode-face))
       (ivy-rich-switch-buffer-project (:width 0.12 :face all-the-icons-ivy-rich-project-face))
       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face all-the-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
      :delimiter "\t")
 
     customize-group
