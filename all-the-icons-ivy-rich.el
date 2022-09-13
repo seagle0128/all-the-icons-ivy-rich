@@ -980,6 +980,17 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    getenv
+    (:columns
+     ((all-the-icons-ivy-rich-key-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-string-face)))
+     :delimiter "\t")
+    setenv
+    (:columns
+     ((all-the-icons-ivy-rich-key-icon)
+      (ivy-rich-candidate (:face all-the-icons-ivy-rich-string-face)))
+     :delimiter "\t")
+
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
@@ -1878,6 +1889,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (if (string-prefix-p "#" cand)
       (all-the-icons-faicon "anchor" :height 0.8 :v-adjust -0.05 :face 'all-the-icons-green)
     (all-the-icons-material "link" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-blue)))
+
+(defun all-the-icons-ivy-rich-key-icon (_cand)
+  "Display key icon in `ivy-rich'."
+  (when (all-the-icons-ivy-rich-icon-displayable)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "key" :height 0.8 :v-adjust -0.05))))
 
 
 ;;
