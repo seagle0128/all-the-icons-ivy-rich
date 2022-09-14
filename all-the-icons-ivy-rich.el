@@ -1728,7 +1728,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
        ((string-match-p "Packages?[:)]" cand)
         (all-the-icons-ivy-rich--format-icon
          (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'all-the-icons-silver)))
-       ((functionp sym)
+       ((or (functionp sym) (macrop sym))
         (all-the-icons-ivy-rich-function-icon cand))
        ((facep sym)
         (all-the-icons-ivy-rich-face-icon cand))
