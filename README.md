@@ -7,6 +7,7 @@
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://stable.melpa.org/#/all-the-icons-ivy-rich)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
 ## Table of Contents
 
 - [all-the-icons-ivy-rich](#all-the-icons-ivy-rich)
@@ -32,14 +33,14 @@ Emacs](https://github.com/seagle0128/.emacs.d) and leverages
 
 From melpa, `M-x package-install RET all-the-icons-ivy-rich RET`.
 
-``` emacs-lisp
+```emacs-lisp
 (all-the-icons-ivy-rich-mode 1)
 (ivy-rich-mode 1)
 ```
 
 ### Use-package
 
-``` emacs-lisp
+```emacs-lisp
 (use-package all-the-icons-ivy-rich
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
@@ -50,7 +51,7 @@ From melpa, `M-x package-install RET all-the-icons-ivy-rich RET`.
 
 ```
 
-*NOTE*:
+_NOTE_:
 
 1. `all-the-icons-ivy-rich-mode` depends on
    [ivy-rich](https://github.com/Yevgnen/ivy-rich) and respects `ivy-rich-mode`.
@@ -63,7 +64,7 @@ Enjoy! :smile:
 
 ## Customize
 
-``` emacs-lisp
+```emacs-lisp
 ;; Whether display the icons
 (setq all-the-icons-ivy-rich-icon t)
 
@@ -94,44 +95,36 @@ all-the-icons-ivy-rich-display-transformers-list
 In `counsel-describe-function`, `counsel-describe-variable`and `counsel-describe-symbol`, the symbol
 classes will be displayed. The details are below.
 
- | Function                   | Variable                                       | Other     |
- |----------------------------|------------------------------------------------|-----------|
- | f function                 | u custom (U modified compared to global value) | a face    |
- | c cooamd                   | v variable                                     | t cl-type |
- | C interactive-only command | l local (L modified compared to default value) |           |
- | m macto                    | - obsolete                                     |           |
- | M special form             |                                                |           |
- | g cl-generic               |                                                |           |
- | p pure                     |                                                |           |
- | s side-effect-free         |                                                |           |
- | @ autoloaded               |                                                |           |
- | ! advised                  |                                                |           |
+| Function                   | Variable                                       | Other     |
+| -------------------------- | ---------------------------------------------- | --------- |
+| f function                 | u custom (U modified compared to global value) | a face    |
+| c cooamd                   | v variable                                     | t cl-type |
+| C interactive-only command | l local (L modified compared to default value) |           |
+| m macto                    | - obsolete                                     |           |
+| M special form             |                                                |           |
+| g cl-generic               |                                                |           |
+| p pure                     |                                                |           |
+| s side-effect-free         |                                                |           |
+| @ autoloaded               |                                                |           |
+| ! advised                  |                                                |           |
 
 ## Screenshots
 
-![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/154795765-786a29c2-3dc6-4a81-9992-fcd7043ae1ab.png
-"ivy-switch-buffer")
+![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/154795765-786a29c2-3dc6-4a81-9992-fcd7043ae1ab.png "ivy-switch-buffer")
 
-![counsel-find-file](https://user-images.githubusercontent.com/140797/154795929-0987d4fe-14d8-4866-bf98-1e95d5493014.png
-"counsel-find-file")
+![counsel-find-file](https://user-images.githubusercontent.com/140797/154795929-0987d4fe-14d8-4866-bf98-1e95d5493014.png "counsel-find-file")
 
-![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/154795792-f95a119f-c313-4b1f-b32f-9e312bb2fa15.png
-"counsel-buffer-or-recentf")
+![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/154795792-f95a119f-c313-4b1f-b32f-9e312bb2fa15.png "counsel-buffer-or-recentf")
 
-![counsel-M-x](https://user-images.githubusercontent.com/140797/154795826-0fb8f5ea-825a-4108-a565-daeb5a6e7e96.png
-"counsel-M-x")
+![counsel-M-x](https://user-images.githubusercontent.com/140797/154795826-0fb8f5ea-825a-4108-a565-daeb5a6e7e96.png "counsel-M-x")
 
-![counsel-describe-function](https://user-images.githubusercontent.com/140797/154796653-718aabfa-dca8-4478-afa1-6272f1399362.png
-"counsel-describe-function")
+![counsel-describe-function](https://user-images.githubusercontent.com/140797/154796653-718aabfa-dca8-4478-afa1-6272f1399362.png "counsel-describe-function")
 
-![counsel-describe-variable](https://user-images.githubusercontent.com/140797/154796713-f2d11548-83bb-46d1-bb0b-a1b621cac5b7.png
-"counsel-describe-variable")
+![counsel-describe-variable](https://user-images.githubusercontent.com/140797/154796713-f2d11548-83bb-46d1-bb0b-a1b621cac5b7.png "counsel-describe-variable")
 
-![counsel-imenu](https://user-images.githubusercontent.com/140797/154795862-a56b92a4-be07-42d7-9fec-9392e87cb83c.png
-"counsel-imenu")
+![counsel-imenu](https://user-images.githubusercontent.com/140797/154795862-a56b92a4-be07-42d7-9fec-9392e87cb83c.png "counsel-imenu")
 
-![counsel-bookmark](https://user-images.githubusercontent.com/140797/154795890-3b86a6c6-850c-4153-afdd-748d503ff265.png
-"counsel-bookmark")
+![counsel-bookmark](https://user-images.githubusercontent.com/140797/154795890-3b86a6c6-850c-4153-afdd-748d503ff265.png "counsel-bookmark")
 
 And more...
 
