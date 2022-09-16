@@ -7,15 +7,15 @@
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ivy-rich-badge.svg)](https://stable.melpa.org/#/all-the-icons-ivy-rich)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
+## Table of Contents
 
 - [all-the-icons-ivy-rich](#all-the-icons-ivy-rich)
-    - [Install](#install)
-        - [Manual](#manual)
-        - [Use-package](#use-package)
-    - [Customize](#customize)
-    - [Screenshots](#screenshots)
-    - [Donate](#donate)
+  - [Install](#install)
+    - [Manual](#manual)
+    - [Use-package](#use-package)
+  - [Customize](#customize)
+  - [Screenshots](#screenshots)
+  - [Donate](#donate)
 
 <!-- markdown-toc end -->
 
