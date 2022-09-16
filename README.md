@@ -10,13 +10,12 @@
 
 ## Table of Contents
 
-- [all-the-icons-ivy-rich](#all-the-icons-ivy-rich)
-  - [Install](#install)
-    - [Manual](#manual)
-    - [Use-package](#use-package)
-  - [Customize](#customize)
-  - [Screenshots](#screenshots)
-  - [Donate](#donate)
+- [Install](#install)
+  - [Manual](#manual)
+  - [Use-package](#use-package)
+- [Customize](#customize)
+- [Screenshots](#screenshots)
+- [Donate](#donate)
 
 <!-- markdown-toc end -->
 
