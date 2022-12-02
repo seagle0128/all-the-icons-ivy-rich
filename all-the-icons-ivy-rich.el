@@ -1601,15 +1601,15 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
           (line (match-string 2 cand))
           (result (match-string 3 cand)))
       (format "%s:%s:%s"
-              (propertize file 'face 'compilation-info)
-              (propertize line 'face 'compilation-info)
+              (propertize file 'face 'ivy-grep-info)
+              (propertize line 'face 'ivy-grep-info)
               result)))
    ((string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand)
     (let ((file (match-string 1 cand))
           (msg (match-string 2 cand))
           (err (match-string 3 cand)))
       (format "%s:%s(%s)"
-              (propertize file 'face 'compilation-info)
+              (propertize file 'face 'ivy-grep-info)
               msg
               (propertize err 'face 'error))))
    (t cand)))
