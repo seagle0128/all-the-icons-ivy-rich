@@ -929,9 +929,39 @@ This value is adjusted depending on the `window-width'."
 
     customize-group
     (:columns
-     ((all-the-icons-ivy-rich-settings-icon)
+     ((all-the-icons-ivy-rich-group-settings-icon)
       (ivy-rich-candidate (:width 0.3))
       (all-the-icons-ivy-rich-custom-group-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+    customize-group-other-window
+    (:columns
+     ((all-the-icons-ivy-rich-group-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-group-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+    customize-option
+    (:columns
+     ((all-the-icons-ivy-rich-variable-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-variable-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+    customize-option-other-window
+    (:columns
+     ((all-the-icons-ivy-rich-variable-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-variable-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+    customize-variable
+    (:columns
+     ((all-the-icons-ivy-rich-variable-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-variable-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+    customize-variable-other-window
+    (:columns
+     ((all-the-icons-ivy-rich-variable-settings-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-custom-variable-docstring (:face all-the-icons-ivy-rich-doc-face)))
      :delimiter "\t")
 
     describe-character-set
@@ -1467,11 +1497,18 @@ Only available in `emacs-lisp-mode'."
         (all-the-icons-ivy-rich-symbol-docstring sym))
     ""))
 
-;; Support `customize-group'
+;; Support `customize-group' and `customize-group-other-window'
 (defun all-the-icons-ivy-rich-custom-group-docstring (cand)
   "Return custom group's documentation for CAND."
   (all-the-icons-ivy-rich--truncate-docstring
    (or (documentation-property (intern cand) 'group-documentation) "")))
+
+;; Support `customize-variable' and `customize-variable-other-window'
+;; `customize-variable' ia an alias of `customize-option'
+(defun all-the-icons-ivy-rich-custom-variable-docstring (cand)
+  "Return custom variable's documentation for CAND."
+  (all-the-icons-ivy-rich--truncate-docstring
+   (or (documentation-property (intern cand) 'variable-documentation) "")))
 
 ;; Support `describe-character-set'
 (defun all-the-icons-ivy-rich-charset-docstring (cand)
@@ -1847,11 +1884,17 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
          (all-the-icons-octicon "file-directory" :height 0.9 :v-adjust 0.01))
         (t (all-the-icons-icon-for-file (file-name-nondirectory file) :height 0.9 :v-adjust 0.0)))))))
 
-(defun all-the-icons-ivy-rich-settings-icon (_cand)
-  "Display settings icon for CAND in `ivy-rich'."
+(defun all-the-icons-ivy-rich-group-settings-icon (_cand)
+  "Display group settings icon for CAND in `ivy-rich'."
   (when (all-the-icons-ivy-rich-icon-displayable)
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "settings" :height 0.9 :v-adjust -0.01 :face 'all-the-icons-lblue))))
+
+(defun all-the-icons-ivy-rich-variable-settings-icon (_cand)
+  "Display variable settings icon for CAND in `ivy-rich'."
+  (when (all-the-icons-ivy-rich-icon-displayable)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "settings" :height 0.9 :v-adjust -0.01 :face 'all-the-icons-lgreen))))
 
 (defun all-the-icons-ivy-rich-charset-icon (_cand)
   "Display charset icon for CAND in `ivy-rich'."
