@@ -1021,6 +1021,21 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-candidate (:face all-the-icons-ivy-rich-string-face)))
      :delimiter "\t")
 
+    lsp-install-server
+    (:columns
+     ((all-the-icons-ivy-rich-lsp-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    lsp-update-server
+    (:columns
+     ((all-the-icons-ivy-rich-lsp-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
+    lsp-uninstall-server
+    (:columns
+     ((all-the-icons-ivy-rich-lsp-icon)
+      (ivy-rich-candidate))
+     :delimiter "\t")
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
@@ -1938,6 +1953,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (when (all-the-icons-ivy-rich-icon-displayable)
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "key" :height 0.8 :v-adjust -0.05))))
+
+(defun all-the-icons-ivy-rich-lsp-icon (_cand)
+  "Display lsp icon in `ivy-rich'."
+  (when (all-the-icons-ivy-rich-icon-displayable)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-faicon "rocket" :height 0.8 :v-adjust -0.05 :face 'all-the-icons-lgreen))))
 
 
 ;;
