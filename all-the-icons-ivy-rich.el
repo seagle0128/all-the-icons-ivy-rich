@@ -573,14 +573,12 @@ This value is adjusted depending on the `window-width'."
     counsel-find-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
-      (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-transformer))
      :delimiter "\t")
     counsel-load-library
     (:columns
      ((all-the-icons-ivy-rich-library-icon)
-      (all-the-icons-ivy-rich-library-transformer (:width 0.3))
-      (all-the-icons-ivy-rich-library-path (:face all-the-icons-ivy-rich-path-face)))
+      (all-the-icons-ivy-rich-library-transformer))
      :delimiter "\t")
     counsel-load-theme
     (:columns
@@ -1633,11 +1631,6 @@ If the buffer is killed, return \"--\"."
   (if (featurep (intern-soft cand))
       cand
     (propertize cand 'face 'all-the-icons-ivy-rich-off-face)))
-
-(defun all-the-icons-ivy-rich-library-path (cand)
-  "Return library path for CAND."
-  (abbreviate-file-name
-   (or (ignore-errors (find-library-name cand)) "")))
 
 ;; Support `counsel-world-clock'
 (defun all-the-icons-ivy-rich-world-clock (cand)
