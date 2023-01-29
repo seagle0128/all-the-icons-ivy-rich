@@ -813,6 +813,51 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
       (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
      :delimiter "\t")
+    package-recompile
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
+     :delimiter "\t")
+    package-update
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
+     :delimiter "\t")
+    package-vc-checkout
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
+     :delimiter "\t")
+    package-vc-install
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
+     :delimiter "\t")
+    package-vc-update
+    (:columns
+     ((all-the-icons-ivy-rich-package-icon)
+      (ivy-rich-candidate (:width 0.25))
+      (all-the-icons-ivy-rich-package-version (:width 16 :face all-the-icons-ivy-rich-version-face))
+      (all-the-icons-ivy-rich-package-status (:width 12))
+      (all-the-icons-ivy-rich-package-archive-summary (:width 7 :face all-the-icons-ivy-rich-archive-face))
+      (all-the-icons-ivy-rich-package-install-summary (:face all-the-icons-ivy-rich-pacage-desc-face)))
+     :delimiter "\t")
 
     ;; persp
     persp-switch-to-buffer
