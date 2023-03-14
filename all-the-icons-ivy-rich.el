@@ -1027,6 +1027,13 @@ This value is adjusted depending on the `window-width'."
       (ivy-rich-candidate))
      :delimiter "\t")
 
+    describe-input-method
+    (:columns
+     ((all-the-icons-ivy-rich-input-method-icon)
+      (ivy-rich-candidate (:width 0.3))
+      (all-the-icons-ivy-rich-input-method-docstring (:face all-the-icons-ivy-rich-doc-face)))
+     :delimiter "\t")
+
     set-input-method
     (:columns
      ((all-the-icons-ivy-rich-input-method-icon)
