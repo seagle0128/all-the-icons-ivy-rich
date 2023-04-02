@@ -131,7 +131,7 @@
   :group 'all-the-icons-ivy-rich)
 
 (defface all-the-icons-ivy-rich-size-face
-  '((t (:inherit shadow)))
+  '((t (:inherit font-lock-constant-face)))
   "Face used for buffer size."
   :group 'all-the-icons-ivy-rich)
 
