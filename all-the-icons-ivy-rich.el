@@ -1158,9 +1158,10 @@ Return `default-directory' if no project was found."
       (projectile-project-root))
      ((fboundp 'project-current)
       (when-let ((project (project-current)))
-        (expand-file-name (if (fboundp 'project-root)
-                              (project-root project)
-                            (cdr project)))))
+        (expand-file-name
+         (if (fboundp 'project-root)
+             (project-root project)
+           (car (with-no-warnings (project-roots project)))))))
      (t default-directory))))
 
 (defun all-the-icons-ivy-rich--file-path (cand)
