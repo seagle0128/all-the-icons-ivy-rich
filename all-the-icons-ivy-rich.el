@@ -1754,7 +1754,9 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
          (new-face `(:inherit ,face
                      :family ,family
                      :height ,all-the-icons-ivy-rich-icon-size)))
-    (format " %s" (propertize icon 'face new-face))))
+    (format "%s%s"
+            (propertize " " 'display '((space :relative-width 0.5)))
+            (propertize icon 'face new-face))))
 
 (defun all-the-icons-ivy-rich-buffer-icon (cand)
   "Display buffer icon for CAND in `ivy-rich'."
