@@ -2010,9 +2010,11 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 
 (defun all-the-icons-ivy-rich-link-icon (cand)
   "Display link icon in `ivy-rich'."
-  (if (string-prefix-p "#" cand)
-      (all-the-icons-faicon "anchor" :height 0.8 :v-adjust -0.05 :face 'all-the-icons-green)
-    (all-the-icons-material "link" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-blue)))
+  (when (all-the-icons-ivy-rich-icon-displayable)
+    (all-the-icons-ivy-rich--format-icon
+     (if (string-prefix-p "#" cand)
+         (all-the-icons-faicon "anchor" :height 0.8 :v-adjust -0.05 :face 'all-the-icons-green)
+       (all-the-icons-material "link" :height 1.0 :v-adjust -0.2 :face 'all-the-icons-blue)))))
 
 (defun all-the-icons-ivy-rich-key-icon (_cand)
   "Display key icon in `ivy-rich'."
