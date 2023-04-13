@@ -598,7 +598,7 @@ This value is adjusted depending on the `window-width'."
      :delimiter "\t")
     counsel-git-checkout
     (:columns
-     ((all-the-icons-ivy-rich-git-branch-icon)
+     ((all-the-icons-ivy-rich-git-commit-icon)
       (ivy-rich-candidate))
      :delimiter "\t")
     counsel-list-processes
@@ -1813,7 +1813,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun all-the-icons-ivy-rich-magit-file-icon (cand)
   "Display file icon for CAND."
   (if (string-suffix-p "Find file from revision: " ivy--prompt)
-      (all-the-icons-ivy-rich-git-branch-icon)
+      (all-the-icons-ivy-rich-git-branch-icon cand)
     (all-the-icons-ivy-rich-file-icon cand)))
 
 (defun all-the-icons-ivy-rich-magit-todos-icon (cand)
@@ -1945,6 +1945,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (when (all-the-icons-ivy-rich-icon-displayable)
     (all-the-icons-ivy-rich--format-icon
      (all-the-icons-octicon "git-branch" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green))))
+
+(defun all-the-icons-ivy-rich-git-commit-icon (_cand)
+  "Display the git branch icon in `ivy-rich'."
+  (when (all-the-icons-ivy-rich-icon-displayable)
+    (all-the-icons-ivy-rich--format-icon
+     (all-the-icons-octicon "git-commit" :height 1.0 :v-adjust -0.05 :face 'all-the-icons-green))))
 
 (defun all-the-icons-ivy-rich-process-icon (_cand)
   "Display the process icon in `ivy-rich'."
