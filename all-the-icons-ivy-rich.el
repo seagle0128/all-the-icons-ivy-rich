@@ -1096,6 +1096,33 @@ This value is adjusted depending on the `window-width'."
       (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
      :delimiter "\t")
 
+    magit-find-file
+    (:columns
+     ((all-the-icons-ivy-rich-magit-file-icon)
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
+      (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
+      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    magit-find-file-other-frame
+    (:columns
+     ((all-the-icons-ivy-rich-magit-file-icon)
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
+      (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
+      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
+    magit-find-file-other-window
+    (:columns
+     ((all-the-icons-ivy-rich-magit-file-icon)
+      (all-the-icons-ivy-rich-file-name (:width 0.4))
+      (all-the-icons-ivy-rich-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
+      (all-the-icons-ivy-rich-file-modes (:width 12))
+      (all-the-icons-ivy-rich-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
+      (all-the-icons-ivy-rich-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     :delimiter "\t")
     ivy-magit-todos
     (:columns
      ((all-the-icons-ivy-rich-magit-todos-icon)
@@ -1782,6 +1809,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
        (if (or (null icon) (symbolp icon))
            (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.9 :v-adjust 0.0)
          (propertize icon 'display '(raise 0.0)))))))
+
+(defun all-the-icons-ivy-rich-magit-file-icon (cand)
+  "Display file icon for CAND."
+  (if (string-suffix-p "Find file from revision: " ivy--prompt)
+      (all-the-icons-ivy-rich-git-branch-icon)
+    (all-the-icons-ivy-rich-file-icon cand)))
 
 (defun all-the-icons-ivy-rich-magit-todos-icon (cand)
   "Display file icon in `magit-todos'."
