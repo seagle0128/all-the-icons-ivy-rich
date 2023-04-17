@@ -944,7 +944,7 @@ This value is adjusted depending on the `window-width'."
      (lambda (cand) (get-buffer cand))
      :delimiter "\t")
 
-    all-the-icons-ivy-rich-kill-buffer
+    kill-buffer
     (:columns
      ((all-the-icons-ivy-rich-buffer-icon)
       (ivy-switch-buffer-transformer (:width 0.3))
@@ -1159,7 +1159,7 @@ See `ivy-rich-display-transformers-list' for details."
   (format-mode-line (ivy-rich--local-values cand 'mode-name)))
 
 ;; Support `kill-buffer'
-(defun all-the-icons-ivy-rich-kill-buffer (&optional buffer-or-name)
+(defun all-the-icons-ivy-rich-kill-buffer (fn &optional buffer-or-name)
   "Kill the buffer specified by BUFFER-OR-NAME."
   (interactive
    (list (completing-read (format "Kill buffer (default %s): " (buffer-name))
@@ -1168,7 +1168,7 @@ See `ivy-rich-display-transformers-list' for details."
                                   (buffer-list))
                           nil t nil nil
                           (buffer-name))))
-  (kill-buffer buffer-or-name))
+  (funncall fn buffer-or-name))
 
 (defun all-the-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
@@ -1267,7 +1267,7 @@ Return `default-directory' if no project was found."
    ((file-remote-p file) "")
    ((not (file-exists-p file)) "")
    (t (format-time-string
-       "%b %d %H:%M"
+       "%b %d %R"
        (file-attribute-modification-time (file-attributes file))))))
 
 ;; Support `counsel-find-file', `counsel-dired', etc.
@@ -1709,7 +1709,7 @@ If the buffer is killed, return \"--\"."
 				          (if speed
 					          (format " at %s b/s" speed)
 				            "")))))
-		  (mapconcat 'identity (process-command p) " "))))))
+		  (mapconcat #'identity (process-command p) " "))))))
 
 ;; Support `counsel-find-library' and `counsel-load-library'
 (defun all-the-icons-ivy-rich-library-transformer (cand)
@@ -2085,12 +2085,12 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
       (progn
         (add-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
         (advice-add #'ivy-posframe--display :after #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
-        (global-set-key [remap kill-buffer] #'all-the-icons-ivy-rich-kill-buffer)
+        (advice-add #'kill-buffer :around #'all-the-icons-ivy-rich-kill-buffer)
         (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-list))
     (progn
       (remove-hook 'minibuffer-setup-hook #'all-the-icons-ivy-rich-minibuffer-align-icons)
       (advice-remove #'ivy-posframe--display #'all-the-icons-ivy-rich-ivy-posframe-align-icons)
-      (global-unset-key [remap kill-buffer])
+      (advice-remove #'kill-buffer #'all-the-icons-ivy-rich-kill-buffer)
       (setq ivy-rich-display-transformers-list all-the-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
 
