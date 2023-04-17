@@ -1168,7 +1168,7 @@ See `ivy-rich-display-transformers-list' for details."
                                   (buffer-list))
                           nil t nil nil
                           (buffer-name))))
-  (funncall fn buffer-or-name))
+  (funcall fn buffer-or-name))
 
 (defun all-the-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
