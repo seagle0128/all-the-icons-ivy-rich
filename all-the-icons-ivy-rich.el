@@ -733,15 +733,10 @@ This value is adjusted depending on the `window-width'."
      ((all-the-icons-ivy-rich-function-icon)
       (counsel-M-x-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face all-the-icons-ivy-rich-doc-face))))
-
     project-switch-project
     (:columns
-     ((all-the-icons-ivy-rich-file-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4))
-      (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12))
-      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+     ((all-the-icons-ivy-rich-project-icon)
+      (all-the-icons-ivy-rich-project-name))
      :delimiter "\t")
     project-find-file
     (:columns
@@ -764,16 +759,7 @@ This value is adjusted depending on the `window-width'."
     project-dired
     (:columns
      ((all-the-icons-ivy-rich-file-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4))
-      (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12))
-      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
-     :delimiter "\t")
-    project-vc-dir
-    (:columns
-     ((all-the-icons-ivy-rich-file-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4))
+      (ivy-rich-candidate (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
       (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -1089,7 +1075,7 @@ This value is adjusted depending on the `window-width'."
     lsp-ivy-workspace-folders-remove
     (:columns
      ((all-the-icons-ivy-rich-dir-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4))
+      (ivy-rich-candidate (:width 0.4))
       (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
       (all-the-icons-ivy-rich-project-file-modes (:width 12))
       (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
@@ -1132,11 +1118,7 @@ This value is adjusted depending on the `window-width'."
     treemacs-projectile
     (:columns
      ((all-the-icons-ivy-rich-project-icon)
-      (all-the-icons-ivy-rich-project-name (:width 0.4))
-      (all-the-icons-ivy-rich-project-file-id (:width 15 :face all-the-icons-ivy-rich-file-owner-face :align right))
-      (all-the-icons-ivy-rich-project-file-modes (:width 12))
-      (all-the-icons-ivy-rich-project-file-size (:width 7 :face all-the-icons-ivy-rich-size-face))
-      (all-the-icons-ivy-rich-project-file-modification-time (:face all-the-icons-ivy-rich-time-face)))
+      (all-the-icons-ivy-rich-project-name))
      :delimiter "\t"))
   "Definitions for ivy-rich transformers.
 
@@ -1310,8 +1292,8 @@ Display the true name when the file is a symlink."
   "Return project name for CAND."
   (if (or (ivy--dirname-p cand)
           (file-directory-p (all-the-icons-ivy-rich--file-path cand)))
-      (propertize cand 'face 'ivy-subdir)
-    cand))
+      (propertize (abbreviate-file-name cand) 'face 'ivy-subdir)
+    (abbreviate-file-name cand)))
 
 (defun all-the-icons-ivy-rich-project-file-modes (cand)
   "Return file modes for CAND."
